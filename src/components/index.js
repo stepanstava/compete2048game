@@ -1,12 +1,31 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux'
 
-export default class App extends Component {
+import Score from "./Score";
+import Header from "./Header";
+import Board from "./Board";
+
+import { increment } from "../actions";
+
+class App extends Component {
+
+  componentDidMount() {
+    // gameInit
+    this.props.increment();
+  }
 
   render() {
     return (
-      <div>
-        Ahoj
+      <div className="container">
+        <Score />
+        <Header />
+        <Board />
       </div>
     )
   }
 }
+
+export default connect(
+  null,
+  { increment }
+)(App)
