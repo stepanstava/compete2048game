@@ -5,7 +5,9 @@ import Score from "./Score";
 import Header from "./Header";
 import Board from "./Board";
 
-import { increment } from "../actions";
+// import { increment } from "../actions";
+
+import actions from "../actions";
 
 class App extends Component {
 
@@ -15,6 +17,8 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props.number);
+
     return (
       <div className="container">
         <Score />
@@ -25,7 +29,14 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  console.log("state", state)
+  return {
+    number: state.add.count,
+  }
+};
+
 export default connect(
-  null,
-  { increment }
+  mapStateToProps,
+  { increment: actions.increment }
 )(App)

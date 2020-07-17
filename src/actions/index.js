@@ -1,8 +1,5 @@
+import * as add from "./add";
 
-
-export function increment() {
-
-  return {
-    type: "INCREMENT"
-  }
-}
+export default {
+  ...add,
+};
