@@ -485,8 +485,8 @@ button {
   width: 100px;
   height: 100px;
   position: absolute;
-  top: 112px;
-  left: 112px;
+  top: 0px;
+  left: 0px;
   border-radius: 0.2rem;
   display: -webkit-box;
   display: -ms-flexbox;

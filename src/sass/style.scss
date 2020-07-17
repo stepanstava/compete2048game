@@ -138,8 +138,8 @@ button {
     width: $square-width;
     height: $square-height;
     position: absolute;
-    top: 112px; // $square-width + $gap
-    left: 112px;
+    top: 0px; // $square-width + $gap
+    left: 0px;
     border-radius: $square-border-radius;
     @include flex-center;
     font-weight: 700;

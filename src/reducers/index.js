@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 
 import add from "./add";
+import game from "./game";
 
 const reducers = {
-  add
+  add,
+  game
 }
 
 
