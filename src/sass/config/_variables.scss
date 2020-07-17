@@ -1,0 +1,48 @@
+// Basic colors
+// $color-black:rgba(0, 0, 0, 0.95);
+$color-black: #776e65;
+$color-white:#fff;
+$color-light: #eeeeee;
+$color-grey: rgb(222, 222, 222);
+$color-dark: darken($color-grey, 30%);
+$color-danger: #dc3545;
+$color-success: #28a745;
+
+// Body
+$body-color: #fff;
+$font-family: "Lato", "Arial", "Helvetica", sans-serif;
+
+// Container
+$max-width: 1050px;
+$width-side: 30%;
+$width-main: calc(100% - 30%);
+
+// Button
+$button-default: #8f7a66;
+$button-primary:  #86D5DD;
+$button-secondary:  #88c8ac;
+
+// Link
+$link-default: $color-dark;
+$link-primary:rgb(81, 210, 230);
+$link-secondary: rgb(89, 207, 34);
+
+// Form
+$input-focus: #83b5d6;
+
+// Transition
+$transition-duration: .2s;
+$transition-timing: ease-in-out;
+
+// Loader
+$loader-size: 20px;
+$loader-border-size: 3px;
+$loader-color-base: rgba(209, 209, 209, 0.15);
+$loader-color-spin: #fff;
+$loader-speed: 1s;
+
+// Testing class
+.tes {
+  border: 2px dashed #000;
+  background-color: rgba(255, 0, 0, 0.4);
+}

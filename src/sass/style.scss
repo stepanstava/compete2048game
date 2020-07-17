@@ -1,0 +1,175 @@
+@import "config/variables";
+@import "config/functions";
+@import "config/mixins";
+
+@import "./elements/button";
+@import "./elements/comment";
+@import "./elements/container";
+@import "./elements/divider";
+@import "./elements/form";
+@import "./elements/icon";
+@import "./elements/image";
+@import "./elements/input";
+@import "./elements/label";
+@import "./elements/link";
+@import "./elements/loader";
+@import "./elements/menu";
+@import "./elements/placeholder";
+@import "./elements/text";
+
+//! general rules:
+// -add default values
+// -have na main element vzdy class
+// <form class="form">
+// sam od sebe by nemel mit element vnejsi margin
+// posledni item elementu zadny bottom margin
+
+$background-color: #bbada0;
+$tile-color: #cdc1b4;
+
+$square-width: 100px;
+$square-height: 100px;
+$square-border-radius: 0.2rem;
+$gap: 12px;
+$row-count: 4;
+
+$square-speed: 0.3s;
+
+$board-width: calc(
+  #{$row-count * $square-width + 2 * $gap + (($row-count - 1) * $gap)}
+);
+$board-height: calc(
+  #{$row-count * $square-width + 2 * $gap + (($row-count - 1) * $gap)}
+);
+
+// square colors
+$square-2: #eee4da;
+$square-32: #f67c5f;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $font-family;
+  font-size: 1rem;
+  line-height: 1.6;
+  background-color: #faf8ef;
+  color: $color-black;
+}
+
+button {
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.5rem 1.1rem;
+}
+
+.container {
+  // width: #{$board-width + $square-width};
+  //!zmenit na calculaci
+  width: 600px;
+  // padding: 0;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  justify-content: center;
+
+  // border: 1px solid #000;
+  background-color: #faf8ef;
+  padding: 2rem 1rem;
+}
+
+// score
+.score {
+  align-self: flex-end;
+  @include flex-center;
+  flex-direction: column;
+  background-color: $background-color;
+  color: $color-white;
+  padding: 0.2rem 1rem 0.1rem;
+  border-radius: 0.2rem;
+  margin-bottom: 1rem;
+
+  .title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: lighten($color-black, 50%);
+  }
+
+  .points {
+    margin-top: -0.4rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+}
+
+// header
+.header {
+  // border: 1px solid #000;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+}
+
+// board
+.board {
+  // border: 1px solid #000;
+  align-self: center;
+  min-width: $board-width;
+  min-height: $board-height;
+  background-color: $background-color;
+  border-radius: 0.4rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: $gap;
+  border: $gap solid $background-color;
+  position: relative;
+
+  .tile {
+    background-color: $tile-color;
+    border-radius: $square-border-radius;
+  }
+
+  .square {
+    width: $square-width;
+    height: $square-height;
+    position: absolute;
+    top: 112px; // $square-width + $gap
+    left: 112px;
+    border-radius: $square-border-radius;
+    @include flex-center;
+    font-weight: 700;
+    font-size: 2.5rem;
+    background-color: $square-2;
+
+    //square move animation
+    transition: top $square-speed ease-in-out, left $square-speed ease-in-out;
+
+    &.sq-32 {
+      color: $color-white;
+      background-color: $square-32;
+    }
+  }
+}
+
+
+// @keyframes appear {
+//   0% {
+//     transform: scale(0);
+//     opacity: 0;
+//     // background: #5470B0;
+//   }
+
+//   70% {
+//     transform: scale(1.1);
+//     opacity: 0.8;
+//     // background: #5470B0;
+//   }
+// }
+
+// Mobile
+@import "mobile";

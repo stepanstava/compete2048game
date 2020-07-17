@@ -1,0 +1,38 @@
+
+
+@mixin set-background($color) {
+  background-color: $color;
+  color: set-text-color($color);
+}
+
+@mixin bg-image($image) {
+  background: url($image);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+@mixin bg-image-gradient($image, $color) {
+  background: linear-gradient($color, $color), url($image);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+@mixin flex-center() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between() {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin absolute-center($color) {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

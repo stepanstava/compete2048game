@@ -1,0 +1,95 @@
+// Menu
+
+
+// Menu - two item - space between ------------
+// link 1 link 2 link3          search link4
+// --------------------------------------------
+
+// <div class="menu">
+//   <div class="menu-nav">
+//     <a href="#" class="item">
+//       Home
+//     </a>
+//     <a href="#" class="item">
+//       Messages
+//     </a>
+//   </div>
+//   <div class="menu-search">
+//     <div class="item">
+//       <div class="form">
+//         <input type="text" placeholder="Search..." />
+//         <i class="fas fa-search"></i>
+//       </div>
+//     </div>
+//     <a class="item">
+//       Logout
+//     </a>
+//   </div>
+// </div>
+
+// Menu - two item - space between
+// link 1 link 2 link3        search link4
+// .menu {
+//   @include flex-between;
+//   padding: 1rem;
+
+//   .menu-nav,
+//   .menu-search {
+//     @include flex-center;
+//   }
+
+//   .item {
+//     @include flex-center;
+//     padding: 0.2rem 0.4rem;
+//     margin-right: 0.5rem;
+
+//     &:last-child {
+//       margin-right: 0;
+//     }
+//   }
+
+//   .form {
+//     padding: 0;
+//     position: relative;
+//   }
+
+//   input ~ i {
+//     position: absolute;
+//     top: 50%;
+//     right: 3%;
+//     transform: translateY(-50%);
+//   }
+// }
+
+
+// Menu - one item ------------
+// link 1 link 2 link3
+// ----------------------------
+// <div class="menu">
+//   <a href="#" class="item">
+//     Link1
+//   </a>
+//   <a href="#" class="item">
+//     Link2
+//   </a>
+//   <a href="#" class="item active">
+//     Link3
+//   </a>
+// </div>
+
+.menu {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+
+  .item {
+    @include flex-center;
+    padding: 0.2rem 0.4rem;
+    margin-right: 0.5rem;
+
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

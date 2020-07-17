@@ -1,0 +1,59 @@
+// Comments
+
+// <div class="comments">
+//   <div class="comment">
+//     <a href="#">
+//       <img src="../../img/avatar.jpg" class="avatar-square" />
+//     </a>
+//     <div class="content">
+//       <a href="#" class="author">Matt</a>
+//       <span class="date">Today at 5:42PM</span>
+//       <p class="text">How artistic!</p>
+//       <a href="#" class="reply">Reply</a>
+//     </div>
+//   </div>
+// </div>
+
+//to nest comments -> and new 'comments' to currecnt 'comments'
+
+.comments {
+  padding: 0.5rem;
+
+  & > & {
+    margin-left: 2rem;
+  }
+}
+
+.comment {
+  display: flex;
+  padding: 1rem 1rem 0.3rem;
+  margin-bottom: .3rem;
+
+  img {
+    margin-right: 0.7rem;
+  }
+
+  .content {
+    margin: 0;
+    margin-top: -6px;
+  }
+  .author {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: $color-black;
+  }
+
+  .date {
+    font-size: 0.7rem;
+    color: $color-dark;
+  }
+
+  .text {
+    font-size: 0.9rem;
+  }
+
+  .reply {
+    font-size: 0.8rem;
+    color: $color-dark;
+  }
+}

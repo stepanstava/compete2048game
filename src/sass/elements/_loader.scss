@@ -1,0 +1,49 @@
+// Loader
+
+// <button class="btn loading">ahoj</button>
+// <div class="box loading"></div>
+
+.loading {
+  position: relative;
+  cursor: default;
+  color: transparent !important;
+}
+// base non-spinning circle
+.loading:before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: $loader-size;
+  height: $loader-size;
+  border-radius: 50%;
+  border: $loader-border-size solid $loader-color-base;
+}
+
+// spinning circle
+.loading:after {
+  position: absolute;
+  content: "";
+  top: calc(50% - #{($loader-size + 2 * $loader-border-size) / 2});
+  left: calc(50% - #{($loader-size + 2 * $loader-border-size) / 2});
+  width: $loader-size;
+  height: $loader-size;
+
+  animation: loader-spin $loader-speed linear;
+  animation-iteration-count: infinite;
+
+  border-radius: 50%;
+  border-width: $loader-border-size;
+  border-style: solid;
+  border-color: $loader-color-spin transparent transparent;
+}
+
+@keyframes loader-spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

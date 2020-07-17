@@ -1,0 +1,43 @@
+// Link
+
+//!asi zmenit barvu defaultniho
+//!pridat primarni a secundarni
+
+a {
+  text-decoration: none;
+  color: $link-default;
+  display: inline-block;
+  margin-right: 0.3rem;
+  font-size: 1rem;
+  transition: color $transition-duration $transition-timing;
+  cursor: pointer;
+
+  &:hover {
+    color: set-hover-background($link-default, 20%);
+  }
+  &.active {
+    color: set-hover-background($link-default, 30%);
+  }
+
+  &.link-primary {
+    color: $link-primary;
+
+    &:hover {
+      color: set-hover-background($link-primary, 20%);
+    }
+    &.active {
+      color: set-hover-background($link-primary, 30%);
+    }
+  }
+
+  &.link-secondary {
+    color: $link-secondary;
+
+    &:hover {
+      color: set-hover-background($link-secondary, 20%);
+    }
+    &.active {
+      color: set-hover-background($link-secondary, 30%);
+    }
+  }
+}

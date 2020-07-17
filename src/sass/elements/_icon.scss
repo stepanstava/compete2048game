@@ -1,0 +1,23 @@
+// Icon
+
+i {
+  color: $color-black;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: color $transition-duration $transition-timing;
+  opacity: 0.9;
+
+  &.inactive {
+    color: $color-dark;
+    cursor: default;
+  
+    &:hover {
+      color: $color-dark;
+    }
+  }
+
+
+  &:hover {
+    color: set-hover-background($color-dark, 30%);
+  }
+}

@@ -1,0 +1,58 @@
+// Buttons
+
+// <button class="btn">Click</button>
+// <button class="btn btn-primary">Click</button>
+// <button class="btn btn-secondary">Click</button>
+// <button class="btn btn-inactive">Click</button>
+
+.btn {
+  cursor: pointer;
+  display: inline-block;
+  outline: none;
+  border: none;
+  @include set-background($button-default);
+  font-size: 0.8rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: 0.2rem;
+  transition: background-color $transition-duration $transition-timing;
+
+  &:hover {
+    // background: set-hover-background($button-default, 20%);
+    background: darken($button-default, 10%);
+  }
+
+  &.btn-primary {
+    @include set-background($button-primary);
+    &:hover {
+      background: darken($button-primary, 10%);
+    }
+  }
+  &.btn-secondary {
+    @include set-background($button-secondary);
+    &:hover {
+      background: set-hover-background($button-secondary, 20%);
+    }
+  }
+  &.btn-success {
+    @include set-background($color-success);
+    &:hover {
+      background: set-hover-background($color-success, 20%);
+    }
+  }
+  &.btn-danger {
+    @include set-background($color-danger);
+    &:hover {
+      background: set-hover-background($color-danger, 20%);
+    }
+  }
+
+  &.btn-inactive {
+    background: $color-grey;
+    color: $color-dark;
+    cursor: default;
+
+    &:hover {
+      background: $color-grey;
+    }
+  }
+}
