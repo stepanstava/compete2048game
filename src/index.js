@@ -12,11 +12,12 @@ import App from './components';
 
 const store = createStore(reducers, applyMiddleware(thunk));
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
-);
-
+// window.requestAnimationFrame(function () {
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById('root')
+  )
+// })
 

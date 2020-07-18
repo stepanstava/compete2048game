@@ -6,37 +6,79 @@ import actions from "../actions";
 import Square from "./Square";
 
 // import Score from "./Score";
-import { getBoard } from "../selectors";
+import { getSquares } from "../selectors";
 
 class Board extends Component {
-  renderBoard(board) {
-    const flatten = [];
+  lastBoard = []
 
-    for (let i = 0; i < board.length; i++) {
-      var row = board[i];
-      flatten.push(...row);
-    }
+  // componentDidUpdate(prevProp) {
+  //   console.log("Board -> componentDidUpdate -> prevProp", prevProp)
+  //   const board = prevProp.board;
+  //   const flatten = [];
 
-    console.log("Board -> renderBoard -> flatten", flatten);
+  //   for (let i = 0; i < board.length; i++) {
+  //     var row = board[i];
+  //     flatten.push(...row);
+  //   }
 
-    return flatten.map(square => {
-      if (square) {
-        const { value, id, posX, posY } = square;
+  //   this.lastBoard = flatten;
+  // }
 
-        return (
-          <Square
-            key={id}
-            value={value}
-            // indexX={indexX}
-            // indexY={indexY}
-            posX={posX}
-            posY={posY}
-          />
-        );
-      }
-    });
+  // renderBoard(board) {
+  //   const flatten = [];
 
-  }
+  //   for (let i = 0; i < board.length; i++) {
+  //     var row = board[i];
+  //     flatten.push(...row);
+  //   }
+
+  //   return flatten.map((square, i) => {
+  //     if (square)  {
+  //       const { value, id, posX, posY } = square;
+
+  //         return (
+  //           <Square
+  //             key={id}
+  //             value={value}
+  //             // indexX={indexX}
+  //             // indexY={indexY}
+  //             posX={posX}
+  //             posY={posY}
+  //           />
+  //         );
+
+
+
+  //     }
+  //   });
+  // }
+
+
+  // renderBoard(board) {
+  //   const flatten = [];
+
+  //   for (let i = 0; i < board.length; i++) {
+  //     var row = board[i];
+  //     flatten.push(...row);
+  //   }
+
+  //   return flatten.map((square, i) => {
+  //     if (square)  {
+  //       const { value, id, posX, posY } = square;
+
+  //       return (
+  //         <Square
+  //           key={id}
+  //           value={value}
+  //           // indexX={indexX}
+  //           // indexY={indexY}
+  //           posX={posX}
+  //           posY={posY}
+  //         />
+  //       );
+  //     }
+  //   });
+  // }
 
   // renderBoard(board) {
   //   return board.map((row, indexX) => {
@@ -52,6 +94,30 @@ class Board extends Component {
   //   });
   // }
 
+  renderBoard(squares) {
+   
+    return squares.map(square => {
+      if (square)  {
+        const { value, id, posX, posY, merge } = square;
+
+          return (
+            <Square
+              key={id}
+              value={value}
+              // indexX={indexX}
+              // indexY={indexY}
+              posX={posX}
+              posY={posY}
+              merge={merge}
+            />
+          );
+
+
+
+      }
+    });
+  }
+
   handleKeyDown(e) {
     switch (e.key) {
       case "d":
@@ -66,7 +132,7 @@ class Board extends Component {
   }
 
   render() {
-    const { board } = this.props;
+    const { squares } = this.props;
 
     return (
       <div
@@ -94,14 +160,14 @@ class Board extends Component {
         <div className="tile"></div>
         <div className="tile"></div>
 
-        {this.renderBoard(board)}
+        {this.renderBoard(squares)}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  board: getBoard(state),
+  squares: getSquares(state),
 });
 
 export default connect(mapStateToProps, {
