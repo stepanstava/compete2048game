@@ -138,8 +138,8 @@ button {
     width: $square-width;
     height: $square-height;
     position: absolute;
-    top: 0px; // $square-width + $gap
-    left: 0px;
+    // bottom: 100px; // $square-width + $gap
+    // right: 0px;
     border-radius: $square-border-radius;
     @include flex-center;
     font-weight: 700;
@@ -147,7 +147,8 @@ button {
     background-color: $square-2;
 
     //square move animation
-    transition: top $square-speed ease-in-out, left $square-speed ease-in-out;
+    // transition: top $square-speed ease-in-out, left $square-speed ease-in-out;
+    transition: all $square-speed ease-in-out;
 
     &.sq-32 {
       color: $color-white;

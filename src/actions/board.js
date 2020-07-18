@@ -81,3 +81,26 @@ export function mergeRight() {
 
   }
 }
+
+
+export function moveBoardToBottom() {
+  return (dispatch, getState) => {
+    console.log("down");
+
+    dispatch({
+      type: "MOVE_DOWN",
+    });
+
+    // setTimeout(() => {
+    //   dispatch({
+    //     type: "MERGE_RIGHT",
+    //   });
+    // }, 50);
+
+    // dispatch({
+    //   type: "MERGE_RIGHT",
+    // });
+
+
+  }
+}

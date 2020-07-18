@@ -1,4 +1,6 @@
 
+import { moveBoardToBottom } from "./down"
+
 //! add to store
 const SQUARES_ROW = 4;
 
@@ -56,6 +58,13 @@ export default function (state = initialState, action) {
       };
     }
 
+    case "MOVE_DOWN": {
+      return {
+        ...state,
+        board: moveBoardToBottom(state),
+      };
+    }
+
 
 
     // square
@@ -67,7 +76,7 @@ export default function (state = initialState, action) {
       //? deep copy lodash ?
 
       const newRow = [...newBoard[indexX]];
-      newBoard[indexX][indexY] = { value: 2, id };
+      newBoard[indexX][indexY] = { value: 2, id, posX: indexX,  posY: indexY};
       console.log("newBoard", newBoard);
 
       return {
