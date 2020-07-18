@@ -9,7 +9,7 @@ export function gameInit() {
 
     // clear board
     //!nefunguje
-    dispatch(clearBoard());
+    // dispatch(clearBoard());
 
     // draw random square
     dispatch(addSquare());

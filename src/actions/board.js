@@ -19,13 +19,15 @@ function getRandomSquareCords(board) {
   const indexY = Math.floor(Math.random() * SQUARES_ROW);
 
   if (board[indexX][indexY]) {
-    this.getRandomSquareCords(board);
+    return getRandomSquareCords(board);
+  } else {
+    return {
+      indexX,
+      indexY,
+    };
   }
 
-  return {
-    indexX,
-    indexY,
-  };
+
 }
 
 export function addSquare() {
@@ -42,4 +44,40 @@ export function addSquare() {
       },
     });
   };
+}
+
+// Moving ----
+
+// Moving ---- Right ->
+export function moveBoardToRight() {
+  return (dispatch, getState) => {
+    console.log("right");
+
+    dispatch({
+      type: "MOVE_RIGHT",
+    });
+
+    setTimeout(() => {
+      dispatch({
+        type: "MERGE_RIGHT",
+      });
+    }, 50);
+
+    // dispatch({
+    //   type: "MERGE_RIGHT",
+    // });
+
+
+  }
+}
+
+export function mergeRight() {
+  return (dispatch, getState) => {
+    console.log("right merge");
+
+    dispatch({
+      type: "MERGE_RIGHT",
+    });
+
+  }
 }
