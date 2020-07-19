@@ -119,18 +119,30 @@ class Board extends Component {
   }
 
   handleKeyDown(e) {
+    const SQUARES_ROW = 4;
+    let borderIndex;
+    let direction;
+
     switch (e.key) {
       case "d":
-        this.props.moveBoardToRight();
+        borderIndex = SQUARES_ROW - 1;
+        direction = -1;
+        this.props.moveBoardHorizontally(borderIndex, direction);
         break;
       case "a":
-        this.props.moveBoardToLeft();
+        borderIndex = 0;
+        direction = 1;
+        this.props.moveBoardHorizontally(borderIndex, direction);
         break;
       case "s":
-        this.props.moveBoardToBottom();
+        borderIndex = SQUARES_ROW - 1;
+        direction = -1;
+        this.props.moveBoardVertically(borderIndex, direction);
         break;
       case "w":
-        this.props.moveBoardToTop();
+        borderIndex = 0;
+        direction = 1;
+        this.props.moveBoardVertically(borderIndex, direction);
         break;
       default:
         return;
@@ -181,4 +193,6 @@ export default connect(mapStateToProps, {
   moveBoardToBottom: actions.moveBoardToBottom,
   moveBoardToTop: actions.moveBoardToTop,
   moveBoardToLeft: actions.moveBoardToLeft,
+  moveBoardVertically: actions.moveBoardVertically,
+  moveBoardHorizontally: actions.moveBoardHorizontally,
 })(Board);
