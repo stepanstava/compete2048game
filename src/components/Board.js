@@ -195,4 +195,6 @@ export default connect(mapStateToProps, {
   moveBoardToLeft: actions.moveBoardToLeft,
   moveBoardVertically: actions.moveBoardVertically,
   moveBoardHorizontally: actions.moveBoardHorizontally,
+  moveBoardHorizontally2: actions.moveBoardHorizontally2,
+  moveBoard: actions.moveBoard,
 })(Board);

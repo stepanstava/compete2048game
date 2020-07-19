@@ -1,5 +1,6 @@
 import { resetScore } from "./score";
-import { clearBoard, addSquare } from "./board";
+import { clearBoard } from "./board";
+import { addSquare } from "./square";
 
 export function gameInit() {
   return dispatch => {
