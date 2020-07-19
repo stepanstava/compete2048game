@@ -59,35 +59,35 @@ export function addSquare() {
 // Moving ----
 
 // Moving ---- Right ->
-export function moveBoardToRight() {
-  return (dispatch, getState) => {
-    console.log("right");
+// export function moveBoardToRight() {
+//   return (dispatch, getState) => {
+//     console.log("right");
 
-    dispatch({
-      type: "MOVE_RIGHT",
-    });
+//     dispatch({
+//       type: "MOVE_RIGHT",
+//     });
 
-    setTimeout(() => {
-      dispatch({
-        type: "MERGE_RIGHT",
-      });
-    }, 50);
+//     setTimeout(() => {
+//       dispatch({
+//         type: "MERGE_RIGHT",
+//       });
+//     }, 50);
 
-    // dispatch({
-    //   type: "MERGE_RIGHT",
-    // });
-  };
-}
+//     // dispatch({
+//     //   type: "MERGE_RIGHT",
+//     // });
+//   };
+// }
 
-export function mergeRight() {
-  return (dispatch, getState) => {
-    console.log("right merge");
+// export function mergeRight() {
+//   return (dispatch, getState) => {
+//     console.log("right merge");
 
-    dispatch({
-      type: "MERGE_RIGHT",
-    });
-  };
-}
+//     dispatch({
+//       type: "MERGE_RIGHT",
+//     });
+//   };
+// }
 
 // export function moveBoardToBottom() {
 //   return (dispatch, getState) => {
@@ -287,6 +287,8 @@ function clearQues(dispatch, moveQue, merchedQue, updatedQue, newBoardMap) {
   }, 500);
 }
 
+//! DOWN
+
 export function moveBoardToBottom() {
   return (dispatch, getState) => {
     const boardMap = getBoardMap(getState());
@@ -422,6 +424,160 @@ export function moveBoardToTop() {
 
         // updates boardMap
         newBoardMap[i][columnIndex] = newItem;
+      }
+    }
+
+    // console.log("moveBoardToBottom -> moveQue", moveQue);
+    // console.log("moveBoardToBottom -> merchedQue", merchedQue);
+    // console.log("moveBoardToBottom -> updatedQue", updatedQue);
+
+    clearQues(dispatch, moveQue, merchedQue, updatedQue, newBoardMap);
+
+    // finally we can update boardMap
+    dispatch({
+      type: "UPDATE_BOARD_MAP",
+      boardMap: newBoardMap,
+    });
+    console.log("moveBoardToBottom -> newBoard", newBoardMap);
+  };
+}
+
+//! RIGHT
+
+export function moveBoardToRight() {
+  return (dispatch, getState) => {
+    const boardMap = getBoardMap(getState());
+    const newBoardMap = getEmptyBoardMap(getState());
+    const moveQue = [];
+    const merchedQue = [];
+    const updatedQue = [];
+
+    for (let rowIndex = 0; rowIndex < SQUARES_ROW; rowIndex++) {
+      let newItemsArr = [];
+
+      // For each element of column from bottom to top.
+      for (let columnIndex = SQUARES_ROW - 1; columnIndex >= 0; columnIndex--) {
+        // Skips empty items and creates move array.
+        if (boardMap[rowIndex][columnIndex]) {
+          newItemsArr.push(boardMap[rowIndex][columnIndex]);
+        }
+      }
+
+      // Build moving, mergech and updated queues.
+      for (let i = 0; i < newItemsArr.length; i++) {
+        const newItem = newItemsArr[i];
+        const newItemNeighbour = newItemsArr[i + 1];
+
+        // Merges two items if they have same values at consecutive positions
+        if (
+          newItemNeighbour &&
+          newItemsArr[i].value === newItemsArr[i + 1].value
+        ) {
+          // updates boardMap
+          newBoardMap[newItemNeighbour.posX][newItemNeighbour.posY] = null;
+
+          // updates merged item
+          newItemNeighbour.posX = rowIndex;
+          newItemNeighbour.posY = SQUARES_ROW - 1 - i;
+          newItemNeighbour.merge = true;
+
+          moveQue.push(newItemNeighbour);
+          merchedQue.push(newItemNeighbour);
+          updatedQue.push(newItem);
+
+          //removes merged item from helper array to make sure that the following items are moving correctly
+          newItemsArr.splice(i, 1);
+        }
+
+        // updates newItem to it's new position
+        newItem.posX = rowIndex;
+        newItem.posY = SQUARES_ROW - 1 - i;
+
+        const mapItem = boardMap[rowIndex][SQUARES_ROW - 1 - i];
+        // has changed position - moving only in row direction
+        if (mapItem === null || newItem.posY !== mapItem.posY) {
+          moveQue.push(newItem);
+        }
+
+        // updates boardMap
+        newBoardMap[rowIndex][SQUARES_ROW - 1 - i] = newItem;
+      }
+    }
+
+    // console.log("moveBoardToBottom -> moveQue", moveQue);
+    // console.log("moveBoardToBottom -> merchedQue", merchedQue);
+    // console.log("moveBoardToBottom -> updatedQue", updatedQue);
+
+    clearQues(dispatch, moveQue, merchedQue, updatedQue, newBoardMap);
+
+    // finally we can update boardMap
+    dispatch({
+      type: "UPDATE_BOARD_MAP",
+      boardMap: newBoardMap,
+    });
+    console.log("moveBoardToBottom -> newBoard", newBoardMap);
+  };
+}
+
+// !LEFT
+
+export function moveBoardToLeft() {
+  return (dispatch, getState) => {
+    const boardMap = getBoardMap(getState());
+    const newBoardMap = getEmptyBoardMap(getState());
+    const moveQue = [];
+    const merchedQue = [];
+    const updatedQue = [];
+
+    for (let rowIndex = 0; rowIndex < SQUARES_ROW; rowIndex++) {
+      let newItemsArr = [];
+
+      // For each element of column from bottom to top.
+      for (let columnIndex = 0; columnIndex < SQUARES_ROW; columnIndex++) {
+        // Skips empty items and creates move array.
+        if (boardMap[rowIndex][columnIndex]) {
+          newItemsArr.push(boardMap[rowIndex][columnIndex]);
+        }
+      }
+
+      // Build moving, mergech and updated queues.
+      for (let i = 0; i < newItemsArr.length; i++) {
+        const newItem = newItemsArr[i];
+        const newItemNeighbour = newItemsArr[i + 1];
+
+        // Merges two items if they have same values at consecutive positions
+        if (
+          newItemNeighbour &&
+          newItemsArr[i].value === newItemsArr[i + 1].value
+        ) {
+          // updates boardMap
+          newBoardMap[newItemNeighbour.posX][newItemNeighbour.posY] = null;
+
+          // updates merged item
+          newItemNeighbour.posX = rowIndex;
+          newItemNeighbour.posY = i;
+          newItemNeighbour.merge = true;
+
+          moveQue.push(newItemNeighbour);
+          merchedQue.push(newItemNeighbour);
+          updatedQue.push(newItem);
+
+          //removes merged item from helper array to make sure that the following items are moving correctly
+          newItemsArr.splice(i, 1);
+        }
+
+        // updates newItem to it's new position
+        newItem.posX = rowIndex;
+        newItem.posY = i;
+
+        const mapItem = boardMap[rowIndex][i];
+        // has changed position - moving only in row direction
+        if (mapItem === null || newItem.posY !== mapItem.posY) {
+          moveQue.push(newItem);
+        }
+
+        // updates boardMap
+        newBoardMap[rowIndex][i] = newItem;
       }
     }
 

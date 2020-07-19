@@ -123,6 +123,9 @@ class Board extends Component {
       case "d":
         this.props.moveBoardToRight();
         break;
+      case "a":
+        this.props.moveBoardToLeft();
+        break;
       case "s":
         this.props.moveBoardToBottom();
         break;
@@ -177,4 +180,5 @@ export default connect(mapStateToProps, {
   moveBoardToRight: actions.moveBoardToRight,
   moveBoardToBottom: actions.moveBoardToBottom,
   moveBoardToTop: actions.moveBoardToTop,
+  moveBoardToLeft: actions.moveBoardToLeft,
 })(Board);
