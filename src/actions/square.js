@@ -51,3 +51,12 @@ export function addSquare() {
     updateBoardMap(newBoardMap);
   };
 }
+
+export function clearSquares() {
+  return (dispatch, getState) => {
+    dispatch({
+      type: "CLEAR_SQUARES",
+    });
+
+  };
+}

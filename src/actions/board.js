@@ -5,7 +5,7 @@ import { getBoard, getBoardMap, getEmptyBoardMap } from "../selectors";
 
 const SQUARES_ROW = 4;
 
-export function clearBoard() {
+export function clearBoardMap() {
   return dispatch => {
     dispatch({ type: "CLEAR_BOARD_MAP" });
   };

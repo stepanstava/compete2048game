@@ -44,7 +44,13 @@ $board-height: calc(
 
 // square colors
 $square-2: #eee4da;
+$square-4: #ede1cc;
+$square-8: #f2b179;
+$square-16: #f59563;
 $square-32: #f67c5f;
+$square-64: #f65e3b;
+$square-128: #edcf72;
+$square-256: #edcc61;
 
 * {
   box-sizing: border-box;
@@ -145,21 +151,55 @@ button {
     font-weight: 700;
     font-size: 2.5rem;
     background-color: $square-2;
-
+    animation: appear 0.2s ease-in-out;
     //square move animation
     // transition: top $square-speed ease-in-out, left $square-speed ease-in-out;
-    transition: all $square-speed ease-in-out;
+    transition: top $square-speed ease-in-out, left $square-speed ease-in-out;
+
+    &.sq-2 {
+      color: $color-black;
+      background-color: $square-2;
+    }
+
+    &.sq-4 {
+      color: $color-black;
+      background-color: $square-4;
+    }
+
+    &.sq-8 {
+      color: $color-white;
+      background-color: $square-8;
+    }
+
+    &.sq-16 {
+      color: $color-white;
+      background-color: $square-16;
+    }
 
     &.sq-32 {
       color: $color-white;
       background-color: $square-32;
     }
 
-    &.merge {
-      animation: merge .2s $square-speed ease-in-out;
-      // transform: scale(1);
+    &.sq-64 {
+      color: $color-white;
+      background-color: $square-64;
     }
 
+    &.sq-128 {
+      color: $color-white;
+      background-color: $square-128;
+    }
+
+    &.sq-256 {
+      color: $color-white;
+      background-color: $square-256;
+    }
+
+    &.merge {
+      animation: merge 0.2s $square-speed ease-in-out;
+      // transform: scale(1);
+    }
   }
 }
 // @keyframes loader-spin {
@@ -181,6 +221,18 @@ button {
   }
 
   100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 100%;
     transform: scale(1);
   }
 }

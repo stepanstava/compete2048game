@@ -31,9 +31,10 @@ class Square extends Component {
   // }
 
   getClassName() {
-    const { merge } = this.props;
+    const { merge, value } = this.props;
+    const valueClass = `sq-${value}`;
 
-    return merge ? `square sq-32 merge` : `square sq-32`;
+    return merge ? `square ${valueClass} merge` : `square ${valueClass}`;
 
   }
 

@@ -11,17 +11,19 @@ const initialState = {
     new Array(4).fill(null),
   ],
   boardDimensions: {
-    x: 4,
-    y: 4
+    rows: 4,
+    columns: 4
   }
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case "CLEAR_BOARD_MAP": {
+      const {rows, columns} = state.boardDimensions;
+
       return {
         ...state,
-        board: getEmptyBoardMap(state),
+        board: getEmptyBoardMap(rows, columns),
       };
     }
 
@@ -43,12 +45,11 @@ export function getBoardMap(state) {
   return state.board.boardMap;
 }
 
-export function getEmptyBoardMap(state) {
+export function getEmptyBoardMap(rows, columns) {
   const board = [];
-  const { x, y } = state.board.boardDimensions;
 
-  for (let i = 0; i < x; i++) {
-    const row = new Array(y).fill(null);
+  for (let i = 0; i < rows; i++) {
+    const row = new Array(columns).fill(null);
     board.push(row);
   }
   return board;

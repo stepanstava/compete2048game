@@ -1,6 +1,6 @@
 import { resetScore } from "./score";
-import { clearBoard } from "./board";
-import { addSquare } from "./square";
+import { clearBoardMap } from "./board";
+import { addSquare, clearSquares } from "./square";
 
 export function gameInit() {
   return dispatch => {
@@ -9,8 +9,8 @@ export function gameInit() {
     dispatch(resetScore());
 
     // clear board
-    //!nefunguje
-    // dispatch(clearBoard());
+    dispatch(clearBoardMap());
+    dispatch(clearSquares());
 
     // draw random square
     dispatch(addSquare());

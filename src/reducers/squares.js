@@ -45,6 +45,15 @@ export default function (state = initialState, action) {
 
     }
 
+    case "CLEAR_SQUARES": {
+      const { square } = action;
+     
+      return {
+        ...state,
+        squares: [],
+      };
+    }
+
     default:
       return state;
   }

@@ -1,5 +1,6 @@
 import { getBoard, getBoardMap, getEmptyBoardMap } from "../selectors";
 import { compareCondition } from "../utils/board";
+import { addSquare } from "./square";
 
 const SQUARES_ROW = 4;
 const MERGE_DELAY = 500;
@@ -8,7 +9,9 @@ const MERGE_DELAY = 500;
 export function moveBoardVertically(borderIndex, direction) {
   return (dispatch, getState) => {
     const boardMap = getBoardMap(getState());
-    const newBoardMap = getEmptyBoardMap(getState());
+    //! nahradit SQUARES_ROW
+    const { rows, columns } = getState().board.boardDimensions;
+    const newBoardMap = getEmptyBoardMap(rows, columns);
     const moveQue = [];
     const merchedQue = [];
     const updatedQue = [];
@@ -76,6 +79,11 @@ export function moveBoardVertically(borderIndex, direction) {
       type: "UPDATE_BOARD_MAP",
       boardMap: newBoardMap,
     });
+
+    //!move to better logic
+    setTimeout(() => {
+      dispatch(addSquare());
+    }, MERGE_DELAY);
   };
 }
 
@@ -83,7 +91,9 @@ export function moveBoardVertically(borderIndex, direction) {
 export function moveBoardHorizontally(borderIndex, direction) {
   return (dispatch, getState) => {
     const boardMap = getBoardMap(getState());
-    const newBoardMap = getEmptyBoardMap(getState());
+    //! nahradit SQUARES_ROW
+    const { rows, columns } = getState().board.boardDimensions;
+    const newBoardMap = getEmptyBoardMap(rows, columns);
     const moveQue = [];
     const merchedQue = [];
     const updatedQue = [];
@@ -151,6 +161,11 @@ export function moveBoardHorizontally(borderIndex, direction) {
       type: "UPDATE_BOARD_MAP",
       boardMap: newBoardMap,
     });
+
+    //!move to better logic
+    setTimeout(() => {
+      dispatch(addSquare());
+    }, MERGE_DELAY);
   };
 }
 
