@@ -12,7 +12,17 @@ const initialState = {
     new Array(4).fill(null),
     new Array(4).fill(null),
   ],
+  boardMap: [
+    new Array(4).fill(null),
+    new Array(4).fill(null),
+    new Array(4).fill(null),
+    new Array(4).fill(null),
+  ],
   squares: [],
+  boardDimensions: {
+    x: 4,
+    y: 4
+  }
 };
 
 export default function (state = initialState, action) {
@@ -66,11 +76,11 @@ export default function (state = initialState, action) {
       };
     }
 
-    case "UPDATE_BOARD": {
-      const { board } = action;
+    case "UPDATE_BOARD_MAP": {
+      const { boardMap } = action;
       return {
         ...state,
-        board,
+        boardMap,
       };
     }
   
@@ -81,16 +91,16 @@ export default function (state = initialState, action) {
       const { indexX, indexY } = action.cords;
       const { id } = action;
 
-      const newBoard = [...state.board];
+      const newBoardMap = [...state.boardMap];
       //? deep copy lodash ?
 
-      const newRow = [...newBoard[indexX]];
-      newBoard[indexX][indexY] = { value: 2, id, posX: indexX,  posY: indexY};
-      console.log("newBoard", newBoard);
+      const newRow = [...newBoardMap[indexX]];
+      newBoardMap[indexX][indexY] = { value: 2, id, posX: indexX,  posY: indexY};
+      // console.log("newBoard", newBoard);
 
       return {
         ...state,
-        board: newBoard,
+        boardMap: newBoardMap,
       };
     }
 
@@ -141,9 +151,28 @@ export function getGameScore(state) {
 export function getBoard(state) {
   return state.game.board;
 }
+
+export function getBoardMap(state) {
+  return state.game.boardMap;
+}
+
+export function getEmptyBoardMap(state) {
+  const board = [];
+  const { x, y } = state.game.boardDimensions;
+
+  for (let i = 0; i < x; i++) {
+    const row = new Array(y).fill(null);
+    board.push(row);
+  }
+  return board;
+}
+
 export function getSquares(state) {
   return state.game.squares;
 }
+
+
+
 
 //! add function getScore -> state.board
 function moveBoardToRight(state) {
