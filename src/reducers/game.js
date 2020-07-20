@@ -6,16 +6,20 @@ const SQUARES_ROW = 4;
 
 const initialState = {
   score: 0,
-  isBoardMoving: false,
+  shouldBoardMove: true,
   scoreRound: 0,
+  isWinning: false,
+  isLosing: false,
+  goal: 14,
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case "GAME_INIT": {
+    case "ADD_WINNER": {
       return {
         ...state,
-        score: 0,
+        isWinning: true,
+        shouldBoardMove: false,
       };
     }
     // score
@@ -23,6 +27,15 @@ export default function (state = initialState, action) {
       return {
         ...state,
         score: 0,
+      };
+    }
+    
+    case "CLEAR_GAME_STATES": {
+      return {
+        ...state,
+        shouldBoardMove: true,
+        isWinning: false,
+        isLosing: false,
       };
     }
 
@@ -53,11 +66,11 @@ export default function (state = initialState, action) {
 
     
 
-    case "UPDATE_IS_MOVING": {
-      const { isBoardMoving } = action;
+    case "UPDATE_SHOULD_MOVE": {
+      const { shouldBoardMove } = action;
       return {
         ...state,
-        isBoardMoving,
+        shouldBoardMove,
       };
     }
 
@@ -76,8 +89,16 @@ export function getGameScoreRound(state) {
   return state.game.scoreRound;
 }
 
-export function isBoardMoving(state) {
-  return state.game.isBoardMoving;
+export function shouldBoardMove(state) {
+  return state.game.shouldBoardMove;
+}
+
+export function isWinning(state) {
+  return state.game.isWinning;
+}
+
+export function isLosing(state) {
+  return state.game.isLosing;
 }
 
 // export function getBoard(state) {

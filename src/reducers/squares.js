@@ -1,6 +1,7 @@
 
 const initialState = {
   squares: [],
+  squaresCount: 0,
 };
 
 export default function (state = initialState, action) {
@@ -8,10 +9,12 @@ export default function (state = initialState, action) {
     case "ADD_SQUARE": {
       const { square } = action;
       const updatedSquares = [...state.squares, square];
+      const squaresCount = state.squaresCount;
       
       return {
         ...state,
         squares: updatedSquares,
+        squaresCount: squaresCount + 1,
       };
     }
 
@@ -35,12 +38,14 @@ export default function (state = initialState, action) {
     case "REMOVE_SQUARE": {
       const { id } = action.square;
       // const updatedSquares = [...state.squares];
+      const squaresCount = state.squaresCount;
 
       const filtred = state.squares.filter(sq => sq.id !== id);
 
       return {
         ...state,
         squares: filtred,
+        squaresCount: squaresCount - 1,
       };
 
     }

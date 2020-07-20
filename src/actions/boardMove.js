@@ -1,7 +1,7 @@
 import { getBoard, getBoardMap, getEmptyBoardMap } from "../selectors";
 import { compareCondition } from "../utils/board";
 import { addSquare } from "./square";
-import { updateBoardIsMoving, updateScore } from "./game";
+import { updateShouldBoardMove, updateScore, addWinner } from "./game";
 
 const SQUARES_ROW = 4;
 const MERGE_DELAY = 500;
@@ -10,7 +10,7 @@ const MERGE_DELAY = 500;
 export function moveBoardVertically(borderIndex, direction) {
   return (dispatch, getState) => {
  
-    dispatch(updateBoardIsMoving(true));
+    dispatch(updateShouldBoardMove(false));
 
     const boardMap = getBoardMap(getState());
     //! nahradit SQUARES_ROW
@@ -76,7 +76,7 @@ export function moveBoardVertically(borderIndex, direction) {
       }
     }
 
-    clearQueues(dispatch, moveQue, merchedQue, updatedQue, newBoardMap);
+    clearQueues(dispatch, moveQue, merchedQue, updatedQue, newBoardMap, getState);
 
     // finally we can update boardMap
     dispatch({
@@ -87,7 +87,7 @@ export function moveBoardVertically(borderIndex, direction) {
     //!move to better logic
     setTimeout(() => {
       dispatch(addSquare());
-      dispatch(updateBoardIsMoving(false));
+      dispatch(updateShouldBoardMove(true));
     }, MERGE_DELAY);
   };
 }
@@ -95,7 +95,7 @@ export function moveBoardVertically(borderIndex, direction) {
 //-- HORIZONTALLY --
 export function moveBoardHorizontally(borderIndex, direction) {
   return (dispatch, getState) => {
-    dispatch(updateBoardIsMoving(true));
+    dispatch(updateShouldBoardMove(false));
 
     const boardMap = getBoardMap(getState());
     //! nahradit SQUARES_ROW
@@ -161,7 +161,7 @@ export function moveBoardHorizontally(borderIndex, direction) {
       }
     }
 
-    clearQueues(dispatch, moveQue, merchedQue, updatedQue, newBoardMap);
+    clearQueues(dispatch, moveQue, merchedQue, updatedQue, newBoardMap, getState);
 
     // finally we can update boardMap
     dispatch({
@@ -172,12 +172,12 @@ export function moveBoardHorizontally(borderIndex, direction) {
     //!move to better logic
     setTimeout(() => {
       dispatch(addSquare());
-      dispatch(updateBoardIsMoving(false));
+      dispatch(updateShouldBoardMove(true));
     }, MERGE_DELAY);
   };
 }
 
-function clearQueues(dispatch, moveQue, merchedQue, updatedQue, newBoardMap) {
+function clearQueues(dispatch, moveQue, merchedQue, updatedQue, newBoardMap, getState) {
   // clears moving que
   moveQue.forEach(square => {
     dispatch({
@@ -196,6 +196,7 @@ function clearQueues(dispatch, moveQue, merchedQue, updatedQue, newBoardMap) {
     });
 
     let scoreRound = 0;
+    const goal= getState().game.goal;
 
     // updates value of items that 'was merged' and updated the boardMap
     updatedQue.forEach(square => {
@@ -209,9 +210,17 @@ function clearQueues(dispatch, moveQue, merchedQue, updatedQue, newBoardMap) {
         type: "UPDATE_SQUARE",
         square,
       });
+
+      // check winning square
+      //! make sure that 'shouldBoardMove' is updated
+      if (square.value >= goal) {
+        dispatch(addWinner());
+      }
+
     });
     
     dispatch(updateScore(scoreRound));
+
 
   
   }, MERGE_DELAY);

@@ -469,12 +469,24 @@ button {
 }
 
 .board {
-  -ms-grid-row-align: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
       align-self: center;
   min-width: calc( 460px);
   min-height: calc( 460px);
   background-color: #bbada0;
   border-radius: 0.4rem;
+  border: 12px solid #bbada0;
+  position: relative;
+  position: relative;
+}
+
+.board .tile-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[4];
@@ -482,8 +494,70 @@ button {
   -ms-grid-rows: (1fr)[4];
       grid-template-rows: repeat(4, 1fr);
   gap: 12px;
-  border: 12px solid #bbada0;
-  position: relative;
+}
+
+.board .square-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.board .lost-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #b9b9b97c;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.board .lost-screen h2 {
+  font-size: 3rem;
+  color: #24221f;
+  margin-bottom: 1rem;
+}
+
+.board .winning-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #dbd94f7c;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.board .winning-screen h2 {
+  font-size: 3rem;
+  color: #24221f;
+  margin-bottom: 1rem;
 }
 
 .board .tile {

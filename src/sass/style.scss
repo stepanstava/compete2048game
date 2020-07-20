@@ -141,12 +141,81 @@ button {
   min-height: $board-height;
   background-color: $background-color;
   border-radius: 0.4rem;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: $gap;
+ 
   border: $gap solid $background-color;
   position: relative;
+
+  // border: 5px solid #000;
+  position: relative;
+
+  .tile-container {
+    // border: 5px solid rgb(250, 5, 5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    // width: 100%;
+    // background-color: transparent;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: $gap;
+
+  } 
+
+  .square-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    // border: 10px solid #000;
+  }
+
+  .lost-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    // border: 10px solid #000;
+    background-color: #b9b9b97c;
+    
+    @include flex-center;
+    flex-direction: column;
+
+    h2 {
+      font-size: 3rem;
+      color: darken($color-black, 30%);
+      margin-bottom: 1rem;
+    }
+
+  }
+
+
+  .winning-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    // border: 10px solid #000;
+    background-color: #dbd94f7c;
+    
+    @include flex-center;
+    flex-direction: column;
+
+    h2 {
+      font-size: 3rem;
+      color: darken($color-black, 30%);
+      margin-bottom: 1rem;
+    }
+
+  }
+
+
+
 
   .tile {
     background-color: $tile-color;

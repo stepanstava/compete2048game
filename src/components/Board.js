@@ -6,7 +6,7 @@ import actions from "../actions";
 import Square from "./Square";
 
 // import Score from "./Score";
-import { getSquares, isBoardMoving } from "../selectors";
+import { getSquares, shouldBoardMove, isWinning, isLosing } from "../selectors";
 
 class Board extends Component {
   componentDidMount() {
@@ -14,7 +14,9 @@ class Board extends Component {
     this.props.addSquare();
   }
 
-  renderBoard(squares) {
+  renderSquares() {
+    const { squares } = this.props;
+
     return squares.map(square => {
       if (square) {
         const { value, id, posX, posY, merge } = square;
@@ -35,45 +37,76 @@ class Board extends Component {
   }
 
   handleKeyDown(e) {
-    const SQUARES_ROW = 4;
-    let borderIndex;
-    let direction;
+    e.preventDefault();
+    //!change shouldBoardMove
+    const { moveBoard, shouldBoardMove } = this.props;
 
-    const {boardIsMoving} = this.props;
-    console.log("Board -> handleKeyDown -> boardIsMoving", boardIsMoving)
-
-    if (!boardIsMoving) {
-      switch (e.key) {
-        case "d":
-          borderIndex = SQUARES_ROW - 1;
-          direction = -1;
-          this.props.moveBoardHorizontally(borderIndex, direction);
+    if (shouldBoardMove) {
+      switch (e.key.toUpperCase()) {
+        // move right
+        case "ARROWRIGHT":
+          moveBoard("right");
           break;
-        case "a":
-          borderIndex = 0;
-          direction = 1;
-          this.props.moveBoardHorizontally(borderIndex, direction);
+        case "D":
+          moveBoard("right");
           break;
-        case "s":
-          borderIndex = SQUARES_ROW - 1;
-          direction = -1;
-          this.props.moveBoardVertically(borderIndex, direction);
+        // move left
+        case "ARROWLEFT":
+          moveBoard("left");
           break;
-        case "w":
-          borderIndex = 0;
-          direction = 1;
-          this.props.moveBoardVertically(borderIndex, direction);
+        case "A":
+          moveBoard("left");
+          break;
+        // move top
+        case "ARROWUP":
+          moveBoard("top");
+          break;
+        case "W":
+          moveBoard("top");
+          break;
+        // move down
+        case "ARROWDOWN":
+          moveBoard("bottom");
+          break;
+        case "S":
+          moveBoard("bottom");
           break;
         default:
           return;
       }
     }
-
-    // this.props.addSquare();
   }
 
+  renderTile(row, column) {
+    return <div className="tile" key={`${row}:${column}`}></div>;
+  }
+
+  // tiles are used only as css placeholders for squares
+  // !mozna presunout na componentDidMount
+  renderTiles() {
+    const tiles = [];
+
+    for (let row = 0; row < 4; row++) {
+      for (let column = 0; column < 4; column++) {
+        tiles.push(this.renderTile(row, column));
+      }
+    }
+    return <div className="tile-container">{tiles}</div>;
+  }
+
+  renderWinningScreen() {
+    return (
+      <div className="winning-screen">
+        <h2>You won!</h2>
+        <button className="btn">Try again</button>
+      </div>
+    );
+  }
+
+  renderLosingScreen() {}
+
   render() {
-    const { squares } = this.props;
+    const { squares, isWinning, isLosing } = this.props;
 
     return (
       <div
@@ -81,27 +114,10 @@ class Board extends Component {
         onKeyDown={e => this.handleKeyDown(e)}
         tabIndex="0"
       >
-        <div className="tile"></div>
-        <div className="tile"></div>
-        <div className="tile"></div>
-        <div className="tile"></div>
-
-        <div className="tile"></div>
-        <div className="tile"></div>
-        <div className="tile"></div>
-        <div className="tile"></div>
-
-        <div className="tile"></div>
-        <div className="tile"></div>
-        <div className="tile"></div>
-        <div className="tile"></div>
-
-        <div className="tile"></div>
-        <div className="tile"></div>
-        <div className="tile"></div>
-        <div className="tile"></div>
-
-        {this.renderBoard(squares)}
+        <div className="tile-container">{this.renderTiles()}</div>
+        <div className="square-container">{this.renderSquares()}</div>
+        {isWinning ? this.renderWinningScreen() : null}
+        {isLosing ? this.renderLosingScreen() : null}
       </div>
     );
   }
@@ -109,7 +125,9 @@ class Board extends Component {
 
 const mapStateToProps = state => ({
   squares: getSquares(state),
-  boardIsMoving: isBoardMoving(state),
+  shouldBoardMove: shouldBoardMove(state),
+  isWinning: isWinning(state),
+  isLosing: isLosing(state),
 });
 
 export default connect(mapStateToProps, {
@@ -121,7 +139,6 @@ export default connect(mapStateToProps, {
   moveBoardHorizontally: actions.moveBoardHorizontally,
   moveBoardHorizontally2: actions.moveBoardHorizontally2,
   moveBoard: actions.moveBoard,
-  moveBoard: actions.moveBoard,
   addSquare: actions.addSquare,
-  updateBoardIsMoving: actions.updateBoardIsMoving,
+  updateShouldBoardMove: actions.updateShouldBoardMove,
 })(Board);

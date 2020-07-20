@@ -1,7 +1,8 @@
 import crypto from "crypto";
 
 import { updateBoardMap } from "./board";
-import { getBoardMap } from "../selectors";
+import { shouldLoose } from "./game";
+import { getBoardMap, isLosing } from "../selectors";
 
 const SQUARES_ROW = 4;
 
@@ -49,6 +50,11 @@ export function addSquare() {
     // console.log("addSquare -> newBoardMap", newBoardMap)
     //! zmenit na reducer -> posle se cords
     updateBoardMap(newBoardMap);
+
+    //! not done
+    const squaresCount = getState().squares.squaresCount;
+    shouldLoose(squaresCount);
+
   };
 }
 

@@ -11,17 +11,28 @@ export function gameInit() {
     dispatch(clearBoardMap());
     dispatch(clearSquares());
 
+    // clear game states
+    dispatch(clearGameStates());
+
     // draw random square
     dispatch(addSquare());
     dispatch(addSquare());
   };
 }
 
-export function updateBoardIsMoving(isBoardMoving) {
+export function clearGameStates() {
   return dispatch => {
     dispatch({
-      type: "UPDATE_IS_MOVING",
-      isBoardMoving,
+      type: "CLEAR_GAME_STATES",
+    });
+  };
+}
+
+export function updateShouldBoardMove(shouldBoardMove) {
+  return dispatch => {
+    dispatch({
+      type: "UPDATE_SHOULD_MOVE",
+      shouldBoardMove,
     });
   };
 }
@@ -49,4 +60,30 @@ export function updateScore(scoreRound) {
       }, 500);
     }
   };
+}
+
+export function addWinner() {
+  return (dispatch, getState) => {
+    dispatch({
+      type: "ADD_WINNER",
+    });
+  };
+}
+
+export function isLosing() {
+  return (dispatch, getState) => {
+    dispatch({
+      type: "ADD_WINNER",
+    });
+  };
+}
+
+export function shouldLoose(squaresCount) {
+  return (dispatch, getState) => {
+
+    if (squaresCount === 16) {
+      //isPossibleToMove
+      //else
+    }
+  }
 }
