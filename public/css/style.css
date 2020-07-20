@@ -446,6 +446,16 @@ button {
   margin-top: -0.4rem;
   font-size: 1.2rem;
   font-weight: 700;
+  position: relative;
+}
+
+.score .points .points-round {
+  position: absolute;
+  left: -30%;
+  font-size: 1rem;
+  color: #776e65;
+  -webkit-animation: score-update .6s ease-in;
+          animation: score-update .6s ease-in;
 }
 
 .header {
@@ -602,5 +612,27 @@ button {
     opacity: 100%;
     -webkit-transform: scale(1);
             transform: scale(1);
+  }
+}
+
+@-webkit-keyframes score-update {
+  from {
+    top: 0;
+    opacity: 1;
+  }
+  to {
+    top: -4rem;
+    opacity: 0;
+  }
+}
+
+@keyframes score-update {
+  from {
+    top: 0;
+    opacity: 1;
+  }
+  to {
+    top: -4rem;
+    opacity: 0;
   }
 }

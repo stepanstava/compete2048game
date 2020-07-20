@@ -5,7 +5,9 @@ import { moveBoardToBottom } from "./down"
 const SQUARES_ROW = 4;
 
 const initialState = {
-  score: 1,
+  score: 0,
+  isBoardMoving: false,
+  scoreRound: 0,
 };
 
 export default function (state = initialState, action) {
@@ -24,6 +26,41 @@ export default function (state = initialState, action) {
       };
     }
 
+    case "UPDATE_SCORE": {
+      const {score} = action;
+      const newScore = state.score + score
+
+      return {
+        ...state,
+        score: newScore,
+      };
+    }
+    case "UPDATE_SCORE_ROUND": {
+      const {scoreRound} = action;
+
+      return {
+        ...state,
+        scoreRound,
+      };
+    }
+
+    case "CLEAR_SCORE_ROUND": {
+      return {
+        ...state,
+        scoreRound: 0,
+      };
+    }
+
+    
+
+    case "UPDATE_IS_MOVING": {
+      const { isBoardMoving } = action;
+      return {
+        ...state,
+        isBoardMoving,
+      };
+    }
+
     default:
       return state;
   }
@@ -33,6 +70,14 @@ export default function (state = initialState, action) {
 //! getScoreMap
 export function getGameScore(state) {
   return state.game.score;
+}
+
+export function getGameScoreRound(state) {
+  return state.game.scoreRound;
+}
+
+export function isBoardMoving(state) {
+  return state.game.isBoardMoving;
 }
 
 // export function getBoard(state) {

@@ -1,6 +1,7 @@
 import { getBoard, getBoardMap, getEmptyBoardMap } from "../selectors";
 import { compareCondition } from "../utils/board";
 import { addSquare } from "./square";
+import { updateBoardIsMoving, updateScore } from "./game";
 
 const SQUARES_ROW = 4;
 const MERGE_DELAY = 500;
@@ -8,6 +9,9 @@ const MERGE_DELAY = 500;
 // --VERTICALLY--
 export function moveBoardVertically(borderIndex, direction) {
   return (dispatch, getState) => {
+ 
+    dispatch(updateBoardIsMoving(true));
+
     const boardMap = getBoardMap(getState());
     //! nahradit SQUARES_ROW
     const { rows, columns } = getState().board.boardDimensions;
@@ -83,6 +87,7 @@ export function moveBoardVertically(borderIndex, direction) {
     //!move to better logic
     setTimeout(() => {
       dispatch(addSquare());
+      dispatch(updateBoardIsMoving(false));
     }, MERGE_DELAY);
   };
 }
@@ -90,6 +95,8 @@ export function moveBoardVertically(borderIndex, direction) {
 //-- HORIZONTALLY --
 export function moveBoardHorizontally(borderIndex, direction) {
   return (dispatch, getState) => {
+    dispatch(updateBoardIsMoving(true));
+
     const boardMap = getBoardMap(getState());
     //! nahradit SQUARES_ROW
     const { rows, columns } = getState().board.boardDimensions;
@@ -165,6 +172,7 @@ export function moveBoardHorizontally(borderIndex, direction) {
     //!move to better logic
     setTimeout(() => {
       dispatch(addSquare());
+      dispatch(updateBoardIsMoving(false));
     }, MERGE_DELAY);
   };
 }
@@ -187,10 +195,14 @@ function clearQueues(dispatch, moveQue, merchedQue, updatedQue, newBoardMap) {
       });
     });
 
+    let scoreRound = 0;
+
     // updates value of items that 'was merged' and updated the boardMap
     updatedQue.forEach(square => {
       const { posX, posY } = square;
       square.value *= 2;
+      scoreRound += square.value;
+
       newBoardMap[posX][posY] = square;
 
       dispatch({
@@ -198,5 +210,9 @@ function clearQueues(dispatch, moveQue, merchedQue, updatedQue, newBoardMap) {
         square,
       });
     });
+    
+    dispatch(updateScore(scoreRound));
+
+  
   }, MERGE_DELAY);
 }

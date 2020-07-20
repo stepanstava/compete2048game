@@ -30,7 +30,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("state", state)
+  // console.log("state", state)
   return {
     number: state.add.count,
   }

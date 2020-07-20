@@ -109,6 +109,19 @@ button {
     margin-top: -0.4rem;
     font-size: 1.2rem;
     font-weight: 700;
+    position: relative;
+    // border: 1px solid #000;
+    // width: 100px;
+    // height: 100px;
+
+    .points-round {
+      position: absolute;
+      left: -30%;
+      font-size: 1rem;
+      color: $color-black;
+      animation: score-update .6s ease-in;
+    }
+
   }
 }
 
@@ -234,6 +247,18 @@ button {
   to {
     opacity: 100%;
     transform: scale(1);
+  }
+}
+
+@keyframes score-update {
+  from {
+    top: 0;
+    opacity: 1;
+  }
+
+  to {
+    top: -4rem;
+    opacity: 0;
   }
 }
 

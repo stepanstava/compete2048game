@@ -28,8 +28,8 @@ export function addSquare() {
     const boardMap = getBoardMap(getState());
     const newBoardMap = [...boardMap];
     const { posX, posY } = getRandomSquareCords(boardMap);
-    console.log("addSquare -> posY", posX)
-    console.log("addSquare -> posX", posY)
+    // console.log("addSquare -> posY", posX)
+    // console.log("addSquare -> posX", posY)
 
     const id = getRandomId();
 
@@ -46,7 +46,7 @@ export function addSquare() {
     });
 
     newBoardMap[posX][posY] = square;
-    console.log("addSquare -> newBoardMap", newBoardMap)
+    // console.log("addSquare -> newBoardMap", newBoardMap)
     //! zmenit na reducer -> posle se cords
     updateBoardMap(newBoardMap);
   };

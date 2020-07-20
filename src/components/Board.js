@@ -6,35 +6,30 @@ import actions from "../actions";
 import Square from "./Square";
 
 // import Score from "./Score";
-import { getSquares } from "../selectors";
+import { getSquares, isBoardMoving } from "../selectors";
 
 class Board extends Component {
-
-
   componentDidMount() {
     this.props.addSquare();
+    this.props.addSquare();
   }
-  
+
   renderBoard(squares) {
-   
     return squares.map(square => {
-      if (square)  {
+      if (square) {
         const { value, id, posX, posY, merge } = square;
 
-          return (
-            <Square
-              key={id}
-              value={value}
-              // indexX={indexX}
-              // indexY={indexY}
-              posX={posX}
-              posY={posY}
-              merge={merge}
-            />
-          );
-
-
-
+        return (
+          <Square
+            key={id}
+            value={value}
+            // indexX={indexX}
+            // indexY={indexY}
+            posX={posX}
+            posY={posY}
+            merge={merge}
+          />
+        );
       }
     });
   }
@@ -44,29 +39,34 @@ class Board extends Component {
     let borderIndex;
     let direction;
 
-    switch (e.key) {
-      case "d":
-        borderIndex = SQUARES_ROW - 1;
-        direction = -1;
-        this.props.moveBoardHorizontally(borderIndex, direction);
-        break;
-      case "a":
-        borderIndex = 0;
-        direction = 1;
-        this.props.moveBoardHorizontally(borderIndex, direction);
-        break;
-      case "s":
-        borderIndex = SQUARES_ROW - 1;
-        direction = -1;
-        this.props.moveBoardVertically(borderIndex, direction);
-        break;
-      case "w":
-        borderIndex = 0;
-        direction = 1;
-        this.props.moveBoardVertically(borderIndex, direction);
-        break;
-      default:
-        return;
+    const {boardIsMoving} = this.props;
+    console.log("Board -> handleKeyDown -> boardIsMoving", boardIsMoving)
+
+    if (!boardIsMoving) {
+      switch (e.key) {
+        case "d":
+          borderIndex = SQUARES_ROW - 1;
+          direction = -1;
+          this.props.moveBoardHorizontally(borderIndex, direction);
+          break;
+        case "a":
+          borderIndex = 0;
+          direction = 1;
+          this.props.moveBoardHorizontally(borderIndex, direction);
+          break;
+        case "s":
+          borderIndex = SQUARES_ROW - 1;
+          direction = -1;
+          this.props.moveBoardVertically(borderIndex, direction);
+          break;
+        case "w":
+          borderIndex = 0;
+          direction = 1;
+          this.props.moveBoardVertically(borderIndex, direction);
+          break;
+        default:
+          return;
+      }
     }
 
     // this.props.addSquare();
@@ -109,6 +109,7 @@ class Board extends Component {
 
 const mapStateToProps = state => ({
   squares: getSquares(state),
+  boardIsMoving: isBoardMoving(state),
 });
 
 export default connect(mapStateToProps, {
@@ -122,4 +123,5 @@ export default connect(mapStateToProps, {
   moveBoard: actions.moveBoard,
   moveBoard: actions.moveBoard,
   addSquare: actions.addSquare,
+  updateBoardIsMoving: actions.updateBoardIsMoving,
 })(Board);
