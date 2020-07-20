@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 
 import Score from "./Score";
 import Header from "./Header";
@@ -10,33 +10,28 @@ import Board from "./Board";
 import actions from "../actions";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.handleNewGameButton = this.handleNewGameButton.bind(this);
+  }
 
-  componentDidMount() {
-    // gameInit
-    this.props.increment();
+  handleNewGameButton() {
+    this.props.gameInit();
   }
 
   render() {
-    console.log(this.props.number);
-
     return (
       <div className="container">
         <Score />
-        <Header />
-        <Board />
+        <Header handleNewGameButton={this.handleNewGameButton} />
+        <Board handleNewGameButton={this.handleNewGameButton} />
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = state => {
-  // console.log("state", state)
-  return {
-    number: state.add.count,
-  }
+  return {};
 };
 
-export default connect(
-  mapStateToProps,
-  { increment: actions.increment }
-)(App)
+export default connect(mapStateToProps, { gameInit: actions.gameInit })(App);

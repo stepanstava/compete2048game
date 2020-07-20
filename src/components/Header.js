@@ -8,10 +8,14 @@ import { connect } from "react-redux";
 import actions from "../actions";
 
 class Header extends Component {
+ 
+
   render() {
+    const { handleNewGameButton } = this.props;
+
     return (
       <div className="header">
-        <button className="btn" onClick={() => this.props.gameInit()}>
+        <button className="btn" onClick={() => handleNewGameButton()}>
           New Game
         </button>
       </div>

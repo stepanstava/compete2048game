@@ -11,6 +11,7 @@ const initialState = {
   isWinning: false,
   isLosing: false,
   goal: 14,
+  doubleSquareProb: 0.1,
 };
 
 export default function (state = initialState, action) {

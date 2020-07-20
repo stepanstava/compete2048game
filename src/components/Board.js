@@ -95,10 +95,14 @@ class Board extends Component {
   }
 
   renderWinningScreen() {
+    const { handleNewGameButton } = this.props;
+
     return (
       <div className="winning-screen">
         <h2>You won!</h2>
-        <button className="btn">Try again</button>
+        <button className="btn" onClick={() => handleNewGameButton()}>
+          Try again
+        </button>
       </div>
     );
   }

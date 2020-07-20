@@ -29,6 +29,7 @@ export function addSquare() {
     const boardMap = getBoardMap(getState());
     const newBoardMap = [...boardMap];
     const { posX, posY } = getRandomSquareCords(boardMap);
+    const doubleSquareProb = getState().game.doubleSquareProb;
     // console.log("addSquare -> posY", posX)
     // console.log("addSquare -> posX", posY)
 
@@ -38,7 +39,7 @@ export function addSquare() {
       id,
       posX,
       posY,
-      value: 2,
+      value: Math.random() > doubleSquareProb ? 2 : 4
     };
 
     dispatch({
