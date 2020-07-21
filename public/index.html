@@ -25,6 +25,15 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
 
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"
+    rel="stylesheet"
+  />
+
     <link rel="stylesheet" href="./css/style.css">
     <title>React App</title>
   </head>
@@ -33,57 +42,162 @@
     <div id="root"></div>
   
     <!-- testing html -->
-    <div class="container">
-     
-      <div class="score">
-        <span class="title">Score</span>
-        <span class="points">80 <span class="points-round">+16</span></span>
+
+    <div class="wrapper">
+
+      <div class="header-wrapper">
+        <div class="site-header">
+          <div class="squares">
+            <div class="square sq1">Com</div>
+            <div class="square sq2">pete</div>
+            <div class="square">2048</div>
+          </div>
+  
+  
+          <!-- <div class="menu">
+            <a href="#" class="item btn">
+              Sing-In
+            </a>
+            <a href="#" class="item btn">
+              Sing-Up
+            </a> -->
+  
+            <div class="menu">
+              <a href="#" class="item">
+                Practise
+              </a>
+              <a href="#" class="item">
+                Compete
+              </a>
+              <a href="#" class="item">
+                Highscore
+              </a>
+            </div>
+  
+          </div>
+        </div>
       </div>
 
-      <div class="header">
-        <button class="btn">Undo</button>
-        <button class="btn">Redo</button>
-        <button class="btn">New Game</button>
-      </div>
-
-      <div class="board">
-        <div class="tile-container">
-          <div class="tile"></div>
-          <div class="tile"></div>
-          <div class="tile"></div>
-          <div class="tile"></div>
   
-          <div class="tile"></div>
-          <div class="tile"></div>
-          <div class="tile"></div>
-          <div class="tile"></div>
+      <!-- header -->
+      <div class="content-wrapper">
+        <div class="container">
+
+
+       
+          <div class="game-info">
+            <div class="row row-new-game">
+              <div class="left">
+                <button class="btn">New Game</button>
+              </div>
+              <!-- <div class="timer">
+                00:01:52
+              </div> -->
+              <i class="fas fa-cog"></i>
+                
+       
+            </div>
+
+            <div class="row row-score">
+              <div class="scores">
+                <div class="score">
+                  <span class="title">Score</span>
+                  <!-- <span class="points">80 <span class="points-round">+16</span></span> -->
+                  <span class="points">80</span>
+                </div>
   
-          <div class="tile"></div>
-          <div class="tile"></div>
-          <div class="tile"></div>
-          <div class="tile"></div>
-  
-          <div class="tile"></div>
-          <div class="tile"></div>
-          <div class="tile"></div>
-          <div class="tile"></div>
-        </div>
+                <div class="score">
+                  <span class="title">Best</span>
+                  <!-- <span class="points">80 <span class="points-round">+16</span></span> -->
+                  <span class="points">80</span>
+                </div>
+              </div>
 
-        <div class="square-container">
-          <div class="square sq-32 merge">32</div>
-        </div>
-
-        <!-- <div class="lost-screen">
-          <h2>Game over</h2>
-          <button class="btn">Try again</button>
-        </div> -->
-        <!-- <div class="winning-screen">
-          <h2>You won!</h2>
-          <button class="btn">Try again</button>
-        </div> -->
-
+              <div class="history">
+                <button class="btn"><i class="fas fa-undo"></i></button>
+                <button class="btn"><i class="fas fa-redo"></i></button>
+              </div>
+             
         
+
+
+
+            </div>
+
+            <div class="row row-history">
+
+
+
+
+            </div>
+
+          
+          </div>
+    
+          <div class="header">
+           
+          </div>
+    
+          <div class="board">
+            <div class="tile-container">
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+      
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+      
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+      
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+            </div>
+    
+            <div class="square-container">
+              <div class="square sq-16">16</div>
+            </div>
+    
+            <!-- <div class="lost-screen">
+              <h2>Game over</h2>
+              <button class="btn">Try again</button>
+            </div> -->
+            <!-- <div class="winning-screen">
+              <h2>You won!</h2>
+              <button class="btn">Try again</button>
+            </div> -->
+    
+            
+          </div>
+
+          <div class="game-info margin">
+            HOW TO PLAY: Use your arrow keys to move the tiles. When two tiles with the same number touch, they merge into one!
+          </div>
+
+          <div class="game-info margin">
+            Created by Gabriele Cirulli.
+            Based on 1024 by Veewo Studio and conceptually similar to Threes by Asher Vollmer.
+          </div>
+    
+    
+        </div>
+
+
+
+
       </div>
+
+  
+      <!-- navbar -->
+  
+
 
     </div>
     
