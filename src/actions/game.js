@@ -39,7 +39,7 @@ export function updateShouldBoardMove(shouldBoardMove) {
 
 export function updateScore(scoreRound) {
   return dispatch => {
-    console.log("updateScore -> scoreToAdd", scoreRound);
+    // console.log("updateScore -> scoreToAdd", scoreRound);
 
     // update only if the score to add is greater than 0
     if (scoreRound > 0) {

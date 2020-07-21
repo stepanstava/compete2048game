@@ -2,6 +2,7 @@ import { getBoard, getBoardMap, getEmptyBoardMap } from "../selectors";
 import { compareCondition } from "../utils/board";
 import { addSquare } from "./square";
 import { updateShouldBoardMove, updateScore, addWinner } from "./game";
+import { saveCurrentState } from "./history";
 
 const SQUARES_ROW = 4;
 const MERGE_DELAY = 500;
@@ -88,6 +89,7 @@ export function moveBoardVertically(borderIndex, direction) {
     setTimeout(() => {
       dispatch(addSquare());
       dispatch(updateShouldBoardMove(true));
+      dispatch(saveCurrentState(true));
     }, MERGE_DELAY);
   };
 }
@@ -173,6 +175,7 @@ export function moveBoardHorizontally(borderIndex, direction) {
     setTimeout(() => {
       dispatch(addSquare());
       dispatch(updateShouldBoardMove(true));
+      dispatch(saveCurrentState(true));
     }, MERGE_DELAY);
   };
 }

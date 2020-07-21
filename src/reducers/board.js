@@ -29,6 +29,7 @@ export default function (state = initialState, action) {
 
     case "UPDATE_BOARD_MAP": {
       const { boardMap } = action;
+      // console.log("boardMap", boardMap)
       return {
         ...state,
         boardMap,

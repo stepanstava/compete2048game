@@ -4,7 +4,7 @@ import {
   getBoard,
   getBoardMap,
   getEmptyBoardMap,
-  isWinning,
+
 } from "../selectors";
 import { moveBoardHorizontally, moveBoardVertically } from "./boardMove";
 // import { compareCondition } from "../utils";

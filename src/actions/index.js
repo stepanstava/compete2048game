@@ -3,6 +3,7 @@ import * as score from "./score";
 import * as board from "./board";
 import * as boardMove from "./boardMove";
 import * as square from "./square";
+import * as history from "./history";
 
 export default {
   ...game,
@@ -10,4 +11,5 @@ export default {
   ...board,
   ...boardMove,
   ...square,
+  ...history,
 };

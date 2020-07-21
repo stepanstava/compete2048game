@@ -94,11 +94,11 @@ export function shouldBoardMove(state) {
   return state.game.shouldBoardMove;
 }
 
-export function isWinning(state) {
+export function isWinningState(state) {
   return state.game.isWinning;
 }
 
-export function isLosing(state) {
+export function isLosingState(state) {
   return state.game.isLosing;
 }
 

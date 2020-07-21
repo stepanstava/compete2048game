@@ -6,7 +6,7 @@ import actions from "../actions";
 import Square from "./Square";
 
 // import Score from "./Score";
-import { getSquares, shouldBoardMove, isWinning, isLosing } from "../selectors";
+import { getSquares, shouldBoardMove, isWinningState, isLosingState } from "../selectors";
 
 class Board extends Component {
   componentDidMount() {
@@ -16,6 +16,7 @@ class Board extends Component {
 
   renderSquares() {
     const { squares } = this.props;
+    // console.log("Board -> renderSquares -> squares", squares)
 
     return squares.map(square => {
       if (square) {
@@ -130,8 +131,8 @@ class Board extends Component {
 const mapStateToProps = state => ({
   squares: getSquares(state),
   shouldBoardMove: shouldBoardMove(state),
-  isWinning: isWinning(state),
-  isLosing: isLosing(state),
+  isWinning: isWinningState(state),
+  isLosing: isLosingState(state),
 });
 
 export default connect(mapStateToProps, {
