@@ -71,6 +71,15 @@ button {
 
 }
 
+.alert {
+  background-color: $color-danger;
+  opacity: 0.8;
+  border-radius:.3rem;
+  text-align: center;
+  margin-top: 1rem;
+  padding: .4rem 0;
+}
+
 @keyframes merge {
   0% {
     transform: scale(1);

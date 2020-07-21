@@ -438,11 +438,11 @@ nav .menu .item {
 }
 
 nav .menu .item:hover {
-  background-color: #952c2c;
+  background-color: #f1a360;
 }
 
 nav .menu .item.active {
-  background-color: #bd3737;
+  background-color: #EF9549;
 }
 
 .game-info {
@@ -835,6 +835,15 @@ button {
 .text {
   margin-top: 3rem;
   padding: 0 2rem;
+}
+
+.alert {
+  background-color: #dc3545;
+  opacity: 0.8;
+  border-radius: .3rem;
+  text-align: center;
+  margin-top: 1rem;
+  padding: .4rem 0;
 }
 
 @-webkit-keyframes merge {

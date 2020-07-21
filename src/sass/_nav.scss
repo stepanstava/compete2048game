@@ -49,11 +49,12 @@ nav {
       transition: background-color $transition-duration $transition-timing;
 
       &:hover {
-        background-color: darken($link-active-color, 10%);
+        background-color: lighten($square-2048, 5%);
       }
 
       &.active {
-        background-color: $link-active-color;
+        // background-color: $link-active-color;
+        background-color: $square-2048;
       }
     }
   }
