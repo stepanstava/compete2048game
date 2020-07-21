@@ -17,52 +17,10 @@
 @import "./elements/placeholder";
 @import "./elements/text";
 
-//! general rules:
-// -add default values
-// -have na main element vzdy class
-// <form class="form">
-// sam od sebe by nemel mit element vnejsi margin
-// posledni item elementu zadny bottom margin
-
-// $background-color: #bbada0;
-// $tile-color: #cdc1b4;
-$background-color: #575757;
-$tile-color: #bebebe;
-$gap-color: lighten($background-color, 20%);
-
-$square-width: 100px;
-$square-height: 100px;
-$square-border-radius: 0.2rem;
-$gap: 10px;
-$row-count: 4;
-
-$square-speed: 0.3s;
-
-$board-width: calc(
-  #{$row-count * $square-width + 2 * $gap + (($row-count - 1) * $gap)}
-);
-$board-height: calc(
-  #{$row-count * $square-width + 2 * $gap + (($row-count - 1) * $gap)}
-);
-
-// square colors
-// $square-2: #eee4da;
-// $square-4: #ede1cc;
-// $square-8: #f2b179;
-// $square-16: #f59563;
-// $square-32: #f67c5f;
-// $square-64: #f65e3b;
-// $square-128: #edcf72;
-// $square-256: #edcc61;
-$square-2: #DEFFA2;
-$square-4: #94FF9C;
-$square-8: #86FFE2;
-$square-16: #7ADBFF;
-$square-32: #f67c5f;
-$square-64: #f65e3b;
-$square-128: #edcf72;
-$square-256: #edcc61;
-$square-2048: #EF9549;
+@import "./config";
+@import "./nav";
+@import "./game-info";
+@import "./board";
 
 * {
   box-sizing: border-box;
@@ -74,447 +32,44 @@ body {
   font-family: $font-family;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: lighten($background-color, 5%);
-  color: $color-black;
+  background-color: $content-color;
+  color: $color-white;
 }
 
 button {
   font-weight: 700;
   font-size: 0.9rem;
-  padding: 0.5rem 1.1rem;
-  margin-left: .5rem;
+  padding: 0.5rem 0.8rem;
 }
 
-.wrapper {
-  // width: 800px;
-  margin: 0 auto;
-  // border: 1px solid #000;
-  // background-color: #faf8ef;
-  
+.square {
+  border-radius: $square-border-radius;
+  @include flex-center;
+  font-weight: 700;
+  color: $color-white;
 }
 
-
-
-.container {
-  // width: #{$board-width + $square-width};
-  //!zmenit na calculaci
-  // width: 600px;
-  max-width: $board-width;
-  // max-width: 600px;
-  // padding: 0;
-  display: flex;
-  flex-direction: column;
-  // align-items: center;
-  justify-content: center;
-
-  // border: 1px solid #000;
-  // background-color: #faf8ef;
-  background-color: inherit;
-  // background-color: $color-white;
-  // padding: 2rem 1rem;
-  padding: 0;
-  margin: 0 auto;
-  // border: 1px solid #000;
-  background-color: lighten($background-color, 10%);
-  // background-color: red;
-  // border: 1px solid #000;
-}
-
-.header-wrapper {
-  // border: 10px solid #000;
-  background-color: #42413F;
-  padding: 1rem 0;
-}
-
-
+// Content
 
 .content-wrapper {
-  background-color: lighten($background-color, 10%);
+  background-color: $content-color;
 }
 
-.site-header {
-  max-width: 800px;
-  // border: 1px solid rgb(245, 15, 15);
+.content {
+  overflow: hidden;
+  max-width: $board-width;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: $content-color;
   margin: 0 auto;
-  margin-top: 1.5rem;
-  padding: 0 3rem;
-  // border: 1px solid #000;
-  @include flex-between;
-  // align-items: flex-start;
-  background-color: #42413F;
-
-  .squares {
-    display: flex;
-  }
-
-  .square {
-    width: 100px;
-    height: 100px;
-    border-radius: $square-border-radius;
-    @include flex-center;
-    font-weight: 700;
-    font-size: 2.5rem;
-    background-color: $square-2048;
-    animation: appear 0.2s ease-in-out;
-    color: $color-white;
-    
-  }
-
-  .sq1 {
-    background-color: #DC3272;
-    margin-right: .2rem;
-  }
-  .sq2 {
-    background-color: #E3394A;
-    margin-right: .2rem;
-  }
-  .sq3 {
-    background-color: #E95F41;
-    margin-right: 1rem;
-  }
-
-  .menu {
-    // border: 1px solid #000;
-    padding: .2rem 1rem;
-    background-color: inherit;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    width: 300px;
-    // align-items: flex-end;
-    align-self: flex-end;
-    // justify-self: flex-start;
-  
-    .item {
-      text-transform: uppercase;
-      font-weight: 700;
-      font-size: .8rem;
-      background-color: rgb(189, 55, 55);
-      border-radius: .2rem;
-      color: white;
-      padding: 0.2rem 0.4rem;
-    }
-  }
 }
 
-
-.game-info {
-  padding: 1rem 0rem .5rem;
-  background-color: lighten($background-color, 10%);
-  border-radius: .3rem;
-  margin-top: 2rem;
-  color: white;
-
-  .row {
-    @include flex-between;
-    // border: 1px solid #000;
-  }
-
-  .row-new-game {
-    margin-bottom: .6rem;
-    justify-content: space-between;
-    // border: 1px solid #000;
-
-    i {
-      // border: 1px solid #000;
-      font-size: 1.8rem;
-      color: white;
-    }
-  }
-
-  .row-score {
-    display: flex;
-    justify-content: space-between;
-    // border: 1px solid #000;
-
-    .scores {
-      // border: 1px solid #000;
-      display: flex;
-    }
-
-    .history {
-      align-self: flex-end;
-    }
-
-    i {
-      // border: 1px solid #000;
-      font-size: 0.7rem;
-      color: white;
-    }
-  }
-
-  .row-history {
-    // border: 1px solid #000;
-    display: flex;
-    justify-content: space-between;
-    // align-content: flex-end;
-    margin-top: .5rem;
-
-
-  }
-
-  .left {
-    // border: 1px solid #000;
-    // flex-grow: 1;
-
-  }
-
-  .timer {
-    color: $color-white;
-    // margin-right: 2rem;
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-left: .2rem;
-  }
-
-
-
-  button {
-    padding: 0.5rem 0.8rem;
-    background-color: rgb(61, 61, 61);
-    margin: 0;
-  }
-
-  .right {
-
-  }
-
-
-  // display: flex;
-  // align-content: space-between;
-  // border: 1px solid #000;
-
-  .buttons {
-    // border: 1px solid #000;
-  }
-}
-
-// i {
-//   color: white;
-//   font-size: 3rem;
-// }
-
-.margin {
+.text {
   margin-top: 3rem;
   padding: 0 2rem;
-  // border: 1px solid #000;
+
 }
-
-// score
-.score {
-  // align-self: flex-end;
-  @include flex-center;
-  flex-direction: column;
-  background-color: $background-color;
-  color: $color-white;
-  padding: 0.2rem 1rem;
-  border-radius: 0.2rem;
-  //!remove for last
-  margin-right: .2rem;
-  // margin-bottom: 1rem;
-
-  // border: 1px solid #000;
-
-  .title {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: lighten($color-black, 50%);
-  }
-
-  .points {
-    margin-top: -0.4rem;
-    font-size: 1.2rem;
-    font-weight: 700;
-    position: relative;
-    // border: 1px solid #000;
-    // width: 100px;
-    // height: 100px;
-
-    .points-round {
-      position: absolute;
-      left: -30%;
-      font-size: 1rem;
-      color: $color-black;
-      animation: score-update .6s ease-in;
-    }
-
-  }
-}
-
-// header
-.header {
-  // border: 1px solid #000;
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 2rem;
-  
-}
-
-// board
-.board {
-  // border: 1px solid #000;
- 
-  align-self: center;
-  min-width: $board-width;
-  min-height: $board-height;
-  background-color: $gap-color;
-  border-radius: 0.4rem;
- 
-  border: $gap solid $gap-color;
-  position: relative;
-
-  // border: 5px solid #000;
-  position: relative;
-
-  .tile-container {
-    // border: 5px solid rgb(250, 5, 5);
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    // width: 100%;
-    // background-color: transparent;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: $gap;
-
-  } 
-
-  .square-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    // border: 10px solid #000;
-  }
-
-  .lost-screen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    // border: 10px solid #000;
-    background-color: #b9b9b97c;
-    
-    @include flex-center;
-    flex-direction: column;
-
-    h2 {
-      font-size: 3rem;
-      color: darken($color-black, 30%);
-      margin-bottom: 1rem;
-    }
-
-  }
-
-
-  .winning-screen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    // border: 10px solid #000;
-    background-color: #dbd94f7c;
-    
-    @include flex-center;
-    flex-direction: column;
-
-    h2 {
-      font-size: 3rem;
-      color: darken($color-black, 30%);
-      margin-bottom: 1rem;
-    }
-
-  }
-
-
-
-
-  .tile {
-    background-color: $tile-color;
-    border-radius: $square-border-radius;
-  }
-
-  .square {
-    width: $square-width;
-    height: $square-height;
-    position: absolute;
-    // bottom: 100px; // $square-width + $gap
-    // right: 0px;
-    border-radius: $square-border-radius;
-    @include flex-center;
-    font-weight: 700;
-    font-size: 2.5rem;
-    background-color: $square-2;
-    animation: appear 0.2s ease-in-out;
-    //square move animation
-    // transition: top $square-speed ease-in-out, left $square-speed ease-in-out;
-    transition: top $square-speed ease-in-out, left $square-speed ease-in-out;
-
-    &.sq-2 {
-      color: $color-black;
-      background-color: $square-2;
-    }
-
-    &.sq-4 {
-      color: $color-black;
-      background-color: $square-4;
-    }
-
-    &.sq-8 {
-      color: $color-white;
-      background-color: $square-8;
-    }
-
-    &.sq-16 {
-      color: $color-white;
-      background-color: $square-16;
-    }
-
-    &.sq-32 {
-      color: $color-white;
-      background-color: $square-32;
-    }
-
-    &.sq-64 {
-      color: $color-white;
-      background-color: $square-64;
-    }
-
-    &.sq-128 {
-      color: $color-white;
-      background-color: $square-128;
-    }
-
-    &.sq-256 {
-      color: $color-white;
-      background-color: $square-256;
-    }
-    &.sq-2048 {
-      color: $color-white;
-      background-color: $square-2048;
-    }
-
-    &.merge {
-      animation: merge 0.2s $square-speed ease-in-out;
-      // transform: scale(1);
-    }
-  }
-}
-// @keyframes loader-spin {
-//   from {
-//     transform: rotate(0);
-//   }
-//   to {
-//     transform: rotate(360deg);
-//   }
-// }
 
 @keyframes merge {
   0% {

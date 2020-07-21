@@ -1,0 +1,60 @@
+// Navbar
+.header-wrapper {
+  background-color: $header-color;
+  padding: 1rem 0;
+}
+
+nav {
+  //!calculate
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 1.5rem;
+  padding: 0 3rem;
+  @include flex-between;
+
+  .logo {
+    display: flex;
+    align-content: center;
+
+    .square {
+      width: 100px;
+      height: 100px;
+      font-weight: 700;
+      font-size: 2.5rem;
+      background-color: $square-2048;
+      margin-right: 0.2rem;
+    }
+
+    .sq1 {
+      background-color: $square-16384;
+    }
+    .sq2 {
+      background-color: $square-8192;
+    }
+  }
+
+  .menu {
+    justify-content: flex-end;
+    padding: 0;
+    align-self: flex-end;
+
+    .item {
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 0.8rem;
+      background-color: $content-color;
+      border-radius: 0.2rem;
+      color: white;
+      padding: 0.2rem 0.5rem;
+      transition: background-color $transition-duration $transition-timing;
+
+      &:hover {
+        background-color: darken($link-active-color, 10%);
+      }
+
+      &.active {
+        background-color: $link-active-color;
+      }
+    }
+  }
+}

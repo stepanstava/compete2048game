@@ -1,0 +1,73 @@
+$header-color: #42413F;
+$background-color: #575757;
+$content-color: lighten($background-color, 10%);
+$tile-color: #a8a8a8;
+$gap-color: lighten($background-color, 20%);
+
+$square-width: 100px;
+$square-height: 100px;
+$square-border-radius: 0.2rem;
+$gap: 10px;
+$row-count: 4;
+
+$square-speed: 0.3s;
+
+$board-width: calc(
+  #{$row-count * $square-width + 2 * $gap + (($row-count - 1) * $gap)}
+);
+$board-height: calc(
+  #{$row-count * $square-width + 2 * $gap + (($row-count - 1) * $gap)}
+);
+
+
+$link-active-color: rgb(189, 55, 55);
+
+// square colors
+// $square-2: #eee4da;
+// $square-4: #ede1cc;
+// $square-8: #f2b179;
+// $square-16: #f59563;
+// $square-32: #f67c5f;
+// $square-64: #f65e3b;
+// $square-128: #edcf72;
+// $square-256: #edcc61;
+$square-2: #EAFFC5;
+$square-4: #BAFFB5;
+$square-8: #A6FFD2;
+$square-16: #98FFFF;
+
+$square-32: #8BCFFF;
+$square-64: #7E85FF;
+
+$square-128: #edcf72;
+$square-256: #edcc61;
+$square-2048: #EF9549;
+
+$square-8192: #E3394A;
+$square-16384: #DC3272;
+
+
+// #0D3C8C
+// #111898
+// #3A15A3
+// #6C1AAF
+// #A120BA
+// #C625C2
+// #D12C9A
+// #DC3272
+// #E3394A
+// #E95F41
+// #ef9549
+// #F55259
+// #FA5CB2
+// #F766FE
+// #B372FF
+
+// #7E85FF
+// #8BCFFF
+// #98FFFF
+
+
+// #A6FFD2
+// #BAFFB5
+// #EAFFC5

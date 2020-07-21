@@ -1,0 +1,73 @@
+// Game info
+.game-info {
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+
+  .row {
+    @include flex-between;
+    margin-bottom: 0.6rem;
+    // border: 1px solid #000;
+  }
+
+  //!hover na icone nefunguje
+  .settings {
+    font-size: 1.8rem;
+    color: white;
+  }
+
+  .timer {
+    color: $color-white;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  .scores {
+    display: flex;
+  }
+
+  .history {
+    align-self: flex-end;
+
+    i {
+      font-size: 0.7rem;
+      color: white;
+    }
+
+    button {
+      padding: 0.5rem 0.6rem;
+    }
+  }
+}
+
+// Score
+.score {
+  @include flex-center;
+  flex-direction: column;
+  background-color: $background-color;
+  color: $color-white;
+  padding: 0.2rem 1rem;
+  border-radius: 0.2rem;
+  margin-right: 0.2rem;
+
+  .title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: lighten($color-black, 50%);
+  }
+
+  .points {
+    // margin-top: -0.4rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    position: relative;
+
+    .points-round {
+      position: absolute;
+      left: -30%;
+      font-size: 1rem;
+      color: $color-black;
+      animation: score-update 0.6s ease-in;
+    }
+  }
+}
