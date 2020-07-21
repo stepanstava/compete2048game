@@ -148,14 +148,10 @@
 }
 
 .form .item {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
   margin: 0 0.3rem;
 }
 
 .form label {
-  width: 100%;
   font-size: 0.8rem;
   font-weight: 700;
   margin-bottom: 0.3rem;
@@ -166,7 +162,6 @@
 .form textarea {
   font-family: "Lato", "Arial", "Helvetica", sans-serif;
   outline: 0;
-  width: 100%;
   padding: 0.7rem 0.6rem;
   font-size: 0.8rem;
   background: #fff;
@@ -555,80 +550,6 @@ nav .menu .item.active {
   position: relative;
 }
 
-.board .tile-container,
-.board .square-container,
-.board .lost-screen,
-.board .winning-screen {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (1fr)[4];
-      grid-template-columns: repeat(4, 1fr);
-  -ms-grid-rows: (1fr)[4];
-      grid-template-rows: repeat(4, 1fr);
-  gap: 10px;
-}
-
-.board .tile-container {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (1fr)[4];
-      grid-template-columns: repeat(4, 1fr);
-  -ms-grid-rows: (1fr)[4];
-      grid-template-rows: repeat(4, 1fr);
-  gap: 10px;
-}
-
-.board .lost-screen {
-  background-color: #b9b9b97c;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.board .lost-screen h2 {
-  font-size: 3rem;
-  color: black;
-  margin-bottom: 1rem;
-}
-
-.board .winning-screen {
-  background-color: #dbd94f7c;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.board .winning-screen h2 {
-  font-size: 3rem;
-  color: black;
-  margin-bottom: 1rem;
-}
-
 .board .tile {
   background-color: #a8a8a8;
   border-radius: 0.2rem;
@@ -705,6 +626,153 @@ nav .menu .item.active {
 .board .square.merge {
   -webkit-animation: merge 0.2s 0.3s ease-in-out;
           animation: merge 0.2s 0.3s ease-in-out;
+}
+
+.board .tile-container,
+.board .square-container,
+.board .lost-screen,
+.board .winning-screen,
+.board .settings-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.tile-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[4];
+      grid-template-columns: repeat(4, 1fr);
+  -ms-grid-rows: (1fr)[4];
+      grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.lost-screen {
+  background-color: #b9b9b97c;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.lost-screen h2 {
+  font-size: 3rem;
+  color: black;
+  margin-bottom: 1rem;
+}
+
+.winning-screen {
+  background-color: #dbd94f7c;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.winning-screen h2 {
+  font-size: 3rem;
+  color: black;
+  margin-bottom: 1rem;
+}
+
+.settings-screen {
+  background-color: rgba(73, 73, 73, 0.95);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 1rem;
+}
+
+.settings-screen .close {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  margin-bottom: 1rem;
+}
+
+.settings-screen .close i {
+  color: #000;
+  font-size: 1.5rem;
+}
+
+.settings-screen button {
+  color: white;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.settings-screen form {
+  background-color: transparent;
+  padding: 0;
+  height: 100%;
+}
+
+.settings-screen form select {
+  padding: 0.2rem 0;
+  padding-right: 1.5rem;
+  font-size: 0.8rem;
+  border: 0;
+  color: #fff;
+}
+
+.settings-screen form .field {
+  margin-bottom: 1.5rem;
+}
+
+.settings-screen form .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 45%;
+}
+
+.settings-screen form .meta {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.settings-screen form label {
+  margin: 0;
+}
+
+.settings-screen form i {
+  margin-right: 1rem;
+  color: #000;
 }
 
 * {

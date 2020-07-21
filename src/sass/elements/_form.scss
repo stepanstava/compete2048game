@@ -40,12 +40,12 @@
   }
 
   .item {
-    flex-grow: 1;
+    // flex-grow: 1;
     margin: 0 0.3rem;
   }
 
   label {
-    width: 100%;
+    // width: 100%;
     font-size: 0.8rem;
     font-weight: 700;
     margin-bottom: 0.3rem;
@@ -56,7 +56,7 @@
   textarea {
     font-family: $font-family;
     outline: 0;
-    width: 100%;
+    // width: 100%;
     padding: 0.7rem 0.6rem;
     font-size: 0.8rem;
     background: #fff;

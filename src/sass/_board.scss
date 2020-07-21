@@ -11,58 +11,6 @@
 
   position: relative;
 
-  .tile-container,
-  .square-container,
-  .lost-screen,
-  .winning-screen  {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: $gap;
-  }
-
-  .tile-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: $gap;
-  }
-
-  .square-container {
-    // border: 10px solid #000;
-  }
-
-  .lost-screen {
-    background-color: #b9b9b97c;
-
-    @include flex-center;
-    flex-direction: column;
-
-    h2 {
-      font-size: 3rem;
-      color: darken($color-black, 30%);
-      margin-bottom: 1rem;
-    }
-  }
-
-  .winning-screen {
-    background-color: #dbd94f7c;
-
-    @include flex-center;
-    flex-direction: column;
-
-    h2 {
-      font-size: 3rem;
-      color: darken($color-black, 30%);
-      margin-bottom: 1rem;
-    }
-  }
-
   .tile {
     background-color: $tile-color;
     border-radius: $square-border-radius;
@@ -131,6 +79,119 @@
     &.merge {
       animation: merge 0.2s $square-speed ease-in-out;
       // transform: scale(1);
+    }
+  }
+
+  .tile-container,
+  .square-container,
+  .lost-screen,
+  .winning-screen,
+  .settings-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+// Screens
+
+.tile-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: $gap;
+}
+
+.square-container {
+  // border: 10px solid #000;
+}
+
+.lost-screen {
+  background-color: #b9b9b97c;
+
+  @include flex-center;
+  flex-direction: column;
+
+  h2 {
+    font-size: 3rem;
+    color: darken($color-black, 30%);
+    margin-bottom: 1rem;
+  }
+}
+
+.winning-screen {
+  background-color: #dbd94f7c;
+
+  @include flex-center;
+  flex-direction: column;
+
+  h2 {
+    font-size: 3rem;
+    color: darken($color-black, 30%);
+    margin-bottom: 1rem;
+  }
+}
+
+.settings-screen {
+  background-color: rgba(73, 73, 73, 0.95);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+
+  .close {
+    align-self: flex-end;
+    margin-bottom: 1rem;
+    //! add hover
+    i {
+      color: $color-black;
+      font-size: 1.5rem;
+    }
+  }
+
+  button {
+    color: white;
+    align-self: center;
+  }
+
+  form {
+    background-color: transparent;
+    padding: 0;
+    height: 100%;
+   
+
+    select {
+      padding: 0.2rem 0;
+      padding-right: 1.5rem;
+      font-size: 0.8rem;
+      border: 0;
+      color: $color-white;
+    }
+
+    .field {
+      margin-bottom: 1.5rem;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 45%;
+    }
+
+    .meta {
+      display: flex;
+      align-items: center;
+    }
+
+    label {
+      margin: 0;
+    }
+
+    i {
+      margin-right: 1rem;
+      color: $color-black;
     }
   }
 }
