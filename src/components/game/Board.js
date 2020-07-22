@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import actions from "../actions";
+import actions from "../../actions";
 
 import Square from "./Square";
 
 // import Score from "./Score";
-import { getSquares, shouldBoardMove, isWinningState, isLosingState } from "../selectors";
+import { getSquares, shouldBoardMove, isWinningState, isLosingState } from "../../selectors";
 
 class Board extends Component {
   componentDidMount() {

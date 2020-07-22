@@ -12,26 +12,7 @@ nav {
   padding: 0 3rem;
   @include flex-between;
 
-  .logo {
-    display: flex;
-    align-content: center;
 
-    .square {
-      width: 100px;
-      height: 100px;
-      font-weight: 700;
-      font-size: 2.5rem;
-      background-color: $square-2048;
-      margin-right: 0.2rem;
-    }
-
-    .sq1 {
-      background-color: $square-16384;
-    }
-    .sq2 {
-      background-color: $square-8192;
-    }
-  }
 
   .menu {
     justify-content: flex-end;
@@ -57,5 +38,26 @@ nav {
         background-color: $square-2048;
       }
     }
+  }
+}
+
+.logo {
+  display: flex;
+  align-content: center;
+
+  .square {
+    width: 100px;
+    height: 100px;
+    font-weight: 700;
+    font-size: 2.5rem;
+    background-color: $square-2048;
+    margin-right: 0.2rem;
+  }
+
+  .sq1 {
+    background-color: $square-16384;
+  }
+  .sq2 {
+    background-color: $square-8192;
   }
 }

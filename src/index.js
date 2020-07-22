@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
+import { BrowserRouter } from "react-router-dom";
 
 import { createStore, applyMiddleware  } from "redux";
 import thunk from 'redux-thunk';
@@ -15,7 +16,9 @@ const store = createStore(reducers, applyMiddleware(thunk));
 // window.requestAnimationFrame(function () {
   ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>,
     document.getElementById('root')
   )

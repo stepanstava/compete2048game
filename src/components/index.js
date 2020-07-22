@@ -1,9 +1,16 @@
-import React, { Component } from "react";
+import React, { Fragment, Component } from "react";
 import { connect } from "react-redux";
 
-import Score from "./Score";
-import Header from "./Header";
-import Board from "./Board";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+// import Score from "./Score";
+// import Header from "./Header";
+// import Board from "./Board";
+import Navbar from "./layout/Navbar";
+
+import Compete from "./Compete";
+import Highscore from "./Highscore";
+import Practise from "./Practise";
 
 // import { increment } from "../actions";
 
@@ -21,11 +28,30 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
-        <Score />
-        <Header handleNewGameButton={this.handleNewGameButton} />
-        <Board handleNewGameButton={this.handleNewGameButton} />
-      </div>
+      <Router>
+        <Fragment>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Practise} />
+            <Route exact path="/compete" component={Compete} />
+            <Route exact path="/highscore" component={Highscore} />
+          </Switch>
+        </Fragment>
+      </Router>
+
+      // <Fragment>
+      //   <Switch>
+      //     <Route path="/compete">
+      //       <Compete />
+      //     </Route>
+      //     <Route path="/highscore">
+      //       <Highscore />
+      //     </Route>
+      //     <Route path="/">
+      //       <Practise />
+      //     </Route>
+      //   </Switch>
+      // </Fragment>
     );
   }
 }
