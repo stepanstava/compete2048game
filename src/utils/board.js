@@ -7,3 +7,13 @@ export function compareCondition(index, direction) {
     return index >= 0;
   }
 }
+
+export function cloneBoardMap(boardMap) {
+  const newBoardMap = [];
+
+  boardMap.forEach(row => {
+    newBoardMap.push([...row]);
+  })
+
+  return newBoardMap;
+}

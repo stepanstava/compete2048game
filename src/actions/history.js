@@ -12,7 +12,7 @@ export function undo() {
 
     //get current state
     const currectState = getCurrentState(getState());
-    console.log("undo -> currectState", currectState);
+    // console.log("undo -> currectState", currectState);
     // "UPDATE SQUARES"
     const { squares, score, isWinning, isLosing } = currectState;
 

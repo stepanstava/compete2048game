@@ -1,3 +1,4 @@
+import { cloneDeep } from "lodash";
 
 import { moveBoardToBottom } from "./down"
 
@@ -12,6 +13,7 @@ const initialState = {
   isLosing: false,
   goal: 14,
   doubleSquareProb: 0.1,
+  moveAnimationDuration: 500,
 };
 
 export default function (state = initialState, action) {
@@ -100,6 +102,9 @@ export function isWinningState(state) {
 
 export function isLosingState(state) {
   return state.game.isLosing;
+}
+export function getMoveAnimationDuration(state) {
+  return state.game.moveAnimationDuration;
 }
 
 // export function getBoard(state) {

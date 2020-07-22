@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 // import { connect } from 'react-redux'
+import Score from "./Score";
 
 class Toolbar extends Component {
   // constructor(props) {
@@ -10,11 +11,7 @@ class Toolbar extends Component {
   renderScore() {
     return (
       <div class="scores">
-        <div class="score">
-          <span class="title">Score</span>
-          {/* <span class="points">80 <span class="points-round">+16</span></span> */}
-          <span class="points">80</span>
-        </div>
+        <Score />
 
         <div class="score">
           <span class="title">Best</span>

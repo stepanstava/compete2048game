@@ -1,3 +1,5 @@
+import { cloneDeep } from "lodash";
+
 import { moveBoardToBottom } from "./down"
 
 //! add to store
@@ -13,6 +15,11 @@ const initialState = {
   boardDimensions: {
     rows: 4,
     columns: 4
+  },
+  queues: {
+    moveQue: [],
+    merchedQue: [],
+    updatedQue: [],
   }
 };
 
@@ -29,10 +36,34 @@ export default function (state = initialState, action) {
 
     case "UPDATE_BOARD_MAP": {
       const { boardMap } = action;
+
       // console.log("boardMap", boardMap)
       return {
         ...state,
         boardMap,
+      };
+    }
+
+    
+
+    case "UPDATE_QUEUES": {
+      const { moveQue, merchedQue, updatedQue} = action.queues;
+      return {
+        ...state,
+        queues: {
+          moveQue, merchedQue, updatedQue
+        }
+      };
+    }
+
+    case "CLEAR_QUEUES": {
+      return {
+        ...state,
+        queues: {
+          moveQue: [],
+          merchedQue: [],
+          updatedQue: [],
+        }
       };
     }
 
@@ -45,6 +76,14 @@ export default function (state = initialState, action) {
 export function getBoardMap(state) {
   return state.board.boardMap;
 }
+export function getBoardDimensions(state) {
+  return state.board.boardDimensions;
+}
+
+export function getBoardQueues(state) {
+  return state.board.queues;
+}
+
 
 export function getEmptyBoardMap(rows, columns) {
   const board = [];

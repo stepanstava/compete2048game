@@ -1,30 +1,29 @@
-import { getBoard, getBoardMap, getEmptyBoardMap } from "../selectors";
+import {
+  getBoard,
+  getBoardMap,
+  getEmptyBoardMap,
+  getBoardDimensions,
+  getMoveAnimationDuration,
+} from "../selectors";
 import { compareCondition } from "../utils/board";
+import { updateBoardMap, updateQueues } from "./board";
 import { addSquare } from "./square";
 import { updateShouldBoardMove, updateScore, addWinner } from "./game";
 import { saveCurrentState } from "./history";
 
-const SQUARES_ROW = 4;
-const MERGE_DELAY = 500;
-
 // --VERTICALLY--
 export function moveBoardVertically(borderIndex, direction) {
   return (dispatch, getState) => {
- 
-    dispatch(updateShouldBoardMove(false));
-
     const boardMap = getBoardMap(getState());
-    //! nahradit SQUARES_ROW
-    const { rows, columns } = getState().board.boardDimensions;
+    const { rows, columns } = getBoardDimensions(getState());
     const newBoardMap = getEmptyBoardMap(rows, columns);
     const moveQue = [];
     const merchedQue = [];
     const updatedQue = [];
 
-    for (let columnIndex = 0; columnIndex < SQUARES_ROW; columnIndex++) {
+    for (let columnIndex = 0; columnIndex < columns; columnIndex++) {
+      // For each element of column in passed direction skips empty items and creates a move helper array.
       let moveItemsArr = [];
-
-      // For each element of column from bottom to top.
       for (
         let rowIndex = borderIndex;
         compareCondition(rowIndex, direction);
@@ -32,85 +31,73 @@ export function moveBoardVertically(borderIndex, direction) {
       ) {
         // Skips empty items and creates move array.
         if (boardMap[rowIndex][columnIndex]) {
-          moveItemsArr.push(boardMap[rowIndex][columnIndex]);
+          const square = boardMap[rowIndex][columnIndex];
+          moveItemsArr.push({ ...square });
         }
       }
 
-      // Build moving, mergech and updated queues.
+      // Builds moving, mergech and updated queues.
       for (let i = 0; i < moveItemsArr.length; i++) {
         const newItem = moveItemsArr[i];
         const newItemNeighbour = moveItemsArr[i + 1];
 
-        // Merges two items if they have same values at consecutive positions
+        // Merges two items if they have same values at consecutive positions.
         if (
           newItemNeighbour &&
           moveItemsArr[i].value === moveItemsArr[i + 1].value
         ) {
-          // updates boardMap
-          newBoardMap[newItemNeighbour.posX][newItemNeighbour.posY] = null;
-
-          // updates merged item
+          // Updates merged item.
           newItemNeighbour.posX = Math.abs(borderIndex - i);
           newItemNeighbour.posY = columnIndex;
           newItemNeighbour.merge = true;
 
+          // Adds merged item to moving and merged queue.
           moveQue.push(newItemNeighbour);
           merchedQue.push(newItemNeighbour);
+          // Adds item that the 'merged' item merged to to update queue.
           updatedQue.push(newItem);
 
-          //removes merged item from helper array to make sure that the following items are moving correctly
+          // Removes merged item from helper array to make sure that the following items are moving correctly.
           moveItemsArr.splice(i, 1);
+
+          //!
+          // Removes merged item from boardMap.
+          // newBoardMap[newItemNeighbour.posX][newItemNeighbour.posY] = null;
         }
 
-        // updates newItem to it's new position
+        // Updates newItem to it's new position
         newItem.posX = Math.abs(borderIndex - i);
         newItem.posY = columnIndex;
 
-        const mapItem = boardMap[Math.abs(borderIndex - i)][columnIndex];
-        // has changed position - moving only in row direction
-        if (mapItem === null || newItem.posX !== mapItem.posX) {
+        // Checks if a new item has different position that the previous item, if so the new item
+        // is added to moving queue.
+        const previousItem = boardMap[Math.abs(borderIndex - i)][columnIndex];
+        if (previousItem === null || newItem.id !== previousItem.id) {
           moveQue.push(newItem);
         }
 
-        // updates boardMap
+        // Updates boardMap
         newBoardMap[Math.abs(borderIndex - i)][columnIndex] = newItem;
       }
     }
 
-    clearQueues(dispatch, moveQue, merchedQue, updatedQue, newBoardMap, getState);
-
-    // finally we can update boardMap
-    dispatch({
-      type: "UPDATE_BOARD_MAP",
-      boardMap: newBoardMap,
-    });
-
-    //!move to better logic
-    setTimeout(() => {
-      dispatch(addSquare());
-      dispatch(updateShouldBoardMove(true));
-      dispatch(saveCurrentState(true));
-    }, MERGE_DELAY);
+    dispatch(updateBoardMap(newBoardMap));
+    dispatch(updateQueues(moveQue, merchedQue, updatedQue));
   };
 }
 
-//-- HORIZONTALLY --
 export function moveBoardHorizontally(borderIndex, direction) {
   return (dispatch, getState) => {
-    dispatch(updateShouldBoardMove(false));
-
     const boardMap = getBoardMap(getState());
-    //! nahradit SQUARES_ROW
-    const { rows, columns } = getState().board.boardDimensions;
+    const { rows, columns } = getBoardDimensions(getState());
     const newBoardMap = getEmptyBoardMap(rows, columns);
     const moveQue = [];
     const merchedQue = [];
     const updatedQue = [];
 
-    for (let rowIndex = 0; rowIndex < SQUARES_ROW; rowIndex++) {
-      let moveItemsArr = [];
-
-      // For each element of column from bottom to top.
+    for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
+      // For each element of row in passed direction skips empty items and creates a move helper array.
+      const moveItemsArr = [];
       for (
         let columnIndex = borderIndex;
         compareCondition(columnIndex, direction);
@@ -118,113 +105,57 @@ export function moveBoardHorizontally(borderIndex, direction) {
       ) {
         // Skips empty items and creates move array.
         if (boardMap[rowIndex][columnIndex]) {
-          moveItemsArr.push(boardMap[rowIndex][columnIndex]);
+          const square = boardMap[rowIndex][columnIndex];
+          moveItemsArr.push({ ...square });
         }
       }
 
-      // Build moving, mergech and updated queues.
+      // Builds moving, mergech and updated queues.
       for (let i = 0; i < moveItemsArr.length; i++) {
         const newItem = moveItemsArr[i];
         const newItemNeighbour = moveItemsArr[i + 1];
 
-        // Merges two items if they have same values at consecutive positions
+        // Merges two items if they have same values at consecutive positions.
         if (
           newItemNeighbour &&
           moveItemsArr[i].value === moveItemsArr[i + 1].value
         ) {
-          // updates boardMap
-          newBoardMap[newItemNeighbour.posX][newItemNeighbour.posY] = null;
-
-          // updates merged item
+          // Updates merged item.
           newItemNeighbour.posX = rowIndex;
           newItemNeighbour.posY = Math.abs(borderIndex - i);
           newItemNeighbour.merge = true;
 
+          // Adds merged item to moving and merged queue.
           moveQue.push(newItemNeighbour);
           merchedQue.push(newItemNeighbour);
+          // Adds item that the 'merged' item merged to to update queue.
           updatedQue.push(newItem);
 
-          //removes merged item from helper array to make sure that the following items are moving correctly
+          // Removes merged item from helper array to make sure that the following items are moving correctly.
           moveItemsArr.splice(i, 1);
+
+          //!
+          // Removes merged item from boardMap.
+          // newBoardMap[newItemNeighbour.posX][newItemNeighbour.posY] = null;
         }
 
-        // updates newItem to it's new position
+        // Updates newItem to it's new position
         newItem.posX = rowIndex;
         newItem.posY = Math.abs(borderIndex - i);
 
-        const mapItem = boardMap[rowIndex][Math.abs(borderIndex - i)];
-        // has changed position - moving only in row direction
-        if (mapItem === null || newItem.posY !== mapItem.posY) {
+        // Checks if a new item has different position that the previous item, if so the new item
+        // is added to moving queue.
+        const previousItem = boardMap[rowIndex][Math.abs(borderIndex - i)];
+        if (previousItem === null || newItem.id !== previousItem.id) {
           moveQue.push(newItem);
         }
 
-        // updates boardMap
+        // Updates boardMap
         newBoardMap[rowIndex][Math.abs(borderIndex - i)] = newItem;
       }
     }
 
-    clearQueues(dispatch, moveQue, merchedQue, updatedQue, newBoardMap, getState);
-
-    // finally we can update boardMap
-    dispatch({
-      type: "UPDATE_BOARD_MAP",
-      boardMap: newBoardMap,
-    });
-
-    //!move to better logic
-    setTimeout(() => {
-      dispatch(addSquare());
-      dispatch(updateShouldBoardMove(true));
-      dispatch(saveCurrentState(true));
-    }, MERGE_DELAY);
+    dispatch(updateBoardMap(newBoardMap));
+    dispatch(updateQueues(moveQue, merchedQue, updatedQue));
   };
-}
-
-function clearQueues(dispatch, moveQue, merchedQue, updatedQue, newBoardMap, getState) {
-  // clears moving que
-  moveQue.forEach(square => {
-    dispatch({
-      type: "UPDATE_SQUARE",
-      square,
-    });
-  });
-
-  setTimeout(() => {
-    // removes merged item from the dom after merge animation
-    merchedQue.forEach(square => {
-      dispatch({
-        type: "REMOVE_SQUARE",
-        square,
-      });
-    });
-
-    let scoreRound = 0;
-    const goal= getState().game.goal;
-
-    // updates value of items that 'was merged' and updated the boardMap
-    updatedQue.forEach(square => {
-      const { posX, posY } = square;
-      square.value *= 2;
-      scoreRound += square.value;
-
-      newBoardMap[posX][posY] = square;
-
-      dispatch({
-        type: "UPDATE_SQUARE",
-        square,
-      });
-
-      // check winning square
-      //! make sure that 'shouldBoardMove' is updated
-      if (square.value >= goal) {
-        dispatch(addWinner());
-      }
-
-    });
-    
-    dispatch(updateScore(scoreRound));
-
-
-  
-  }, MERGE_DELAY);
 }

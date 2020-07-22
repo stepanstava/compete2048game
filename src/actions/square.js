@@ -1,8 +1,10 @@
 import crypto from "crypto";
+import { cloneDeep } from "lodash";
 
 import { updateBoardMap } from "./board";
 import { shouldLoose } from "./game";
 import { getBoardMap, isLosing } from "../selectors";
+import { cloneBoardMap } from "../utils/board";
 
 const SQUARES_ROW = 4;
 
@@ -24,10 +26,14 @@ function getRandomSquareCords(boardMap) {
   }
 }
 
+
+
 export function addSquare() {
   return (dispatch, getState) => {
     const boardMap = getBoardMap(getState());
-    const newBoardMap = [...boardMap];
+
+    const newBoardMap = cloneBoardMap(boardMap);
+    // const newBoardMap = [...boardMap];
     const { posX, posY } = getRandomSquareCords(boardMap);
     const doubleSquareProb = getState().game.doubleSquareProb;
     // console.log("addSquare -> posY", posX)
@@ -50,11 +56,13 @@ export function addSquare() {
     newBoardMap[posX][posY] = square;
     // console.log("addSquare -> newBoardMap", newBoardMap)
     //! zmenit na reducer -> posle se cords
-    updateBoardMap(newBoardMap);
+    dispatch(updateBoardMap(newBoardMap));
+
+    console.log(getBoardMap(getState()))
 
     //! not done
-    const squaresCount = getState().squares.squaresCount;
-    shouldLoose(squaresCount);
+    // const squaresCount = getState().squares.squaresCount;
+    // shouldLoose(squaresCount);
 
   };
 }

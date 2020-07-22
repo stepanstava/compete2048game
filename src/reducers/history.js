@@ -28,7 +28,7 @@ export default function (state = initialState, action) {
 
       // removes the last item from undoArr
       const undoArrUpdated = undoArr.slice(0, undoArr.length - 1);
-      console.log("undoArrUpdated", undoArrUpdated)
+      // console.log("undoArrUpdated", undoArrUpdated)
      
 
       return {
@@ -48,7 +48,7 @@ export default function (state = initialState, action) {
       // console.log("currentStateCopy", currentStateCopy)
       // const squaresCopy = [...currentState.squares];
       const undoArrUpdated = [...state.undoArr, currentStateCopy];
-      console.log("undoArrUpdated", undoArrUpdated)
+      // console.log("undoArrUpdated", undoArrUpdated)
 
       return {
         ...state,

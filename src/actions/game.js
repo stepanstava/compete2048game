@@ -80,10 +80,9 @@ export function isLosing() {
 
 export function shouldLoose(squaresCount) {
   return (dispatch, getState) => {
-
     if (squaresCount === 16) {
       //isPossibleToMove
       //else
     }
-  }
+  };
 }

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import { connect } from 'react-redux'
 
 //!zmenit
-const SQUARE_SIZE = 112;
+const SQUARE_SIZE = 110;
 
 class Square extends Component {
   constructor(props) {

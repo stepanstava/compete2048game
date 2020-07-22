@@ -4,9 +4,12 @@ import {
   getBoard,
   getBoardMap,
   getEmptyBoardMap,
-
+  getBoardQueues,
+  getMoveAnimationDuration,
 } from "../selectors";
 import { moveBoardHorizontally, moveBoardVertically } from "./boardMove";
+import { updateScore, updateShouldBoardMove } from "./game";
+import { addSquare } from "./square";
 // import { compareCondition } from "../utils";
 
 const SQUARES_ROW = 4;
@@ -27,14 +30,16 @@ export function updateBoardMap(boardMap) {
 }
 
 export function moveBoard(movement) {
-  return dispatch => {
-    // boardIndex and direction are same for moving:
-    // right and down
-    // left and top
+  return (dispatch, getState) => {
+    const moveAnimationDuration = getMoveAnimationDuration(getState());
+
+    //!change na if
     const borderIndex = ["top", "left"].includes(movement)
       ? 0
       : SQUARES_ROW - 1;
     const direction = ["top", "left"].includes(movement) ? 1 : -1;
+
+    dispatch(updateShouldBoardMove(false));
 
     // move to right or left
     if (["right", "left"].includes(movement)) {
@@ -43,28 +48,91 @@ export function moveBoard(movement) {
       // move to top or bottom
       dispatch(moveBoardVertically(borderIndex, direction));
     }
+    console.log("------", getBoardMap(getState()))
+    dispatch(clearMoveQue());
 
-    // move to top
-    // move to bottom
+    setTimeout(() => {
+      dispatch(clearMergedQue());
+      const scoreRound = dispatch(clearUpdateQue());
+      dispatch(addSquare());
+      dispatch(updateScore(scoreRound));
+      dispatch(updateShouldBoardMove(true));
+    
+
+      // dispatch(saveCurrentState(true));
+
+      dispatch(clearQueues());
+    }, moveAnimationDuration);
+
+    
+  };
+
+  
+}
+
+export function updateQueues(moveQue, merchedQue, updatedQue) {
+  return (dispatch, getState) => {
+    
+    dispatch({
+      type: "UPDATE_QUEUES",
+      queues: {
+        moveQue,
+        merchedQue,
+        updatedQue,
+      }
+    });
+  }
+}
+
+export function clearMoveQue() {
+  return (dispatch, getState) => {
+    const { moveQue } = getBoardQueues(getState());
+
+    moveQue.forEach(square => {
+      dispatch({
+        type: "UPDATE_SQUARE",
+        square,
+      });
+    });
   };
 }
 
-// case "d":
-//   borderIndex = SQUARES_ROW - 1;
-//   direction = -1;
-//   this.props.moveBoardHorizontally(borderIndex, direction);
-//   break;
-// case "a":
-//   borderIndex = 0;
-//   direction = 1;
-//   this.props.moveBoardHorizontally(borderIndex, direction);
-//   break;
-// case "s":
-//   borderIndex = SQUARES_ROW - 1;
-//   direction = -1;
-//   this.props.moveBoardVertically(borderIndex, direction);
-//   break;
-// case "w":
-//   borderIndex = 0;
-//   direction = 1;
-//   this.props.moveBoardVertically(borderIndex, direction);
+export function clearMergedQue() {
+  return (dispatch, getState) => {
+    const { merchedQue } = getBoardQueues(getState());
+
+    merchedQue.forEach(square => {
+      dispatch({
+        type: "REMOVE_SQUARE",
+        square,
+      });
+    });
+  };
+}
+
+export function clearUpdateQue() {
+  return (dispatch, getState) => {
+    const { updatedQue } = getBoardQueues(getState());
+    let scoreRound = 0;
+
+    updatedQue.forEach(square => {
+      square.value *= 2;
+      scoreRound += square.value;
+
+      dispatch({
+        type: "UPDATE_SQUARE",
+        square,
+      });
+    });
+
+    return scoreRound;
+  };
+}
+
+export function clearQueues() {
+  return (dispatch, getState) => {
+    dispatch({
+      type: "CLEAR_QUEUES",
+    });
+  };
+}

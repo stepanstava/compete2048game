@@ -1,3 +1,5 @@
+import {unionBy, union, uniq, uniqBy} from "lodash";
+
 
 const initialState = {
   squares: [],
@@ -37,10 +39,20 @@ export default function (state = initialState, action) {
 
     case "UPDATE_SQUARES": {
       const { squares } = action;
+      console.log("state.squares", state.squares)
+      console.log("squares", squares)
+
+      
+      // const squaresUpdated = unionBy(squares, state.squares, "id")
+      const squaresUpdated = uniqBy([...squares, ...state.squares], "id")
+      console.log("squaresUpdated", squaresUpdated)
+      // console.log("updated", updated)
+
+      // const squaresUpdated = state.square
 
       return {
         ...state,
-        squares,
+        squares: squaresUpdated,
       };
     }
 
@@ -56,6 +68,21 @@ export default function (state = initialState, action) {
         squares: filtred,
         squaresCount: squaresCount - 1,
       };
+
+    }
+
+    case "REMOVE_SQUARES": {
+      const { square } = action;
+      // const updatedSquares = [...state.squares];
+      // const squaresCount = state.squaresCount;
+
+      // const filtred = state.squares.filter(sq => sq.id !== id);
+
+      // return {
+      //   ...state,
+      //   squares: filtred,
+      //   squaresCount: squaresCount - 1,
+      // };
 
     }
 
