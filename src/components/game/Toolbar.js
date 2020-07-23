@@ -40,7 +40,7 @@ class Toolbar extends Component {
           {this.renderScore()}
 
           <div className="history">
-            <button className="btn">
+            <button className="btn" onClick={() => this.props.undo()}>
               <i className="fas fa-undo"></i>
             </button>
             <button className="btn">
@@ -60,4 +60,7 @@ class Toolbar extends Component {
 //   }
 // };
 
-export default connect(null, { gameInit: actions.gameInit })(Toolbar);
+export default connect(null, {
+  gameInit: actions.gameInit,
+  undo: actions.undo,
+})(Toolbar);

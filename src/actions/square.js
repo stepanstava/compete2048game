@@ -65,3 +65,13 @@ export function clearSquares() {
     });
   };
 }
+
+export function updateSquares(squares) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: "UPDATE_SQUARES",
+      squares
+    });
+  };
+}
+

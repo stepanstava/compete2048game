@@ -1,12 +1,12 @@
 const initialState = {
   score: 0,
   shouldBoardMove: true,
-  scoreRound: 0,
+  roundScore: 0,
   isWinning: false,
   isLosing: false,
   goal: 256,
   doubleSquareProb: 0.1,
-  moveAnimationDuration: 400,
+  moveAnimationDelay: 400,
 };
 
 export default function (state = initialState, action) {
@@ -34,28 +34,58 @@ export default function (state = initialState, action) {
       };
     }
 
+    case "UPDATE_IS_WINNING": {
+
+      const { isWinning } = action;
+      return {
+        ...state,
+        isWinning,
+      };
+    }
+
+    case "UPDATE_IS_LOSING": {
+
+      const { isLosing } = action;
+      return {
+        ...state,
+        isLosing,
+      };
+    }
+
+    // case "UPDATE_SCORE": {
+    //   const { score } = action;
+    //   const newScore = state.score + score;
+
+    //   return {
+    //     ...state,
+    //     score: newScore,
+    //   };
+    // }
     case "UPDATE_SCORE": {
+      const { roundScore } = action;
+      const scoreUpdated = state.score + roundScore;
+
+      return {
+        ...state,
+        roundScore,
+        score: scoreUpdated,
+      };
+    }
+    case "UPDATE_GAME_SCORE": {
       const { score } = action;
-      const newScore = state.score + score;
+    
 
       return {
         ...state,
-        score: newScore,
-      };
-    }
-    case "UPDATE_SCORE_ROUND": {
-      const { scoreRound } = action;
 
-      return {
-        ...state,
-        scoreRound,
+        score,
       };
     }
 
-    case "CLEAR_SCORE_ROUND": {
+    case "CLEAR_ROUND_SCORE": {
       return {
         ...state,
-        scoreRound: 0,
+        roundScore: 0,
       };
     }
 
@@ -77,8 +107,8 @@ export function getGameScore(state) {
   return state.game.score;
 }
 
-export function getGameScoreRound(state) {
-  return state.game.scoreRound;
+export function getGameroundScore(state) {
+  return state.game.roundScore;
 }
 
 export function shouldBoardMove(state) {
@@ -92,6 +122,6 @@ export function isWinningState(state) {
 export function isLosingState(state) {
   return state.game.isLosing;
 }
-export function getMoveAnimationDuration(state) {
-  return state.game.moveAnimationDuration;
+export function getmoveAnimationDelay(state) {
+  return state.game.moveAnimationDelay;
 }

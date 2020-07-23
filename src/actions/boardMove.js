@@ -6,6 +6,7 @@ import {
 } from "../selectors";
 import { compareCondition } from "../utils/board";
 import { updateBoardMap, updateQueues } from "./board";
+import { updateScore } from "./game";
 
 // --VERTICALLY--
 export function moveBoardVertically(borderIndex, direction) {
@@ -16,6 +17,7 @@ export function moveBoardVertically(borderIndex, direction) {
     const moveQue = [];
     const merchedQue = [];
     const updatedQue = [];
+    let roundScore = 0;
 
     for (let columnIndex = 0; columnIndex < columns; columnIndex++) {
       // For each element of column in passed direction skips empty items and creates a move helper array.
@@ -46,6 +48,7 @@ export function moveBoardVertically(borderIndex, direction) {
           newItemNeighbour.posX = Math.abs(borderIndex - i);
           newItemNeighbour.posY = columnIndex;
           newItemNeighbour.merge = true;
+          roundScore = roundScore + newItemNeighbour.value * 2;
 
           // Adds merged item to moving and merged queue.
           moveQue.push(newItemNeighbour);
@@ -79,6 +82,8 @@ export function moveBoardVertically(borderIndex, direction) {
 
     dispatch(updateBoardMap(newBoardMap));
     dispatch(updateQueues(moveQue, merchedQue, updatedQue));
+
+    dispatch(updateScore(roundScore));
   };
 }
 
@@ -90,6 +95,7 @@ export function moveBoardHorizontally(borderIndex, direction) {
     const moveQue = [];
     const merchedQue = [];
     const updatedQue = [];
+    let roundScore = 0;
 
     for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
       // For each element of row in passed direction skips empty items and creates a move helper array.
@@ -120,6 +126,7 @@ export function moveBoardHorizontally(borderIndex, direction) {
           newItemNeighbour.posX = rowIndex;
           newItemNeighbour.posY = Math.abs(borderIndex - i);
           newItemNeighbour.merge = true;
+          roundScore = roundScore + newItemNeighbour.value * 2;
 
           // Adds merged item to moving and merged queue.
           moveQue.push(newItemNeighbour);
@@ -153,5 +160,7 @@ export function moveBoardHorizontally(borderIndex, direction) {
 
     dispatch(updateBoardMap(newBoardMap));
     dispatch(updateQueues(moveQue, merchedQue, updatedQue));
+
+    dispatch(updateScore(roundScore));
   };
 }

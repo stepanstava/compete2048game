@@ -1,6 +1,7 @@
 import { resetScore } from "./score";
 import { clearBoardMap } from "./board";
 import { addSquare, clearSquares } from "./square";
+import { saveInitialState } from "./history";
 
 export function gameInit() {
   return dispatch => {
@@ -17,6 +18,9 @@ export function gameInit() {
     // draw random square
     dispatch(addSquare());
     dispatch(addSquare());
+
+    // save initial state
+    dispatch(saveInitialState());
   };
 }
 
@@ -36,30 +40,71 @@ export function updateShouldBoardMove(shouldBoardMove) {
     });
   };
 }
-
-export function updateScore(scoreRound) {
+export function updateScore(roundScore) {
   return dispatch => {
-    // update only if the score to add is greater than 0
-    if (scoreRound > 0) {
-      dispatch({
-        type: "UPDATE_SCORE",
-        score: scoreRound,
-      });
-
-      dispatch({
-        type: "UPDATE_SCORE_ROUND",
-        scoreRound,
-      });
-
-      // TODO
-      setTimeout(() => {
-        dispatch({
-          type: "CLEAR_SCORE_ROUND",
-        });
-      }, 500);
-    }
+    dispatch({
+      type: "UPDATE_SCORE",
+      roundScore,
+    });
   };
 }
+export function updateIsWinning(isWinning) {
+  return dispatch => {
+    dispatch({
+      type: "UPDATE_IS_WINNING",
+      isWinning,
+    });
+  };
+}
+export function updateIsLosing(isLosing) {
+  return dispatch => {
+    dispatch({
+      type: "UPDATE_IS_LOSING",
+      isLosing,
+    });
+  };
+}
+
+export function updateGameScore(score) {
+  return dispatch => {
+    dispatch({
+      type: "UPDATE_GAME_SCORE",
+      score,
+    });
+  };
+}
+
+export function clearRoundScore(roundScore) {
+  return dispatch => {
+    dispatch({
+      type: "CLEAR_ROUND_SCORE",
+    });
+  };
+}
+
+// export function updateScore(roundScore) {
+//   return dispatch => {
+//     // update only if the score to add is greater than 0
+//     if (roundScore > 0) {
+//       dispatch({
+//         type: "UPDATE_SCORE",
+//         score: roundScore,
+//       });
+
+//       dispatch({
+//         type: "UPDATE_SCORE_ROUND",
+//         roundScore,
+//       });
+
+//       // TODO
+//       setTimeout(() => {
+//         dispatch({
+//           type: "CLEAR_SCORE_ROUND",
+//         });
+//       }, 500);
+//     }
+//   };
+// }
 
 export function addWinner() {
   return (dispatch, getState) => {

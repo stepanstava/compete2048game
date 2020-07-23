@@ -1,11 +1,8 @@
-import {
-  getBoard,
-  getBoardQueues,
-  getMoveAnimationDuration,
-} from "../selectors";
+import { getBoard, getBoardQueues, getmoveAnimationDelay } from "../selectors";
 import { moveBoardHorizontally, moveBoardVertically } from "./boardMove";
-import { updateScore, updateShouldBoardMove } from "./game";
+import { updateScore, updateShouldBoardMove, clearRoundScore } from "./game";
 import { addSquare } from "./square";
+import { saveGameState } from "./history";
 
 // TODO get from store
 const SQUARES_ROW = 4;
@@ -26,18 +23,23 @@ export function updateBoardMap(boardMap) {
 }
 
 export function moveBoard(movement) {
-  return (dispatch, getState) => {
-    const moveAnimationDuration = getMoveAnimationDuration(getState());
+  return async (dispatch, getState) => {
+    const moveAnimationDelay = getmoveAnimationDelay(getState());
+    let borderIndex;
+    let direction;
 
-    // TODO change to if
-    const borderIndex = ["top", "left"].includes(movement)
-      ? 0
-      : SQUARES_ROW - 1;
-    const direction = ["top", "left"].includes(movement) ? 1 : -1;
+    if (["top", "left"].includes(movement)) {
+      borderIndex = 0;
+      direction = 1;
+    } else {
+      borderIndex = SQUARES_ROW - 1;
+      direction = -1;
+    }
 
+    // blocks pressing another direction when moving
     dispatch(updateShouldBoardMove(false));
 
-    // move to right or left
+    // move board to right or left
     if (["right", "left"].includes(movement)) {
       dispatch(moveBoardHorizontally(borderIndex, direction));
     } else {
@@ -45,21 +47,48 @@ export function moveBoard(movement) {
       dispatch(moveBoardVertically(borderIndex, direction));
     }
 
-    dispatch(clearMoveQue());
-
-    setTimeout(() => {
-      dispatch(clearMergedQue());
-      const scoreRound = dispatch(clearUpdateQue());
-
-      // TODO better arrangement
-      // ! no move -> no new square
-      dispatch(addSquare());
-      dispatch(updateScore(scoreRound));
+    // clears moving queue - moves squares on the board
+    const { moveQue } = getBoardQueues(getState());
+    if (moveQue.length === 0) {
       dispatch(updateShouldBoardMove(true));
-      dispatch(clearQueues());
-    }, moveAnimationDuration);
+      return;
+    }
+
+    dispatch(handleMoveQueue());
+    // clears merge queue after moving animation finishes
+    await waitForSquareMerge(dispatch, moveAnimationDelay);
+
+    dispatch(handleUpdateQueue());
+
+    // saves current game state to history for undo and redo
+    dispatch(saveGameState())
+
+    // adds random square
+    dispatch(addSquare());
+    dispatch(updateShouldBoardMove(true));
+
+    dispatch(clearRound());
   };
 }
+
+export function clearRound() {
+  return (dispatch, getState) => {
+    dispatch(clearQueues());
+    dispatch(clearRoundScore());
+
+  };
+}
+
+function waitForSquareMerge(dispatch, moveAnimationDelay) {
+  return new Promise((resolve, reject) => {
+    setTimeout(function () {
+      dispatch(handleMergedQueue());
+      resolve();
+    }, moveAnimationDelay);
+  });
+}
+
+
 
 export function updateQueues(moveQue, merchedQue, updatedQue) {
   return (dispatch, getState) => {
@@ -74,7 +103,7 @@ export function updateQueues(moveQue, merchedQue, updatedQue) {
   };
 }
 
-export function clearMoveQue() {
+export function handleMoveQueue() {
   return (dispatch, getState) => {
     const { moveQue } = getBoardQueues(getState());
 
@@ -87,7 +116,7 @@ export function clearMoveQue() {
   };
 }
 
-export function clearMergedQue() {
+export function handleMergedQueue() {
   return (dispatch, getState) => {
     const { merchedQue } = getBoardQueues(getState());
 
@@ -100,22 +129,18 @@ export function clearMergedQue() {
   };
 }
 
-export function clearUpdateQue() {
+export function handleUpdateQueue() {
   return (dispatch, getState) => {
     const { updatedQue } = getBoardQueues(getState());
-    let scoreRound = 0;
-
+  
     updatedQue.forEach(square => {
       square.value *= 2;
-      scoreRound += square.value;
 
       dispatch({
         type: "UPDATE_SQUARE",
         square,
       });
     });
-
-    return scoreRound;
   };
 }
 

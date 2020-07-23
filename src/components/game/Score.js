@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getGameScore, getGameScoreRound } from "../../selectors";
+import { getGameScore, getGameroundScore } from "../../selectors";
 
 class Score extends Component {
-  renderScoreRound() {
-    const { scoreRound } = this.props;
-    if (scoreRound > 0) {
-      return <span className="points-round">{`+${scoreRound}`}</span>;
+  renderroundScore() {
+    const { roundScore } = this.props;
+    if (roundScore > 0) {
+      return <span className="points-round">{`+${roundScore}`}</span>;
     } else {
       return null;
     }
@@ -18,7 +18,7 @@ class Score extends Component {
     return (
       <span className="points">
         {score}
-        {this.renderScoreRound()}
+        {this.renderroundScore()}
       </span>
     );
   }
@@ -35,7 +35,7 @@ class Score extends Component {
 
 const mapStateToProps = state => ({
   score: getGameScore(state),
-  scoreRound: getGameScoreRound(state),
+  roundScore: getGameroundScore(state),
 });
 
 export default connect(mapStateToProps)(Score);

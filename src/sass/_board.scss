@@ -76,6 +76,7 @@
       background-color: $square-2048;
     }
 
+    //!zrychlit
     &.merge {
       animation: merge 0.2s $square-speed ease-in-out;
       // transform: scale(1);

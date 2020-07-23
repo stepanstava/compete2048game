@@ -34,6 +34,15 @@ export default function (state = initialState, action) {
       };
     }
 
+    case "UPDATE_SQUARES": {
+      const { squares } = action;
+
+      return {
+        ...state,
+        squares,
+      };
+    }
+
     case "REMOVE_SQUARE": {
       const { id } = action.square;
       const squaresCount = state.squaresCount;
