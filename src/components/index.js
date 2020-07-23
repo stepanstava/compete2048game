@@ -36,4 +36,4 @@ const mapStateToProps = state => {
   return {};
 };
 
-export default connect(mapStateToProps, { gameInit: actions.gameInit })(App);
+export default connect(null)(App);
