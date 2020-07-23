@@ -1,17 +1,13 @@
-import crypto from "crypto";
-
 import {
   getBoard,
-  getBoardMap,
-  getEmptyBoardMap,
   getBoardQueues,
   getMoveAnimationDuration,
 } from "../selectors";
 import { moveBoardHorizontally, moveBoardVertically } from "./boardMove";
 import { updateScore, updateShouldBoardMove } from "./game";
 import { addSquare } from "./square";
-// import { compareCondition } from "../utils";
 
+// TODO get from store
 const SQUARES_ROW = 4;
 
 export function clearBoardMap() {
@@ -33,7 +29,7 @@ export function moveBoard(movement) {
   return (dispatch, getState) => {
     const moveAnimationDuration = getMoveAnimationDuration(getState());
 
-    //!change na if
+    // TODO change to if
     const borderIndex = ["top", "left"].includes(movement)
       ? 0
       : SQUARES_ROW - 1;
@@ -48,40 +44,33 @@ export function moveBoard(movement) {
       // move to top or bottom
       dispatch(moveBoardVertically(borderIndex, direction));
     }
-    console.log("------", getBoardMap(getState()))
+
     dispatch(clearMoveQue());
 
     setTimeout(() => {
       dispatch(clearMergedQue());
       const scoreRound = dispatch(clearUpdateQue());
+
+      // TODO better arrangement
       dispatch(addSquare());
       dispatch(updateScore(scoreRound));
       dispatch(updateShouldBoardMove(true));
-    
-
-      // dispatch(saveCurrentState(true));
-
       dispatch(clearQueues());
     }, moveAnimationDuration);
-
-    
   };
-
-  
 }
 
 export function updateQueues(moveQue, merchedQue, updatedQue) {
   return (dispatch, getState) => {
-    
     dispatch({
       type: "UPDATE_QUEUES",
       queues: {
         moveQue,
         merchedQue,
         updatedQue,
-      }
+      },
     });
-  }
+  };
 }
 
 export function clearMoveQue() {

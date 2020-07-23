@@ -39,8 +39,6 @@ export function updateShouldBoardMove(shouldBoardMove) {
 
 export function updateScore(scoreRound) {
   return dispatch => {
-    // console.log("updateScore -> scoreToAdd", scoreRound);
-
     // update only if the score to add is greater than 0
     if (scoreRound > 0) {
       dispatch({
@@ -53,6 +51,7 @@ export function updateScore(scoreRound) {
         scoreRound,
       });
 
+      // TODO
       setTimeout(() => {
         dispatch({
           type: "CLEAR_SCORE_ROUND",
@@ -72,17 +71,17 @@ export function addWinner() {
 
 export function isLosing() {
   return (dispatch, getState) => {
-    dispatch({
-      type: "ADD_WINNER",
-    });
+    // TODO
+    // dispatch({
+    //   type: "ADD_WINNER",
+    // });
   };
 }
 
 export function shouldLoose(squaresCount) {
   return (dispatch, getState) => {
+    // TODO
     if (squaresCount === 16) {
-      //isPossibleToMove
-      //else
     }
   };
 }

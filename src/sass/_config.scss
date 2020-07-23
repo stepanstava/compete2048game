@@ -10,7 +10,7 @@ $square-border-radius: 0.2rem;
 $gap: 10px;
 $row-count: 4;
 
-$square-speed: 0.3s;
+$square-speed: 0.15s;
 
 $board-width: calc(
   #{$row-count * $square-width + 2 * $gap + (($row-count - 1) * $gap)}

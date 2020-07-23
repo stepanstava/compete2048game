@@ -1,3 +1,4 @@
+// TODO from store
 const SQUARES_ROW = 4;
 
 export function compareCondition(index, direction) {
@@ -13,7 +14,7 @@ export function cloneBoardMap(boardMap) {
 
   boardMap.forEach(row => {
     newBoardMap.push([...row]);
-  })
+  });
 
   return newBoardMap;
 }

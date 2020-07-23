@@ -5,8 +5,12 @@ import actions from "../../actions";
 
 import Square from "./Square";
 
-// import Score from "./Score";
-import { getSquares, shouldBoardMove, isWinningState, isLosingState } from "../../selectors";
+import {
+  getSquares,
+  shouldBoardMove,
+  isWinningState,
+  isLosingState,
+} from "../../selectors";
 
 class Board extends Component {
   componentDidMount() {
@@ -16,18 +20,16 @@ class Board extends Component {
 
   renderSquares() {
     const { squares } = this.props;
-    // console.log("Board -> renderSquares -> squares", squares)
 
     return squares.map(square => {
       if (square) {
         const { value, id, posX, posY, merge } = square;
 
+        // TODO pass down the whole square object
         return (
           <Square
             key={id}
             value={value}
-            // indexX={indexX}
-            // indexY={indexY}
             posX={posX}
             posY={posY}
             merge={merge}
@@ -39,7 +41,6 @@ class Board extends Component {
 
   handleKeyDown(e) {
     e.preventDefault();
-    //!change shouldBoardMove
     const { moveBoard, shouldBoardMove } = this.props;
 
     if (shouldBoardMove) {
@@ -82,8 +83,8 @@ class Board extends Component {
     return <div className="tile" key={`${row}:${column}`}></div>;
   }
 
-  // tiles are used only as css placeholders for squares
-  // !mozna presunout na componentDidMount
+  // Tiles are used only as css placeholders for squares.
+  // TODO move to componentDidMount ?
   renderTiles() {
     const tiles = [];
 
@@ -108,6 +109,7 @@ class Board extends Component {
     );
   }
 
+  // TODO add losing screen
   renderLosingScreen() {}
 
   render() {
@@ -136,14 +138,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  moveBoardToRight: actions.moveBoardToRight,
-  moveBoardToBottom: actions.moveBoardToBottom,
-  moveBoardToTop: actions.moveBoardToTop,
-  moveBoardToLeft: actions.moveBoardToLeft,
-  moveBoardVertically: actions.moveBoardVertically,
-  moveBoardHorizontally: actions.moveBoardHorizontally,
-  moveBoardHorizontally2: actions.moveBoardHorizontally2,
   moveBoard: actions.moveBoard,
   addSquare: actions.addSquare,
-  updateShouldBoardMove: actions.updateShouldBoardMove,
 })(Board);

@@ -10,9 +10,7 @@ class Game extends Component {
 
   // }
 
-
-
-  render() { 
+  render() {
     return (
       <div className="content">
         <Toolbar />
@@ -32,6 +30,6 @@ class Game extends Component {
 // export default connect(
 //   mapStateToProps,
 //   { increment: actions.increment }
-// )(App)
+// )(Game)
 
 export default Game;

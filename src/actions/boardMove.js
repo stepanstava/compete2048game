@@ -3,13 +3,9 @@ import {
   getBoardMap,
   getEmptyBoardMap,
   getBoardDimensions,
-  getMoveAnimationDuration,
 } from "../selectors";
 import { compareCondition } from "../utils/board";
 import { updateBoardMap, updateQueues } from "./board";
-import { addSquare } from "./square";
-import { updateShouldBoardMove, updateScore, addWinner } from "./game";
-import { saveCurrentState } from "./history";
 
 // --VERTICALLY--
 export function moveBoardVertically(borderIndex, direction) {
@@ -60,7 +56,7 @@ export function moveBoardVertically(borderIndex, direction) {
           // Removes merged item from helper array to make sure that the following items are moving correctly.
           moveItemsArr.splice(i, 1);
 
-          //!
+          // TODO ?
           // Removes merged item from boardMap.
           // newBoardMap[newItemNeighbour.posX][newItemNeighbour.posY] = null;
         }
@@ -134,7 +130,7 @@ export function moveBoardHorizontally(borderIndex, direction) {
           // Removes merged item from helper array to make sure that the following items are moving correctly.
           moveItemsArr.splice(i, 1);
 
-          //!
+          // TODO ?
           // Removes merged item from boardMap.
           // newBoardMap[newItemNeighbour.posX][newItemNeighbour.posY] = null;
         }

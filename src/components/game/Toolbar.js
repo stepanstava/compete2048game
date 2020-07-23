@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-// import { connect } from 'react-redux'
+import { connect } from "react-redux";
+
+import actions from "../../actions";
+
 import Score from "./Score";
 
 class Toolbar extends Component {
@@ -10,35 +13,38 @@ class Toolbar extends Component {
 
   renderScore() {
     return (
-      <div class="scores">
+      <div className="scores">
         <Score />
 
-        <div class="score">
-          <span class="title">Best</span>
-          <span class="points">35880</span>
+        <div className="score">
+          <span className="title">Best</span>
+          <span className="points">35880</span>
         </div>
       </div>
     );
   }
 
+  // TODO new game button nefunguje dobre
   render() {
     return (
-      <div class="toolbar">
-        <div class="row">
-          <button class="btn">New Game</button>
+      <div className="toolbar">
+        <div className="row">
+          <button className="btn" onClick={() => this.props.gameInit()}>
+            New Game
+          </button>
           {/* <div class="timer">01:05:23</div> */}
-          <i class="fas fa-cog settings"></i>
+          <i className="fas fa-cog settings"></i>
         </div>
 
-        <div class="row">
+        <div className="row">
           {this.renderScore()}
 
-          <div class="history">
-            <button class="btn">
-              <i class="fas fa-undo"></i>
+          <div className="history">
+            <button className="btn">
+              <i className="fas fa-undo"></i>
             </button>
-            <button class="btn">
-              <i class="fas fa-redo"></i>
+            <button className="btn">
+              <i className="fas fa-redo"></i>
             </button>
           </div>
         </div>
@@ -54,9 +60,4 @@ class Toolbar extends Component {
 //   }
 // };
 
-// export default connect(
-//   mapStateToProps,
-//   { increment: actions.increment }
-// )(App)
-
-export default Toolbar;
+export default connect(null, { gameInit: actions.gameInit })(Toolbar);

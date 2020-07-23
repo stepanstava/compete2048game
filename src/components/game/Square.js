@@ -1,33 +1,13 @@
 import React, { Component } from "react";
 // import { connect } from 'react-redux'
 
-//!zmenit
+// TODO get from store
 const SQUARE_SIZE = 110;
 
 class Square extends Component {
-  constructor(props) {
-    super(props);
-    // this.posX = props.posX
-    // this.posY = props.posY
-    // this.myRef = React.createRef();
-  }
+  // constructor(props) {
+  //   super(props);
 
-  // componentWillReceiveProps() {
-
-
-  // }
-  
-
-  // componentWillUpdate() {
-  //   window.requestAnimationFrame(function () {
-  //     if (this && this.myRef) {
-  //       const node = this.myRef.current;
-  //       node.style.top = '0px';
-  //       node.style.left = '0px';
-  //     }
-
-
-  //   })
   // }
 
   getClassName() {
@@ -35,33 +15,21 @@ class Square extends Component {
     const valueClass = `sq-${value}`;
 
     return merge ? `square ${valueClass} merge` : `square ${valueClass}`;
-
   }
 
   render() {
-
-    // const { value, indexX, indexY } = this.props;
     const { value, posX, posY, merge } = this.props;
-    // console.log("Square -> render -> indexX", indexX)
-    // console.log("Square -> render -> indexY", indexY)
-    
+
     const styles = {
       top: `${posX * SQUARE_SIZE}px`,
       left: `${posY * SQUARE_SIZE}px`,
-      // marginTop: `${posX * SQUARE_SIZE}px`,
-      // marginLeft: `${posY * SQUARE_SIZE}px`,
     };
 
-  
-
-    //! dynamic class
     return (
       <div className={this.getClassName()} style={styles}>
-        { value }
+        {value}
       </div>
     );
-
-
   }
 }
 
@@ -78,20 +46,3 @@ class Square extends Component {
 // )(App)
 
 export default Square;
-
-
-
-// const styles = {
-//   // top: `${posX * SQUARE_SIZE}px`,
-//   // left: `${posY * SQUARE_SIZE}px`,
-//   marginTop: `${posX * SQUARE_SIZE}px`,
-//   marginLeft: `${posY * SQUARE_SIZE}px`,
-// };
-
-// export default () => {
-//   return (
-//     <div className="square sq-32" style={styles}>
-//     { value }
-//   </div>
-//   )
-// }

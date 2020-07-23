@@ -1,10 +1,4 @@
 import { cloneDeep } from "lodash";
-
-import { moveBoardToBottom } from "./down"
-
-//! add to store
-const SQUARES_ROW = 4;
-
 const initialState = {
   boardMap: [
     new Array(4).fill(null),
@@ -14,19 +8,19 @@ const initialState = {
   ],
   boardDimensions: {
     rows: 4,
-    columns: 4
+    columns: 4,
   },
   queues: {
     moveQue: [],
     merchedQue: [],
     updatedQue: [],
-  }
+  },
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case "CLEAR_BOARD_MAP": {
-      const {rows, columns} = state.boardDimensions;
+      const { rows, columns } = state.boardDimensions;
 
       return {
         ...state,
@@ -37,22 +31,21 @@ export default function (state = initialState, action) {
     case "UPDATE_BOARD_MAP": {
       const { boardMap } = action;
 
-      // console.log("boardMap", boardMap)
       return {
         ...state,
         boardMap,
       };
     }
 
-    
-
     case "UPDATE_QUEUES": {
-      const { moveQue, merchedQue, updatedQue} = action.queues;
+      const { moveQue, merchedQue, updatedQue } = action.queues;
       return {
         ...state,
         queues: {
-          moveQue, merchedQue, updatedQue
-        }
+          moveQue,
+          merchedQue,
+          updatedQue,
+        },
       };
     }
 
@@ -63,7 +56,7 @@ export default function (state = initialState, action) {
           moveQue: [],
           merchedQue: [],
           updatedQue: [],
-        }
+        },
       };
     }
 
@@ -83,7 +76,6 @@ export function getBoardDimensions(state) {
 export function getBoardQueues(state) {
   return state.board.queues;
 }
-
 
 export function getEmptyBoardMap(rows, columns) {
   const board = [];

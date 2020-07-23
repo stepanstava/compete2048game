@@ -492,6 +492,7 @@ nav .menu .item.active {
 
 .toolbar .history button {
   padding: 0.5rem 0.6rem;
+  margin-left: .1rem;
 }
 
 .score {
@@ -574,58 +575,50 @@ nav .menu .item.active {
   background-color: #EAFFC5;
   -webkit-animation: appear 0.2s ease-in-out;
           animation: appear 0.2s ease-in-out;
-  -webkit-transition: top 0.3s ease-in-out, left 0.3s ease-in-out;
-  transition: top 0.3s ease-in-out, left 0.3s ease-in-out;
+  -webkit-transition: top 0.15s ease-in-out, left 0.15s ease-in-out;
+  transition: top 0.15s ease-in-out, left 0.15s ease-in-out;
+  color: #42413F;
 }
 
 .board .square.sq-2 {
-  color: #000;
   background-color: #EAFFC5;
 }
 
 .board .square.sq-4 {
-  color: #000;
   background-color: #BAFFB5;
 }
 
 .board .square.sq-8 {
-  color: #fff;
   background-color: #A6FFD2;
 }
 
 .board .square.sq-16 {
-  color: #fff;
   background-color: #98FFFF;
 }
 
 .board .square.sq-32 {
-  color: #fff;
   background-color: #8BCFFF;
 }
 
 .board .square.sq-64 {
-  color: #fff;
   background-color: #7E85FF;
 }
 
 .board .square.sq-128 {
-  color: #fff;
   background-color: #edcf72;
 }
 
 .board .square.sq-256 {
-  color: #fff;
   background-color: #edcc61;
 }
 
 .board .square.sq-2048 {
-  color: #fff;
   background-color: #EF9549;
 }
 
 .board .square.merge {
-  -webkit-animation: merge 0.2s 0.3s ease-in-out;
-          animation: merge 0.2s 0.3s ease-in-out;
+  -webkit-animation: merge 0.2s 0.15s ease-in-out;
+          animation: merge 0.2s 0.15s ease-in-out;
 }
 
 .board .tile-container,

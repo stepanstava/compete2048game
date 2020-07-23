@@ -1,11 +1,11 @@
 import crypto from "crypto";
-import { cloneDeep } from "lodash";
 
 import { updateBoardMap } from "./board";
 import { shouldLoose } from "./game";
 import { getBoardMap, isLosing } from "../selectors";
 import { cloneBoardMap } from "../utils/board";
 
+// TODO get from store
 const SQUARES_ROW = 4;
 
 function getRandomId() {
@@ -26,26 +26,21 @@ function getRandomSquareCords(boardMap) {
   }
 }
 
-
-
 export function addSquare() {
   return (dispatch, getState) => {
     const boardMap = getBoardMap(getState());
 
     const newBoardMap = cloneBoardMap(boardMap);
-    // const newBoardMap = [...boardMap];
     const { posX, posY } = getRandomSquareCords(boardMap);
+    // TODO change to selector
     const doubleSquareProb = getState().game.doubleSquareProb;
-    // console.log("addSquare -> posY", posX)
-    // console.log("addSquare -> posX", posY)
-
     const id = getRandomId();
 
     const square = {
       id,
       posX,
       posY,
-      value: Math.random() > doubleSquareProb ? 2 : 4
+      value: Math.random() > doubleSquareProb ? 2 : 4,
     };
 
     dispatch({
@@ -54,16 +49,12 @@ export function addSquare() {
     });
 
     newBoardMap[posX][posY] = square;
-    // console.log("addSquare -> newBoardMap", newBoardMap)
-    //! zmenit na reducer -> posle se cords
+
     dispatch(updateBoardMap(newBoardMap));
 
-    console.log(getBoardMap(getState()))
-
-    //! not done
+    // TODO game over? - calculate
     // const squaresCount = getState().squares.squaresCount;
     // shouldLoose(squaresCount);
-
   };
 }
 
@@ -72,6 +63,5 @@ export function clearSquares() {
     dispatch({
       type: "CLEAR_SQUARES",
     });
-
   };
 }

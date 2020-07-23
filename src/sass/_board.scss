@@ -31,48 +31,48 @@
     //square move animation
     // transition: top $square-speed ease-in-out, left $square-speed ease-in-out;
     transition: top $square-speed ease-in-out, left $square-speed ease-in-out;
+    color: $header-color;
 
     &.sq-2 {
-      color: $color-black;
       background-color: $square-2;
     }
 
     &.sq-4 {
-      color: $color-black;
+      // color: $color-black;
       background-color: $square-4;
     }
 
     &.sq-8 {
-      color: $color-white;
+      // color: $color-white;
       background-color: $square-8;
     }
 
     &.sq-16 {
-      color: $color-white;
+      // color: $color-white;
       background-color: $square-16;
     }
 
     &.sq-32 {
-      color: $color-white;
+      // color: $color-white;
       background-color: $square-32;
     }
 
     &.sq-64 {
-      color: $color-white;
+      // color: $color-white;
       background-color: $square-64;
     }
 
     &.sq-128 {
-      color: $color-white;
+      // color: $color-white;
       background-color: $square-128;
     }
 
     &.sq-256 {
-      color: $color-white;
+      // color: $color-white;
       background-color: $square-256;
     }
     &.sq-2048 {
-      color: $color-white;
+      // color: $color-white;
       background-color: $square-2048;
     }
 
@@ -159,7 +159,6 @@
     background-color: transparent;
     padding: 0;
     height: 100%;
-   
 
     select {
       padding: 0.2rem 0;
