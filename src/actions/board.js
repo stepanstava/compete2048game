@@ -52,6 +52,7 @@ export function moveBoard(movement) {
       const scoreRound = dispatch(clearUpdateQue());
 
       // TODO better arrangement
+      // ! no move -> no new square
       dispatch(addSquare());
       dispatch(updateScore(scoreRound));
       dispatch(updateShouldBoardMove(true));
