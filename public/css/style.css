@@ -559,8 +559,8 @@ nav .menu .item.active {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
-  min-width: calc( 450px);
-  min-height: calc( 450px);
+  max-width: 450px;
+  max-height: 450px;
   background-color: #8a8a8a;
   border-radius: 0.4rem;
   border: 10px solid #8a8a8a;
@@ -640,7 +640,7 @@ nav .menu .item.active {
 
 .board .tile-container,
 .board .square-container,
-.board .lost-screen,
+.board .game-over-screen,
 .board .winning-screen,
 .board .settings-screen {
   position: absolute;
@@ -653,15 +653,11 @@ nav .menu .item.active {
 .tile-container {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (1fr)[4];
-      grid-template-columns: repeat(4, 1fr);
-  -ms-grid-rows: (1fr)[4];
-      grid-template-rows: repeat(4, 1fr);
   gap: 10px;
 }
 
-.lost-screen {
-  background-color: #b9b9b97c;
+.game-over-screen {
+  background-color: #42413f98;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -677,10 +673,10 @@ nav .menu .item.active {
           flex-direction: column;
 }
 
-.lost-screen h2 {
-  font-size: 3rem;
-  color: black;
-  margin-bottom: 1rem;
+.game-over-screen h2 {
+  font-size: 3.5rem;
+  color: #fff;
+  margin-bottom: 3rem;
 }
 
 .winning-screen {
@@ -702,8 +698,7 @@ nav .menu .item.active {
 
 .winning-screen h2 {
   font-size: 3.5rem;
-  color: black;
-  color: white;
+  color: #fff;
   margin-bottom: 3rem;
 }
 

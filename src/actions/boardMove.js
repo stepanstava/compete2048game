@@ -9,7 +9,11 @@ import { updateBoardMap, updateQueues } from "./board";
 import { updateScore } from "./game";
 
 // --VERTICALLY--
-export function moveBoardVertically(borderIndex, direction) {
+export function moveBoardVertically(
+  borderIndex,
+  direction,
+  shouldUpdate = true
+) {
   return (dispatch, getState) => {
     const boardMap = getBoardMap(getState());
     const { rows, columns } = getBoardDimensions(getState());
@@ -80,14 +84,21 @@ export function moveBoardVertically(borderIndex, direction) {
       }
     }
 
-    dispatch(updateBoardMap(newBoardMap));
-    dispatch(updateQueues(moveQue, merchedQue, updatedQue));
+    // Can run without modifying boardMap to check if there is any possible move left.
+    if (shouldUpdate) {
+      dispatch(updateBoardMap(newBoardMap));
+      dispatch(updateScore(roundScore));
+    }
 
-    dispatch(updateScore(roundScore));
+    dispatch(updateQueues(moveQue, merchedQue, updatedQue));
   };
 }
 
-export function moveBoardHorizontally(borderIndex, direction) {
+export function moveBoardHorizontally(
+  borderIndex,
+  direction,
+  shouldUpdate = true
+) {
   return (dispatch, getState) => {
     const boardMap = getBoardMap(getState());
     const { rows, columns } = getBoardDimensions(getState());
@@ -158,9 +169,12 @@ export function moveBoardHorizontally(borderIndex, direction) {
       }
     }
 
-    dispatch(updateBoardMap(newBoardMap));
-    dispatch(updateQueues(moveQue, merchedQue, updatedQue));
+    // Can run without modifying boardMap to check if there is any possible move left.
+    if (shouldUpdate) {
+      dispatch(updateBoardMap(newBoardMap));
+      dispatch(updateScore(roundScore));
+    }
 
-    dispatch(updateScore(roundScore));
+    dispatch(updateQueues(moveQue, merchedQue, updatedQue));
   };
 }

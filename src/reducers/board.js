@@ -36,15 +36,26 @@ export default function (state = initialState, action) {
         boardMap,
       };
     }
+    case "UPDATE_BOARD_DIMENSIONS": {
+      const { boardDimensions } = action;
+
+      return {
+        ...state,
+        boardDimensions: {
+          rows: boardDimensions.rows,
+          columns: boardDimensions.columns,
+        }
+      };
+    }
 
     case "UPDATE_QUEUES": {
       const { moveQue, merchedQue, updatedQue } = action.queues;
       return {
         ...state,
         queues: {
-          moveQue,
-          merchedQue,
-          updatedQue,
+          moveQue: [...state.queues.moveQue, ...moveQue],
+          merchedQue: [...state.queues.merchedQue, ...merchedQue],
+          updatedQue: [...state.queues.updatedQue, ...updatedQue],
         },
       };
     }

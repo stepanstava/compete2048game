@@ -1,7 +1,9 @@
 import { resetScore } from "./score";
-import { clearBoardMap } from "./board";
+import { clearBoardMap, updateBoardDimensions } from "./board";
 import { addSquare, clearSquares } from "./square";
-import { saveInitialState, updateGameState } from "./history";
+import { saveInitialState, updateGameState, saveGameState } from "./history";
+
+import { isSettingsOpen } from "../selectors";
 
 export function gameInit(isNewGame) {
   return (dispatch, getState) => {
@@ -9,7 +11,11 @@ export function gameInit(isNewGame) {
       const savedStateLocally = localStorage.getItem("compete2048game");
       if (savedStateLocally) {
         const gameState = JSON.parse(savedStateLocally);
-        return dispatch(updateGameState(gameState));
+        
+        dispatch(updateGameState(gameState));
+        dispatch(saveInitialState(gameState));
+        return;
+        // return dispatch(saveInitialState(gameState));
       }
     }
 
@@ -122,6 +128,50 @@ export function loadKeepPlayingMode(keepPlayingMode) {
     });
   };
 }
+
+export function toggleSettings() {
+  return (dispatch, getState) => {
+
+    dispatch(updateShouldBoardMove(isSettingsOpen(getState())));
+
+    dispatch({
+      type: "TOGGLE_SETTINGS",
+    });
+  };
+}
+
+export function closeSettings() {
+  return dispatch => {
+    dispatch(updateShouldBoardMove(true));
+
+    dispatch({
+      type: "CLOSE_SETTINGS",
+    });
+  };
+}
+
+export function saveSettings(formData) {
+  return dispatch => {
+    console.log(formData)
+
+    const {rows, columns, goal, mode} = formData;
+
+
+    dispatch(updateBoardDimensions({ rows, columns}));
+
+    // dispatch({
+    //   type: "CLOSE_SETTINGS",
+    // });
+
+    dispatch(closeSettings());
+
+    dispatch(gameInit(true));
+
+    //! close settings
+  };
+}
+
+
 
 // export function updateScore(roundScore) {
 //   return dispatch => {

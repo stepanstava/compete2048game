@@ -88,10 +88,17 @@ export function updateGameState(gameState) {
   };
 }
 
-export function saveInitialState() {
+export function saveInitialState(gameState) {
   return (dispatch, getState) => {
     const squares = getSquares(getState());
     const boardMap = getBoardMap(getState());
+
+    if (gameState) {
+      dispatch({
+        type: "SAVE_INITIAL_STATE",
+        gameState,
+      });
+    }
 
     dispatch({
       type: "SAVE_INITIAL_STATE",

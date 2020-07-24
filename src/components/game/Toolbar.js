@@ -5,7 +5,8 @@ import actions from "../../actions";
 
 import Score from "./Score";
 
-import { getUndoArr, getRedoArr } from "../../selectors";
+
+import { getUndoArr, getRedoArr, isSettingsOpen } from "../../selectors";
 
 class Toolbar extends Component {
   // constructor(props) {
@@ -60,6 +61,10 @@ class Toolbar extends Component {
     }
   }
 
+  // toggleSettings() {
+
+  // }
+
   // TODO new game button nefunguje dobre
   render() {
     return (
@@ -69,7 +74,7 @@ class Toolbar extends Component {
             New Game
           </button>
           {/* <div class="timer">01:05:23</div> */}
-          <i className="fas fa-cog settings"></i>
+          <i className="fas fa-cog settings" onClick={() => this.props.toggleSettings()}></i>
         </div>
 
         <div className="row">
@@ -100,6 +105,7 @@ const mapStateToProps = state => {
   return {
     undoArr: getUndoArr(state),
     redoArr: getRedoArr(state),
+    
   };
 };
 
@@ -107,4 +113,5 @@ export default connect(mapStateToProps, {
   gameInit: actions.gameInit,
   undo: actions.undo,
   redo: actions.redo,
+  toggleSettings: actions.toggleSettings,
 })(Toolbar);

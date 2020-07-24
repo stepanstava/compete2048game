@@ -9,6 +9,7 @@ const initialState = {
   goal: 8,
   doubleSquareProb: 0.1,
   moveAnimationDelay: 400,
+  isSettingsOpen: false,
 };
 
 export default function (state = initialState, action) {
@@ -121,6 +122,18 @@ export default function (state = initialState, action) {
         shouldBoardMove,
       };
     }
+    case "TOGGLE_SETTINGS": {
+      return {
+        ...state,
+        isSettingsOpen: !state.isSettingsOpen,
+      };
+    }
+    case "CLOSE_SETTINGS": {
+      return {
+        ...state,
+        isSettingsOpen: false,
+      };
+    }
 
     default:
       return state;
@@ -159,4 +172,7 @@ export function getGameGoal(state) {
 }
 export function isKeepPlayingMode(state) {
   return state.game.keepPlayingMode;
+}
+export function isSettingsOpen(state) {
+  return state.game.isSettingsOpen;
 }

@@ -5,6 +5,8 @@ import {
   getGameGoal,
   isKeepPlayingMode,
   isWinningState,
+  getSquares,
+  getBoardDimensions,
 } from "../selectors";
 import { moveBoardHorizontally, moveBoardVertically } from "./boardMove";
 import {
@@ -12,6 +14,7 @@ import {
   updateShouldBoardMove,
   clearRoundScore,
   updateIsWinning,
+  updateIsLosing,
 } from "./game";
 import { addSquare } from "./square";
 import { saveGameState } from "./history";
@@ -75,6 +78,18 @@ export function moveBoard(movement) {
     // saves current game state to history for undo and redo
     dispatch(saveGameState());
 
+    // check for winning square
+    dispatch(checkIsWinning());
+
+    dispatch(clearRound());
+
+    // check for game over
+    dispatch(checkIsLosing());
+  };
+}
+
+function checkIsWinning() {
+  return (dispatch, getState) => {
     const isWinning = isWinningState(getState());
 
     if (!isWinning) {
@@ -82,8 +97,30 @@ export function moveBoard(movement) {
       dispatch(addSquare());
       dispatch(updateShouldBoardMove(true));
     }
+  };
+}
 
-    dispatch(clearRound());
+function checkIsLosing() {
+  return (dispatch, getState) => {
+    const squares = getSquares(getState());
+    const { rows, columns } = getBoardDimensions(getState());
+
+    if (squares.length === rows * columns) {
+      // try to move board it all directions
+      dispatch(moveBoardHorizontally(0, 1, false));
+      dispatch(moveBoardHorizontally(SQUARES_ROW - 1, -1, false));
+      dispatch(moveBoardVertically(0, 1, false));
+      dispatch(moveBoardVertically(SQUARES_ROW - 1, -1, false));
+
+      const { moveQue } = getBoardQueues(getState());
+
+      if (moveQue.length === 0) {
+        dispatch(updateShouldBoardMove(false));
+        return dispatch(updateIsLosing(true));
+      }
+
+      dispatch(clearRound());
+    }
   };
 }
 
@@ -168,6 +205,16 @@ export function clearQueues() {
   return (dispatch, getState) => {
     dispatch({
       type: "CLEAR_QUEUES",
+    });
+  };
+}
+
+
+export function updateBoardDimensions(boardDimensions) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: "UPDATE_BOARD_DIMENSIONS",
+      boardDimensions
     });
   };
 }

@@ -1,8 +1,10 @@
 // Board
 .board {
   align-self: center;
-  min-width: $board-width;
-  min-height: $board-height;
+  // min-width: $board-width;
+  // min-height: $board-height;
+  max-width: 450px;
+  max-height: 450px;
   background-color: $gap-color;
   border-radius: 0.4rem;
 
@@ -85,7 +87,7 @@
 
   .tile-container,
   .square-container,
-  .lost-screen,
+  .game-over-screen,
   .winning-screen,
   .settings-screen {
     position: absolute;
@@ -100,8 +102,8 @@
 
 .tile-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  // grid-template-columns: repeat(4, 1fr);
+  // grid-template-rows: repeat(4, 1fr);
   gap: $gap;
 }
 
@@ -109,16 +111,16 @@
   // border: 10px solid #000;
 }
 
-.lost-screen {
-  background-color: #b9b9b97c;
+.game-over-screen {
+  background-color:#42413f98;
 
   @include flex-center;
   flex-direction: column;
 
   h2 {
-    font-size: 3rem;
-    color: darken($color-black, 30%);
-    margin-bottom: 1rem;
+    font-size: 3.5rem;
+    color: $color-white;
+    margin-bottom: 3rem;
   }
 }
 
@@ -129,8 +131,7 @@
 
   h2 {
     font-size: 3.5rem;
-    color: darken($color-black, 30%);
-    color: white;
+    color: $color-white;
     margin-bottom: 3rem;
   }
 
