@@ -4,8 +4,9 @@ const initialState = {
   roundScore: 0,
   bestScore: 0,
   isWinning: false,
+  keepPlayingMode: false,
   isLosing: false,
-  goal: 256,
+  goal: 8,
   doubleSquareProb: 0.1,
   moveAnimationDelay: 400,
 };
@@ -32,6 +33,7 @@ export default function (state = initialState, action) {
         shouldBoardMove: true,
         isWinning: false,
         isLosing: false,
+        keepPlayingMode: false,
       };
     }
 
@@ -45,11 +47,26 @@ export default function (state = initialState, action) {
     }
 
     case "UPDATE_IS_LOSING": {
-
       const { isLosing } = action;
       return {
         ...state,
         isLosing,
+      };
+    }
+    case "SET_KEEP_PLAYING": {
+      return {
+        ...state,
+        keepPlayingMode: true,
+        isWinning: false,
+        shouldBoardMove: true,
+      };
+    }
+
+    case "LOAD_KEEP_PLAYING": {
+      const { keepPlayingMode } = action;
+      return {
+        ...state,
+        keepPlayingMode,
       };
     }
 
@@ -135,4 +152,11 @@ export function isLosingState(state) {
 }
 export function getmoveAnimationDelay(state) {
   return state.game.moveAnimationDelay;
+}
+
+export function getGameGoal(state) {
+  return state.game.goal;
+}
+export function isKeepPlayingMode(state) {
+  return state.game.keepPlayingMode;
 }

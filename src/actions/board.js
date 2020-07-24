@@ -1,6 +1,18 @@
-import { getBoard, getBoardQueues, getmoveAnimationDelay } from "../selectors";
+import {
+  getBoard,
+  getBoardQueues,
+  getmoveAnimationDelay,
+  getGameGoal,
+  isKeepPlayingMode,
+  isWinningState,
+} from "../selectors";
 import { moveBoardHorizontally, moveBoardVertically } from "./boardMove";
-import { updateScore, updateShouldBoardMove, clearRoundScore } from "./game";
+import {
+  updateScore,
+  updateShouldBoardMove,
+  clearRoundScore,
+  updateIsWinning,
+} from "./game";
 import { addSquare } from "./square";
 import { saveGameState } from "./history";
 
@@ -63,9 +75,13 @@ export function moveBoard(movement) {
     // saves current game state to history for undo and redo
     dispatch(saveGameState());
 
-    // adds random square
-    dispatch(addSquare());
-    dispatch(updateShouldBoardMove(true));
+    const isWinning = isWinningState(getState());
+
+    if (!isWinning) {
+      // adds random square
+      dispatch(addSquare());
+      dispatch(updateShouldBoardMove(true));
+    }
 
     dispatch(clearRound());
   };
@@ -75,7 +91,6 @@ export function clearRound() {
   return (dispatch, getState) => {
     dispatch(clearQueues());
     dispatch(clearRoundScore());
-
   };
 }
 
@@ -87,8 +102,6 @@ function waitForSquareMerge(dispatch, moveAnimationDelay) {
     }, moveAnimationDelay);
   });
 }
-
-
 
 export function updateQueues(moveQue, merchedQue, updatedQue) {
   return (dispatch, getState) => {
@@ -132,9 +145,16 @@ export function handleMergedQueue() {
 export function handleUpdateQueue() {
   return (dispatch, getState) => {
     const { updatedQue } = getBoardQueues(getState());
-  
+    const gameGoal = getGameGoal(getState());
+    const keepPlayingMode = isKeepPlayingMode(getState());
+
     updatedQue.forEach(square => {
       square.value *= 2;
+
+      // If square is greater or equal to game goal show winning screen.
+      if (!keepPlayingMode && square.value >= gameGoal) {
+        dispatch(updateIsWinning(true));
+      }
 
       dispatch({
         type: "UPDATE_SQUARE",

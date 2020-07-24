@@ -107,6 +107,22 @@ export function clearRoundScore(roundScore) {
   };
 }
 
+export function setKeepPlayingMode() {
+  return dispatch => {
+    dispatch({
+      type: "SET_KEEP_PLAYING",
+    });
+  };
+}
+export function loadKeepPlayingMode(keepPlayingMode) {
+  return dispatch => {
+    dispatch({
+      type: "LOAD_KEEP_PLAYING",
+      keepPlayingMode,
+    });
+  };
+}
+
 // export function updateScore(roundScore) {
 //   return dispatch => {
 //     // update only if the score to add is greater than 0

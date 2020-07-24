@@ -1,4 +1,3 @@
-
 // import {config} from "../config/keys"
 
 import {
@@ -11,11 +10,18 @@ import {
   getBoardMap,
   getNextGameState,
   getBestScore,
+  isKeepPlayingMode,
 } from "../selectors";
 
 import { updateSquares } from "./square";
 import { updateBoardMap } from "./board";
-import { updateGameScore, updateIsWinning, updateIsLosing, updateBestScore } from "./game";
+import {
+  updateGameScore,
+  updateIsWinning,
+  updateIsLosing,
+  updateBestScore,
+  loadKeepPlayingMode,
+} from "./game";
 import actions from ".";
 
 export function undo() {
@@ -47,6 +53,7 @@ export function saveGameState() {
       bestScore: getBestScore(getState()),
       isWinning: isWinningState(getState()),
       isLosing: isLosingState(getState()),
+      keepPlayingMode: isKeepPlayingMode(getState()),
     };
 
     dispatch({
@@ -61,7 +68,15 @@ export function saveGameState() {
 
 export function updateGameState(gameState) {
   return (dispatch, getState) => {
-    const { squares, boardMap, score, bestScore, isWinning, isLosing } = gameState;
+    const {
+      squares,
+      boardMap,
+      score,
+      bestScore,
+      isWinning,
+      isLosing,
+      keepPlayingMode,
+    } = gameState;
 
     dispatch(updateSquares(squares));
     dispatch(updateBoardMap(boardMap));
@@ -69,6 +84,7 @@ export function updateGameState(gameState) {
     dispatch(updateBestScore(bestScore));
     dispatch(updateIsWinning(isWinning));
     dispatch(updateIsLosing(isLosing));
+    dispatch(loadKeepPlayingMode(keepPlayingMode));
   };
 }
 
@@ -85,6 +101,7 @@ export function saveInitialState() {
         score: 0,
         isWinning: false,
         isLosing: false,
+        keepPlayingMode: false,
       },
     });
   };

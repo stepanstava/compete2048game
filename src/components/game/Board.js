@@ -102,10 +102,15 @@ class Board extends Component {
 
     return (
       <div className="winning-screen">
-        <h2>You won!</h2>
-        <button className="btn" onClick={() => handleNewGameButton()}>
-          Try again
-        </button>
+        <h2>You win!</h2>
+        <div className="buttons">
+          <button className="btn" onClick={() => this.props.setKeepPlayingMode()}>
+            Keep playing
+          </button>
+          <button className="btn" onClick={() => this.props.gameInit(true)}>
+            Try again
+          </button>
+        </div>
       </div>
     );
   }
@@ -142,4 +147,5 @@ export default connect(mapStateToProps, {
   moveBoard: actions.moveBoard,
   addSquare: actions.addSquare,
   gameInit: actions.gameInit,
+  setKeepPlayingMode: actions.setKeepPlayingMode,
 })(Board);

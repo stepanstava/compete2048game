@@ -123,15 +123,20 @@
 }
 
 .winning-screen {
-  background-color: #dbd94f7c;
-
+  background-color: #dbd94fab;
   @include flex-center;
   flex-direction: column;
 
   h2 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     color: darken($color-black, 30%);
-    margin-bottom: 1rem;
+    color: white;
+    margin-bottom: 3rem;
+  }
+
+  .buttons {
+    @include flex-between;
+    width: 60%;
   }
 }
 
