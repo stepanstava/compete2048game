@@ -18,11 +18,12 @@ class Square extends Component {
   }
 
   render() {
-    const { value, posX, posY, merge } = this.props;
+    const { value, posX, posY, merge, style } = this.props;
 
     const styles = {
       top: `${posX * SQUARE_SIZE}px`,
       left: `${posY * SQUARE_SIZE}px`,
+      ...style,
     };
 
     return (

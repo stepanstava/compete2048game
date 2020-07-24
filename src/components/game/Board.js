@@ -19,7 +19,12 @@ class Board extends Component {
   constructor(props) {
     super(props);
 
-    this.squareWidth = 100;
+    this.squareWidth = {
+      3: 125,
+      4: 100,
+      5: 75,
+      6: 60
+    };
     this.gapWidth = 10;
     this.boardWidth = 450;
   }
@@ -46,6 +51,7 @@ class Board extends Component {
             posX={posX}
             posY={posY}
             merge={merge}
+            style={this.getSquareSize()}
           />
         );
       }
@@ -92,8 +98,9 @@ class Board extends Component {
     }
   }
 
+  //!style mozna neni potreba
   renderTile(row, column) {
-    return <div className="tile" key={`${row}:${column}`} style={this.getSquareSize()}></div>;
+    return <div className="tile" key={`${row}:${column}`} ></div>;
   }
 
   // Tiles are used only as css placeholders for squares.
@@ -105,16 +112,20 @@ class Board extends Component {
   
 
   getSquareSize() {
-    const {rows, columns} = this.props.boardDimensions;
-    const squareWidth = (this.boardWidth - (rows + 1) * this.gapWidth) / rows;
-    console.log("Board -> getSquareSize -> squareWidth", squareWidth)
+    const { rows, columns} = this.props.boardDimensions;
+    const larger = Math.max(rows, columns);
+
+    // const squareWidth = (this.boardWidth - (rows + 1) * this.gapWidth) / rows;
+    // console.log("Board -> getSquareSize -> squareWidth", squareWidth)
     // const squareHeight = (this.boardWidth - (rows + 1) * this.gapWidth) / rows;
 
 
     const styles = {
-      "width": squareWidth + 'px',
-      "height": squareWidth + 'px',
+      "width": this.squareWidth[larger] + 'px',
+      "height": this.squareWidth[larger] + 'px',
     }
+
+    return styles;
   }
 
   getTilesStyle() {
@@ -131,16 +142,19 @@ class Board extends Component {
 
   getBoardStyles() {
     const {rows, columns} = this.props.boardDimensions;
-    const squareWidth = this.squareWidth;
+    // const { rows, columns} = this.props.boardDimensions;
+    const larger = Math.max(rows, columns);
+    const squareWidth = this.squareWidth[larger];
     const gapWidth = this.gapWidth;
 
     const boardWidth = rows * squareWidth + 2 * gapWidth + ((rows - 1) * gapWidth)
     const boardHeight = columns * squareWidth + 2 * gapWidth + ((columns - 1) * gapWidth)
 
     const styles = {
-      "width": boardWidth < boardHeight ? boardWidth + 'px' : boardHeight + 'px',
-      // "height": columns * squareWidth + 2 * gapWidth + ((columns - 1) * gapWidth) + 'px',
-      "height": boardWidth < boardHeight ? boardWidth + 'px' : boardHeight + 'px',
+      // "width": boardWidth < boardHeight ? boardWidth + 'px' : boardHeight + 'px',
+      // "height": boardWidth < boardHeight ? boardWidth + 'px' : boardHeight + 'px',
+      "width": boardHeight + 'px',
+      "height": boardWidth + 'px',
     }
 
     return styles;
