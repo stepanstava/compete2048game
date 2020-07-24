@@ -597,35 +597,35 @@ nav .menu .item.active {
   color: #42413F;
 }
 
-.board .square.sq-2 {
+.board .square.sq-2, .board .square.sq-1-1 {
   background-color: #EAFFC5;
 }
 
-.board .square.sq-4 {
+.board .square.sq-4, .board .square.sq-1-2 {
   background-color: #BAFFB5;
 }
 
-.board .square.sq-8 {
+.board .square.sq-8, .board .square.sq-1-3 {
   background-color: #A6FFD2;
 }
 
-.board .square.sq-16 {
+.board .square.sq-16, .board .square.sq-1-4 {
   background-color: #98FFFF;
 }
 
-.board .square.sq-32 {
+.board .square.sq-32, .board .square.sq-1-5 {
   background-color: #8BCFFF;
 }
 
-.board .square.sq-64 {
+.board .square.sq-64, .board .square.sq-1-6 {
   background-color: #7E85FF;
 }
 
-.board .square.sq-128 {
+.board .square.sq-128, .board .square.sq-1-7 {
   background-color: #edcf72;
 }
 
-.board .square.sq-256 {
+.board .square.sq-256, .board .square.sq-1-8 {
   background-color: #edcc61;
 }
 

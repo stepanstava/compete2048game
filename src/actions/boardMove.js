@@ -3,6 +3,7 @@ import {
   getBoardMap,
   getEmptyBoardMap,
   getBoardDimensions,
+  getGameMode
 } from "../selectors";
 import { compareCondition } from "../utils/board";
 import { updateBoardMap, updateQueues } from "./board";
@@ -18,6 +19,7 @@ export function moveBoardVertically(
     const boardMap = getBoardMap(getState());
     const { rows, columns } = getBoardDimensions(getState());
     const newBoardMap = getEmptyBoardMap(rows, columns);
+    const gameMode = getGameMode(getState());
     const moveQue = [];
     const merchedQue = [];
     const updatedQue = [];
@@ -28,7 +30,7 @@ export function moveBoardVertically(
       let moveItemsArr = [];
       for (
         let rowIndex = borderIndex;
-        compareCondition(rowIndex, direction);
+        compareCondition(rowIndex, rows, direction);
         rowIndex += direction
       ) {
         // Skips empty items and creates move array.
@@ -52,7 +54,11 @@ export function moveBoardVertically(
           newItemNeighbour.posX = Math.abs(borderIndex - i);
           newItemNeighbour.posY = columnIndex;
           newItemNeighbour.merge = true;
-          roundScore = roundScore + newItemNeighbour.value * 2;
+          if (gameMode === 2) {
+            roundScore = roundScore + newItemNeighbour.value * 2;
+          } else {
+            roundScore = roundScore + newItemNeighbour.value + 1;
+          }
 
           // Adds merged item to moving and merged queue.
           moveQue.push(newItemNeighbour);
@@ -103,6 +109,7 @@ export function moveBoardHorizontally(
     const boardMap = getBoardMap(getState());
     const { rows, columns } = getBoardDimensions(getState());
     const newBoardMap = getEmptyBoardMap(rows, columns);
+    const gameMode = getGameMode(getState());
     const moveQue = [];
     const merchedQue = [];
     const updatedQue = [];
@@ -113,7 +120,7 @@ export function moveBoardHorizontally(
       const moveItemsArr = [];
       for (
         let columnIndex = borderIndex;
-        compareCondition(columnIndex, direction);
+        compareCondition(columnIndex, columns, direction);
         columnIndex += direction
       ) {
         // Skips empty items and creates move array.
@@ -137,8 +144,12 @@ export function moveBoardHorizontally(
           newItemNeighbour.posX = rowIndex;
           newItemNeighbour.posY = Math.abs(borderIndex - i);
           newItemNeighbour.merge = true;
-          roundScore = roundScore + newItemNeighbour.value * 2;
-
+          if (gameMode === 2) {
+            roundScore = roundScore + newItemNeighbour.value * 2;
+          } else {
+            roundScore = roundScore + newItemNeighbour.value + 1;
+          }
+          
           // Adds merged item to moving and merged queue.
           moveQue.push(newItemNeighbour);
           merchedQue.push(newItemNeighbour);

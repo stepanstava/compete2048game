@@ -12,13 +12,15 @@ import {
   isWinningState,
   isLosingState,
   isSettingsOpen,
-  getBoardDimensions
+  getBoardDimensions,
+  getGameMode
 } from "../../selectors";
 
 class Board extends Component {
   constructor(props) {
     super(props);
 
+    //! Add to store
     this.squareWidth = {
       3: 125,
       4: 100,
@@ -36,8 +38,36 @@ class Board extends Component {
     this.props.gameInit();
   }
 
+
+  getSquareSize() {
+    const { rows, columns} = this.props.boardDimensions;
+    const larger = Math.max(rows, columns);
+
+    // const squareWidth = (this.boardWidth - (rows + 1) * this.gapWidth) / rows;
+    // console.log("Board -> getSquareSize -> squareWidth", squareWidth)
+    // const squareHeight = (this.boardWidth - (rows + 1) * this.gapWidth) / rows;
+
+
+    const styles = {
+      "width": this.squareWidth[larger] + 'px',
+      "height": this.squareWidth[larger] + 'px',
+    }
+
+    return styles;
+  }
+
+
+
   renderSquares() {
-    const { squares } = this.props;
+    const { squares, gameMode } = this.props;
+    const { rows, columns} = this.props.boardDimensions;
+    const larger = Math.max(rows, columns);
+
+    const styles = {
+      "width": this.squareWidth[larger] + 'px',
+      "height": this.squareWidth[larger] + 'px',
+    }
+
 
     return squares.map(square => {
       if (square) {
@@ -46,12 +76,12 @@ class Board extends Component {
         // TODO pass down the whole square object
         return (
           <Square
-            key={id}
-            value={value}
-            posX={posX}
-            posY={posY}
-            merge={merge}
-            style={this.getSquareSize()}
+            key={square.id}
+            square={square}
+            squareSize={this.squareWidth[larger]}
+            gapWidth={this.gapWidth}
+            style={styles}
+            gameMode={gameMode}
           />
         );
       }
@@ -111,22 +141,6 @@ class Board extends Component {
 
   
 
-  getSquareSize() {
-    const { rows, columns} = this.props.boardDimensions;
-    const larger = Math.max(rows, columns);
-
-    // const squareWidth = (this.boardWidth - (rows + 1) * this.gapWidth) / rows;
-    // console.log("Board -> getSquareSize -> squareWidth", squareWidth)
-    // const squareHeight = (this.boardWidth - (rows + 1) * this.gapWidth) / rows;
-
-
-    const styles = {
-      "width": this.squareWidth[larger] + 'px',
-      "height": this.squareWidth[larger] + 'px',
-    }
-
-    return styles;
-  }
 
   getTilesStyle() {
     const {rows, columns} = this.props.boardDimensions;
@@ -237,6 +251,7 @@ const mapStateToProps = state => ({
   isLosing: isLosingState(state),
   isSettingsOpen: isSettingsOpen(state),
   boardDimensions: getBoardDimensions(state),
+  gameMode: getGameMode(state),
 });
 
 export default connect(mapStateToProps, {

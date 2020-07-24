@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 // import { connect } from 'react-redux'
 
-// TODO get from store
-const SQUARE_SIZE = 110;
+
 
 class Square extends Component {
   // constructor(props) {
@@ -11,18 +10,35 @@ class Square extends Component {
   // }
 
   getClassName() {
-    const { merge, value } = this.props;
-    const valueClass = `sq-${value}`;
+    const { gameMode } = this.props;
 
-    return merge ? `square ${valueClass} merge` : `square ${valueClass}`;
+    const { merge, value } = this.props.square;
+
+    let className = 'square'
+
+    if (gameMode === 2) {
+      className += ` sq-${value}`
+    } else {
+      className += ` sq-1-${value}`
+    } 
+
+    if (merge) {
+      className += ' merge'
+    }
+
+    return className;
+    // const valueClass = `sq-${value}`;
+
+    // return merge ? `square ${valueClass} merge` : `square ${valueClass}`;
   }
 
   render() {
-    const { value, posX, posY, merge, style } = this.props;
+    const { square, squareSize, style, gapWidth } = this.props;
+    const { value, posX, posY, merge } = square;
 
     const styles = {
-      top: `${posX * SQUARE_SIZE}px`,
-      left: `${posY * SQUARE_SIZE}px`,
+      top: `${posX * (squareSize + gapWidth)}px`,
+      left: `${posY * (squareSize + gapWidth)}px`,
       ...style,
     };
 

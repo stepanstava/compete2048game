@@ -6,6 +6,7 @@ import actions from "../../actions";
 class Settings extends Component {
   constructor(props) {
     super(props);
+    // ! save to store
     this.state = {
       rows: 4,
       columns: 4,
@@ -80,8 +81,12 @@ class Settings extends Component {
                   value={this.state.goal}
                   onChange={e => this.handleSelectChange(e, "goal")}
                 >
+                  <option value="128">128</option>
+                  <option value="256">256</option>
+                  <option value="512">512</option>
+                  <option value="1024">1024</option>
                   <option value="2048">2048</option>
-                  <option value="4096">4096</option>
+                  <option value="4096">16</option>
                   <option value="8192">8192</option>
                   <option value="16384">16384</option>
                 </select>

@@ -1,11 +1,6 @@
 import { cloneDeep } from "lodash";
 const initialState = {
-  boardMap: [
-    new Array(4).fill(null),
-    new Array(4).fill(null),
-    new Array(4).fill(null),
-    new Array(4).fill(null),
-  ],
+  boardMap: [],
   boardDimensions: {
     rows: 4,
     columns: 4,
@@ -27,6 +22,15 @@ export default function (state = initialState, action) {
         boardMap: getEmptyBoardMap(rows, columns),
       };
     }
+
+    // case "SET_BOARD_MAP": {
+    //   const { rows, columns } = state.boardDimensions;
+
+    //   return {
+    //     ...state,
+    //     boardMap: getEmptyBoardMap(rows, columns),
+    //   };
+    // }
 
     case "UPDATE_BOARD_MAP": {
       const { boardMap } = action;
@@ -90,10 +94,12 @@ export function getBoardQueues(state) {
 
 export function getEmptyBoardMap(rows, columns) {
   const board = [];
+  
 
   for (let i = 0; i < rows; i++) {
     const row = new Array(columns).fill(null);
     board.push(row);
   }
+  
   return board;
 }

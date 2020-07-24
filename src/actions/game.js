@@ -149,15 +149,34 @@ export function closeSettings() {
     });
   };
 }
+export function updateGameGoal(goal) {
+  return dispatch => {
+  
+    dispatch({
+      type: "UPDATE_GOAL",
+      goal,
+    });
+  };
+}
+
+export function updateGameMode(mode) {
+  return dispatch => {
+  
+    dispatch({
+      type: "UPDATE_GAME_MODE",
+      mode,
+    });
+  };
+}
 
 export function saveSettings(formData) {
   return dispatch => {
-    console.log(formData)
 
     const {rows, columns, goal, mode} = formData;
 
-
     dispatch(updateBoardDimensions({ rows, columns}));
+    dispatch(updateGameGoal(goal));
+    dispatch(updateGameMode(mode));
 
     // dispatch({
     //   type: "CLOSE_SETTINGS",

@@ -10,6 +10,7 @@ const initialState = {
   doubleSquareProb: 0.1,
   moveAnimationDelay: 300,
   isSettingsOpen: false,
+  gameMode: 2,
 };
 
 export default function (state = initialState, action) {
@@ -134,6 +135,20 @@ export default function (state = initialState, action) {
         isSettingsOpen: false,
       };
     }
+    case "UPDATE_GOAL": {
+      const { goal } = action;
+      return {
+        ...state,
+        goal,
+      };
+    }
+    case "UPDATE_GAME_MODE": {
+      const { mode } = action;
+      return {
+        ...state,
+        gameMode: mode,
+      };
+    }
 
     default:
       return state;
@@ -155,6 +170,9 @@ export function getBestScore(state) {
 export function shouldBoardMove(state) {
   return state.game.shouldBoardMove;
 }
+export function getDoubleSquareProb(state) {
+  return state.game.doubleSquareProb;
+}
 
 export function isWinningState(state) {
   return state.game.isWinning;
@@ -175,4 +193,7 @@ export function isKeepPlayingMode(state) {
 }
 export function isSettingsOpen(state) {
   return state.game.isSettingsOpen;
+}
+export function getGameMode(state) {
+  return state.game.gameMode;
 }

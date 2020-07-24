@@ -7,6 +7,7 @@ import {
   isWinningState,
   getSquares,
   getBoardDimensions,
+  getGameMode
 } from "../selectors";
 import { moveBoardHorizontally, moveBoardVertically } from "./boardMove";
 import {
@@ -20,7 +21,7 @@ import { addSquare } from "./square";
 import { saveGameState } from "./history";
 
 // TODO get from store
-const SQUARES_ROW = 4;
+
 
 export function clearBoardMap() {
   return dispatch => {
@@ -40,27 +41,38 @@ export function updateBoardMap(boardMap) {
 export function moveBoard(movement) {
   return async (dispatch, getState) => {
     const moveAnimationDelay = getmoveAnimationDelay(getState());
-    let borderIndex;
-    let direction;
+    const { rows, columns } = getBoardDimensions(getState());
+    // let borderIndex;
+    // let direction;
 
-    if (["top", "left"].includes(movement)) {
-      borderIndex = 0;
-      direction = 1;
+    // if (["top", "left"].includes(movement)) {
+    //   borderIndex = 0;
+    //   direction = 1;
+    // } else {
+    //   borderIndex = SQUARES_ROW - 1;
+    //   direction = -1;
+    // }
+
+    if (movement === "top") {
+      dispatch(moveBoardVertically(0, 1))
+    } else if ((movement === "bottom")) {
+      dispatch(moveBoardVertically(rows - 1, -1));
+    } else if (movement === "left") {
+      dispatch(moveBoardHorizontally(0, 1))
     } else {
-      borderIndex = SQUARES_ROW - 1;
-      direction = -1;
+      dispatch(moveBoardHorizontally(columns - 1, -1))
     }
 
     // blocks pressing another direction when moving
     dispatch(updateShouldBoardMove(false));
 
-    // move board to right or left
-    if (["right", "left"].includes(movement)) {
-      dispatch(moveBoardHorizontally(borderIndex, direction));
-    } else {
-      // move to top or bottom
-      dispatch(moveBoardVertically(borderIndex, direction));
-    }
+    // // move board to right or left
+    // if (["right", "left"].includes(movement)) {
+    //   dispatch(moveBoardHorizontally(borderIndex, direction));
+    // } else {
+    //   // move to top or bottom
+    //   dispatch(moveBoardVertically(borderIndex, direction));
+    // }
 
     // clears moving queue - moves squares on the board
     const { moveQue } = getBoardQueues(getState());
@@ -108,9 +120,9 @@ function checkIsLosing() {
     if (squares.length === rows * columns) {
       // try to move board it all directions
       dispatch(moveBoardHorizontally(0, 1, false));
-      dispatch(moveBoardHorizontally(SQUARES_ROW - 1, -1, false));
+      dispatch(moveBoardHorizontally(columns - 1, -1, false));
       dispatch(moveBoardVertically(0, 1, false));
-      dispatch(moveBoardVertically(SQUARES_ROW - 1, -1, false));
+      dispatch(moveBoardVertically(rows - 1, -1, false));
 
       const { moveQue } = getBoardQueues(getState());
 
@@ -184,9 +196,15 @@ export function handleUpdateQueue() {
     const { updatedQue } = getBoardQueues(getState());
     const gameGoal = getGameGoal(getState());
     const keepPlayingMode = isKeepPlayingMode(getState());
+    const gameMode = getGameMode(getState());
 
     updatedQue.forEach(square => {
-      square.value *= 2;
+      if (gameMode === 2) {
+        square.value *= 2;
+      } else {
+        square.value += 1;
+      }
+      
 
       // If square is greater or equal to game goal show winning screen.
       if (!keepPlayingMode && square.value >= gameGoal) {

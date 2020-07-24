@@ -2,22 +2,25 @@ import crypto from "crypto";
 
 import { updateBoardMap } from "./board";
 import { shouldLoose } from "./game";
-import { getBoardMap, isLosing } from "../selectors";
+import {
+  getBoardMap,
+  isLosing,
+  getBoardDimensions,
+  getDoubleSquareProb,
+  getGameMode
+} from "../selectors";
 import { cloneBoardMap } from "../utils/board";
-
-// TODO get from store
-const SQUARES_ROW = 4;
 
 function getRandomId() {
   return crypto.randomBytes(8).toString("hex");
 }
 
-function getRandomSquareCords(boardMap) {
-  const posX = Math.floor(Math.random() * SQUARES_ROW);
-  const posY = Math.floor(Math.random() * SQUARES_ROW);
+function getRandomSquareCords(boardMap, rows, columns) {
+  const posX = Math.floor(Math.random() * rows);
+  const posY = Math.floor(Math.random() * columns);
 
   if (boardMap[posX][posY]) {
-    return getRandomSquareCords(boardMap);
+    return getRandomSquareCords(boardMap, rows, columns);
   } else {
     return {
       posX,
@@ -29,18 +32,27 @@ function getRandomSquareCords(boardMap) {
 export function addSquare() {
   return (dispatch, getState) => {
     const boardMap = getBoardMap(getState());
+    const { rows, columns } = getBoardDimensions(getState());
+    const gameMode = getGameMode(getState());
 
     const newBoardMap = cloneBoardMap(boardMap);
-    const { posX, posY } = getRandomSquareCords(boardMap);
-    // TODO change to selector
-    const doubleSquareProb = getState().game.doubleSquareProb;
+    const { posX, posY } = getRandomSquareCords(boardMap, rows - 1, columns - 1);
+
+    const doubleSquareProb = getDoubleSquareProb(getState());
     const id = getRandomId();
+
+    let squareValue;
+    if (gameMode === 2) {
+      squareValue = Math.random() > doubleSquareProb ? 2 : 4;
+    } else {
+      squareValue = Math.random() > doubleSquareProb ? 1 : 2;
+    }
 
     const square = {
       id,
       posX,
       posY,
-      value: Math.random() > doubleSquareProb ? 2 : 4,
+      value: squareValue
     };
 
     dispatch({
@@ -51,10 +63,6 @@ export function addSquare() {
     newBoardMap[posX][posY] = square;
 
     dispatch(updateBoardMap(newBoardMap));
-
-    // TODO game over? - calculate
-    // const squaresCount = getState().squares.squaresCount;
-    // shouldLoose(squaresCount);
   };
 }
 
@@ -70,8 +78,7 @@ export function updateSquares(squares) {
   return (dispatch, getState) => {
     dispatch({
       type: "UPDATE_SQUARES",
-      squares
+      squares,
     });
   };
 }
-
