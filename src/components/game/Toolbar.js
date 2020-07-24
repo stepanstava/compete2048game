@@ -5,6 +5,8 @@ import actions from "../../actions";
 
 import Score from "./Score";
 
+import { getUndoArr, getRedoArr } from "../../selectors";
+
 class Toolbar extends Component {
   // constructor(props) {
   //   super(props);
@@ -24,6 +26,39 @@ class Toolbar extends Component {
     );
   }
 
+  getHistoryButtonsClassName(isUndo) {
+    const { undoArr, redoArr } = this.props;
+    let className = "btn";
+
+    if (isUndo && undoArr.length === 0) {
+      return (className += " inactive");
+    }
+
+    if (!isUndo && redoArr.length === 0) {
+      return (className += " inactive");
+    }
+
+    return className;
+  }
+
+  handleHistoryButtonClick(isUndo) {
+    const { undoArr, redoArr } = this.props;
+
+    if (isUndo && undoArr.length === 0) {
+      return;
+    }
+
+    if (!isUndo && redoArr.length === 0) {
+      return;
+    }
+
+    if (isUndo) {
+      this.props.undo();
+    } else {
+      this.props.redo();
+    }
+  }
+
   // TODO new game button nefunguje dobre
   render() {
     return (
@@ -40,10 +75,16 @@ class Toolbar extends Component {
           {this.renderScore()}
 
           <div className="history">
-            <button className="btn" onClick={() => this.props.undo()}>
+            <button
+              className={this.getHistoryButtonsClassName(true)}
+              onClick={() => this.handleHistoryButtonClick(true)}
+            >
               <i className="fas fa-undo"></i>
             </button>
-            <button className="btn">
+            <button
+              className={this.getHistoryButtonsClassName(false)}
+              onClick={() => this.handleHistoryButtonClick(false)}
+            >
               <i className="fas fa-redo"></i>
             </button>
           </div>
@@ -53,14 +94,16 @@ class Toolbar extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   console.log("state", state)
-//   return {
-//     number: state.add.count,
-//   }
-// };
+const mapStateToProps = state => {
+  // console.log("state", state)
+  return {
+    undoArr: getUndoArr(state),
+    redoArr: getRedoArr(state),
+  };
+};
 
-export default connect(null, {
+export default connect(mapStateToProps, {
   gameInit: actions.gameInit,
   undo: actions.undo,
+  redo: actions.redo,
 })(Toolbar);

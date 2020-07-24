@@ -4,38 +4,35 @@ import {
   isWinningState,
   isLosingState,
   getCurrentState,
-  getLastGameState,
+  getPreviousGameState,
   getBoardMap,
+  getNextGameState,
 } from "../selectors";
 
 import { updateSquares } from "./square";
 import { updateBoardMap } from "./board";
 import { updateGameScore, updateIsWinning, updateIsLosing } from "./game";
 
-// TODO
 export function undo() {
   return (dispatch, getState) => {
-    // dispatch({ type: "UNDO" });
-    const gameState = getLastGameState(getState());
-    
+    const gameState = getPreviousGameState(getState());
+
     dispatch(updateGameState(gameState));
 
-    // const currectState = getCurrentState(getState());
-    // const { squares, score, isWinning, isLosing } = currectState;
-
-    // dispatch({ type: "UPDATE_SQUARES", squares });
-    // dispatch({ type: "UPDATE SCORE", score });
+    dispatch({ type: "UNDO" });
   };
 }
 
-// TODO
 export function redo() {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const gameState = getNextGameState(getState());
+
+    dispatch(updateGameState(gameState));
+
     dispatch({ type: "REDO" });
   };
 }
 
-// TODO
 export function saveGameState() {
   return (dispatch, getState) => {
     const squares = getSquares(getState());
@@ -57,26 +54,19 @@ export function saveGameState() {
   };
 }
 
-
 export function updateGameState(gameState) {
   return (dispatch, getState) => {
-
-    const {squares, boardMap, score, isWinning, isLosing} = gameState;
-    console.log("updateGameState -> boardMap", boardMap)
-    console.log("updateGameState -> squares", squares)
+    const { squares, boardMap, score, isWinning, isLosing } = gameState;
+    console.log("updateGameState -> boardMap", boardMap);
+    console.log("updateGameState -> squares", squares);
 
     dispatch(updateSquares(squares));
     dispatch(updateBoardMap(boardMap));
     dispatch(updateGameScore(score));
     dispatch(updateIsWinning(isWinning));
     dispatch(updateIsLosing(isLosing));
-
-
-
   };
 }
-
-
 
 export function saveInitialState() {
   return (dispatch, getState) => {
@@ -88,6 +78,9 @@ export function saveInitialState() {
       gameState: {
         squares,
         boardMap,
+        score: 0,
+        isWinning: false,
+        isLosing: false,
       },
     });
   };

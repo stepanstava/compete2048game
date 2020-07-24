@@ -37,6 +37,21 @@
       padding: 0.5rem 0.6rem;
       margin-left: .1rem;
     }
+
+    .inactive {
+      opacity: .5;
+      cursor: default;
+
+      i {
+        cursor: default;
+      }
+
+      &:hover {
+        background-color: $button-default;
+      }
+
+    }
+
   }
 }
 

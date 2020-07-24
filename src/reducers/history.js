@@ -12,25 +12,28 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case "UNDO": {
-      // TODO
-      // add curent to redoArr
-      // current is the last item of undoArr
-      // const undoArr = state.undoArr;
-      // const current = undoArr[undoArr.length - 1];
+      const undoArrUpdated = cloneDeep(state.undoArr);
+      const requestedState = undoArrUpdated.pop();
 
-      // // removes the last item from undoArr
-      // const undoArrUpdated = undoArr.slice(0, undoArr.length - 1);
-
-      // return {
-      //   ...state,
-      //   undoArr: undoArrUpdated,
-      //   redoArr: [current, ...state.redoArr],
-      // };
+      return {
+        ...state,
+        undoArr: undoArrUpdated,
+        current: requestedState,
+        redoArr: [state.current, ...state.redoArr],
+      };
     }
-
-    // TODO
     case "REDO": {
+      const redoArrUpdated = cloneDeep(state.redoArr);
+      const requestedState = redoArrUpdated.shift();
+
+      return {
+        ...state,
+        undoArr: [...state.undoArr, state.current],
+        current: requestedState,
+        redoArr: redoArrUpdated,
+      };
     }
+
     case "SAVE_INITIAL_STATE": {
       const { gameState } = action;
 
@@ -40,8 +43,6 @@ export default function (state = initialState, action) {
       };
     }
 
-
-    // TODO
     case "SAVE_STATE": {
       const { gameState } = action;
       const undoArr = state.undoArr;
@@ -56,6 +57,7 @@ export default function (state = initialState, action) {
         ...state,
         undoArr: [...undoArrUpdated, lastState],
         current: gameState,
+        redoArr: [],
       };
     }
 
@@ -65,12 +67,19 @@ export default function (state = initialState, action) {
 }
 
 // -- Selectors
-// export function getCurrentState(state) {
-//   const undoArr = state.history.undoArr;
-//   return state.history.undoArr[undoArr.length - 1];
-// }
-
-export function getLastGameState(state) {
+export function getPreviousGameState(state) {
   const undoArr = state.history.undoArr;
-  return state.history.undoArr[undoArr.length - 1];
+  return undoArr[undoArr.length - 1];
+}
+
+export function getNextGameState(state) {
+  return state.history.redoArr[0];
+}
+
+export function getUndoArr(state) {
+  return state.history.undoArr;
+}
+
+export function getRedoArr(state) {
+  return state.history.redoArr;
 }

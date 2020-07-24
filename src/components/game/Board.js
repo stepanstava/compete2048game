@@ -14,8 +14,9 @@ import {
 
 class Board extends Component {
   componentDidMount() {
-    this.props.addSquare();
-    this.props.addSquare();
+    // this.props.addSquare();
+    // this.props.addSquare();
+    this.props.gameInit();
   }
 
   renderSquares() {
@@ -140,4 +141,5 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   moveBoard: actions.moveBoard,
   addSquare: actions.addSquare,
+  gameInit: actions.gameInit,
 })(Board);
