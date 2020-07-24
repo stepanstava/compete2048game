@@ -6,9 +6,9 @@ const initialState = {
   isWinning: false,
   keepPlayingMode: false,
   isLosing: false,
-  goal: 8,
+  goal: 2048,
   doubleSquareProb: 0.1,
-  moveAnimationDelay: 400,
+  moveAnimationDelay: 300,
   isSettingsOpen: false,
 };
 
