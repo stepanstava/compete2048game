@@ -1,3 +1,6 @@
+
+// import {config} from "../config/keys"
+
 import {
   getSquares,
   getGameScore,
@@ -12,6 +15,7 @@ import {
 import { updateSquares } from "./square";
 import { updateBoardMap } from "./board";
 import { updateGameScore, updateIsWinning, updateIsLosing } from "./game";
+import actions from ".";
 
 export function undo() {
   return (dispatch, getState) => {
@@ -35,30 +39,27 @@ export function redo() {
 
 export function saveGameState() {
   return (dispatch, getState) => {
-    const squares = getSquares(getState());
-    const boardMap = getBoardMap(getState());
-    const score = getGameScore(getState());
-    const isWinning = isWinningState(getState());
-    const isLosing = isLosingState(getState());
+    const gameState = {
+      squares: getSquares(getState()),
+      boardMap: getBoardMap(getState()),
+      score: getGameScore(getState()),
+      isWinning: isWinningState(getState()),
+      isLosing: isLosingState(getState()),
+    };
 
     dispatch({
       type: "SAVE_STATE",
-      gameState: {
-        squares,
-        boardMap,
-        score,
-        isWinning,
-        isLosing,
-      },
+      gameState,
     });
+
+    // Saves game state in a browser local storage.
+    localStorage.setItem("compete2048game", JSON.stringify(gameState));
   };
 }
 
 export function updateGameState(gameState) {
   return (dispatch, getState) => {
     const { squares, boardMap, score, isWinning, isLosing } = gameState;
-    console.log("updateGameState -> boardMap", boardMap);
-    console.log("updateGameState -> squares", squares);
 
     dispatch(updateSquares(squares));
     dispatch(updateBoardMap(boardMap));

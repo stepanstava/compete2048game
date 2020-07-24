@@ -1,10 +1,16 @@
 import { resetScore } from "./score";
 import { clearBoardMap } from "./board";
 import { addSquare, clearSquares } from "./square";
-import { saveInitialState } from "./history";
+import { saveInitialState, updateGameState } from "./history";
 
 export function gameInit() {
   return dispatch => {
+    const savedStateLocally = localStorage.getItem("compete2048game");
+    if (savedStateLocally) {
+      const gameState = JSON.parse(savedStateLocally);
+      return dispatch(updateGameState(gameState));
+    }
+
     // reset player score
     dispatch(resetScore());
 

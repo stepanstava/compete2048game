@@ -61,7 +61,7 @@ export function moveBoard(movement) {
     dispatch(handleUpdateQueue());
 
     // saves current game state to history for undo and redo
-    dispatch(saveGameState())
+    dispatch(saveGameState());
 
     // adds random square
     dispatch(addSquare());
