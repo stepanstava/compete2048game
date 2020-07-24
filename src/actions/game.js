@@ -3,16 +3,18 @@ import { clearBoardMap } from "./board";
 import { addSquare, clearSquares } from "./square";
 import { saveInitialState, updateGameState } from "./history";
 
-export function gameInit() {
-  return dispatch => {
-    const savedStateLocally = localStorage.getItem("compete2048game");
-    if (savedStateLocally) {
-      const gameState = JSON.parse(savedStateLocally);
-      return dispatch(updateGameState(gameState));
+export function gameInit(isNewGame) {
+  return (dispatch, getState) => {
+    if (!isNewGame) {
+      const savedStateLocally = localStorage.getItem("compete2048game");
+      if (savedStateLocally) {
+        const gameState = JSON.parse(savedStateLocally);
+        return dispatch(updateGameState(gameState));
+      }
     }
 
     // reset player score
-    dispatch(resetScore());
+    dispatch(clearScore());
 
     // clear board
     dispatch(clearBoardMap());
@@ -54,6 +56,14 @@ export function updateScore(roundScore) {
     });
   };
 }
+export function clearScore() {
+  return dispatch => {
+    dispatch({
+      type: "CLEAR_SCORE",
+    });
+  };
+}
+
 export function updateIsWinning(isWinning) {
   return dispatch => {
     dispatch({
@@ -76,6 +86,15 @@ export function updateGameScore(score) {
     dispatch({
       type: "UPDATE_GAME_SCORE",
       score,
+    });
+  };
+}
+
+export function updateBestScore(bestScore) {
+  return dispatch => {
+    dispatch({
+      type: "UPDATE_BEST_SCORE",
+      bestScore,
     });
   };
 }

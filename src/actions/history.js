@@ -10,11 +10,12 @@ import {
   getPreviousGameState,
   getBoardMap,
   getNextGameState,
+  getBestScore,
 } from "../selectors";
 
 import { updateSquares } from "./square";
 import { updateBoardMap } from "./board";
-import { updateGameScore, updateIsWinning, updateIsLosing } from "./game";
+import { updateGameScore, updateIsWinning, updateIsLosing, updateBestScore } from "./game";
 import actions from ".";
 
 export function undo() {
@@ -43,6 +44,7 @@ export function saveGameState() {
       squares: getSquares(getState()),
       boardMap: getBoardMap(getState()),
       score: getGameScore(getState()),
+      bestScore: getBestScore(getState()),
       isWinning: isWinningState(getState()),
       isLosing: isLosingState(getState()),
     };
@@ -59,11 +61,12 @@ export function saveGameState() {
 
 export function updateGameState(gameState) {
   return (dispatch, getState) => {
-    const { squares, boardMap, score, isWinning, isLosing } = gameState;
+    const { squares, boardMap, score, bestScore, isWinning, isLosing } = gameState;
 
     dispatch(updateSquares(squares));
     dispatch(updateBoardMap(boardMap));
     dispatch(updateGameScore(score));
+    dispatch(updateBestScore(bestScore));
     dispatch(updateIsWinning(isWinning));
     dispatch(updateIsLosing(isLosing));
   };

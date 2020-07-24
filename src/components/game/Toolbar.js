@@ -16,12 +16,13 @@ class Toolbar extends Component {
   renderScore() {
     return (
       <div className="scores">
-        <Score />
+        <Score isBestScore={false}/>
+        <Score isBestScore={true}/>
 
-        <div className="score">
+        {/* <div className="score">
           <span className="title">Best</span>
           <span className="points">35880</span>
-        </div>
+        </div> */}
       </div>
     );
   }
@@ -64,7 +65,7 @@ class Toolbar extends Component {
     return (
       <div className="toolbar">
         <div className="row">
-          <button className="btn" onClick={() => this.props.gameInit()}>
+          <button className="btn" onClick={() => this.props.gameInit(true)}>
             New Game
           </button>
           {/* <div class="timer">01:05:23</div> */}

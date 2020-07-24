@@ -529,6 +529,10 @@ nav .menu .item.active {
   margin-right: 0.2rem;
 }
 
+.score:last-child {
+  padding: 0.2rem 1.25rem;
+}
+
 .score .title {
   font-size: 0.75rem;
   text-transform: uppercase;
@@ -544,9 +548,9 @@ nav .menu .item.active {
 
 .score .points .points-round {
   position: absolute;
-  left: -30%;
-  font-size: 1rem;
-  color: #000;
+  left: 0%;
+  font-size: 1.1rem;
+  color: #fff;
   -webkit-animation: score-update 0.6s ease-in;
           animation: score-update 0.6s ease-in;
 }

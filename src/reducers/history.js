@@ -40,6 +40,8 @@ export default function (state = initialState, action) {
       return {
         ...state,
         current: gameState,
+        undoArr: [],
+        redoArr: [],
       };
     }
 

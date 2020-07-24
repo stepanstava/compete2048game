@@ -65,6 +65,10 @@
   border-radius: 0.2rem;
   margin-right: 0.2rem;
 
+  &:last-child {
+    padding: 0.2rem 1.25rem;
+  }
+
   .title {
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -80,9 +84,9 @@
 
     .points-round {
       position: absolute;
-      left: -30%;
-      font-size: 1rem;
-      color: $color-black;
+      left: 0%;
+      font-size: 1.1rem;
+      color: $color-white;
       animation: score-update 0.6s ease-in;
     }
   }

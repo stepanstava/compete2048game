@@ -24,7 +24,7 @@ export default function (state = initialState, action) {
 
       return {
         ...state,
-        board: getEmptyBoardMap(rows, columns),
+        boardMap: getEmptyBoardMap(rows, columns),
       };
     }
 

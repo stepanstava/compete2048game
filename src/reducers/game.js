@@ -1,7 +1,8 @@
 const initialState = {
-  score: 0,
   shouldBoardMove: true,
+  score: 0,
   roundScore: 0,
+  bestScore: 0,
   isWinning: false,
   isLosing: false,
   goal: 256,
@@ -18,7 +19,7 @@ export default function (state = initialState, action) {
         shouldBoardMove: false,
       };
     }
-    case "RESET_SCORE": {
+    case "CLEAR_SCORE": {
       return {
         ...state,
         score: 0,
@@ -63,22 +64,29 @@ export default function (state = initialState, action) {
     // }
     case "UPDATE_SCORE": {
       const { roundScore } = action;
+      const bestScore = state.bestScore;
+
       const scoreUpdated = state.score + roundScore;
 
       return {
         ...state,
         roundScore,
         score: scoreUpdated,
+        bestScore: scoreUpdated > bestScore ? scoreUpdated : bestScore
       };
     }
     case "UPDATE_GAME_SCORE": {
       const { score } = action;
-    
-
       return {
         ...state,
-
         score,
+      };
+    }
+    case "UPDATE_BEST_SCORE": {
+      const { bestScore } = action;
+      return {
+        ...state,
+        bestScore,
       };
     }
 
@@ -107,8 +115,11 @@ export function getGameScore(state) {
   return state.game.score;
 }
 
-export function getGameroundScore(state) {
+export function getGameRoundScore(state) {
   return state.game.roundScore;
+}
+export function getBestScore(state) {
+  return state.game.bestScore;
 }
 
 export function shouldBoardMove(state) {
