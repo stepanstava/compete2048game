@@ -2,116 +2,71 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import actions from "../../actions";
+import {
+  getFormData,
+  getSelectedOptions,
+  getFormDataIcons,
+} from "../../selectors";
 
 class Settings extends Component {
   constructor(props) {
     super(props);
-    // ! save to store
-    this.state = {
-      rows: 4,
-      columns: 4,
-      goal: 2048,
-      mode: 2,
-    };
   }
 
-  // handleFormSubmit(e) {
-  //   console.log("herrrrrrrree");
-  //   console.log(e.target);
-  //   e.preventDefault();
-  //   const formData = new FormData(e.target);
-  //   console.log("Settings -> handleFormSubmit -> formData", formData);
-  // }
-
   handleSelectChange(e, selectName) {
-    this.setState({ [selectName]: parseInt(e.target.value) });
+    const value = parseInt(e.target.value);
+    this.props.saveSelectedOption(selectName, value);
+  }
+
+  renderSelectOptions(selectName) {
+    const { formData, formDataIcons, selectedOptions } = this.props;
+
+    const options = formData[selectName].map((item, i) => {
+      return (
+        <option value={`${item}`} key={`${selectName}:${i}`}>
+          {item}
+        </option>
+      );
+    });
+
+    return (
+      <div className="item">
+        <div className="meta">
+          <i className={formDataIcons[selectName]}></i>
+          <label>{selectName[0].toUpperCase() + selectName.substr(1)}</label>
+        </div>
+        <div className="value">
+          <select
+            value={selectedOptions[selectName]}
+            onChange={e => this.handleSelectChange(e, selectName)}
+          >
+            {options}
+          </select>
+        </div>
+      </div>
+    );
   }
 
   render() {
     return (
-      <div class="settings-screen">
-        <div class="close">
-          <i class="fas fa-times" onClick={this.props.closeSettings}></i>
+      <div className="settings-screen">
+        <div className="close">
+          <i className="fas fa-times" onClick={this.props.closeSettings}></i>
         </div>
-        <form class="form">
-          <div class="field">
-            <div class="item">
-              <div class="meta">
-                <i class="fas fa-grip-horizontal"></i>
-                <label>Rows</label>
-              </div>
-              <div class="value">
-                <select
-                  value={this.state.rows}
-                  onChange={e => this.handleSelectChange(e, "rows")}
-                >
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                </select>
-              </div>
-            </div>
-            <div class="item">
-              <div class="meta">
-                <i class="fas fa-grip-vertical"></i>
-                <label>Columns</label>
-              </div>
-              <div class="value">
-                <select
-                  value={this.state.columns}
-                  onChange={e => this.handleSelectChange(e, "columns")}
-                >
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                </select>
-              </div>
-            </div>
+        <form className="form">
+          <div className="field">
+            {this.renderSelectOptions("rows")}
+            {this.renderSelectOptions("columns")}
           </div>
-          <div class="field">
-            <div class="item">
-              <div class="meta">
-                <i class="far fa-square"></i>
-                <label>Winning square</label>
-              </div>
-              <div class="value">
-                <select
-                  value={this.state.goal}
-                  onChange={e => this.handleSelectChange(e, "goal")}
-                >
-                  <option value="128">128</option>
-                  <option value="256">256</option>
-                  <option value="512">512</option>
-                  <option value="1024">1024</option>
-                  <option value="2048">2048</option>
-                  <option value="4096">16</option>
-                  <option value="8192">8192</option>
-                  <option value="16384">16384</option>
-                </select>
-              </div>
-            </div>
+          <div className="field">
+            {this.renderSelectOptions("winningSquare")}
           </div>
-          <div class="field">
-            <div class="item">
-              <div class="meta">
-                <i class="fas fa-dice-two"></i>
-                <label>Game mode</label>
-              </div>
-              <div class="value">
-                <select
-                  value={this.state.mode}
-                  onChange={e => this.handleSelectChange(e, "mode")}
-                >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                </select>
-              </div>
-            </div>
-          </div>
+          <div className="field">{this.renderSelectOptions("gameMode")}</div>
         </form>
-        <button class="btn" onClick={() => this.props.saveSettings(this.state)}>
+        <button
+          className="btn"
+          onClick={() => this.props.saveSettings()}
+        >
           Save
         </button>
       </div>
@@ -119,14 +74,16 @@ class Settings extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   console.log("state", state)
-//   return {
-//     number: state.add.count,
-//   }
-// };
+const mapStateToProps = state => {
+  return {
+    formData: getFormData(state),
+    formDataIcons: getFormDataIcons(state),
+    selectedOptions: getSelectedOptions(state),
+  };
+};
 
-export default connect(null, {
+export default connect(mapStateToProps, {
   closeSettings: actions.closeSettings,
   saveSettings: actions.saveSettings,
+  saveSelectedOption: actions.saveSelectedOption,
 })(Settings);

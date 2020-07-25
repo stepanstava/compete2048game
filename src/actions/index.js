@@ -4,6 +4,7 @@ import * as board from "./board";
 import * as boardMove from "./boardMove";
 import * as square from "./square";
 import * as history from "./history";
+import * as settings from "./settings";
 
 export default {
   ...game,
@@ -12,4 +13,5 @@ export default {
   ...boardMove,
   ...square,
   ...history,
+  ...settings,
 };

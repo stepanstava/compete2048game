@@ -146,8 +146,8 @@ class Board extends Component {
     const {rows, columns} = this.props.boardDimensions;
 
     const styles = {
-      "grid-template-rows": `repeat(${rows}, 1fr)`,
-      "grid-template-columns": `repeat(${columns}, 1fr)`,
+      "gridTemplateRows": `repeat(${rows}, 1fr)`,
+      "gridTemplateColumns": `repeat(${columns}, 1fr)`,
     }
 
     return styles;

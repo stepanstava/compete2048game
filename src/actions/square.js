@@ -15,31 +15,32 @@ function getRandomId() {
   return crypto.randomBytes(8).toString("hex");
 }
 
-function getRandomSquareCords(boardMap, rows, columns) {
-  const posX = Math.floor(Math.random() * rows);
-  const posY = Math.floor(Math.random() * columns);
 
-  if (boardMap[posX][posY]) {
-    return getRandomSquareCords(boardMap, rows, columns);
-  } else {
-    return {
-      posX,
-      posY,
-    };
-  }
+function getAvailableIndexes(boardMap) {
+  const indexes = [];
+
+  boardMap.forEach((rows, rowIndex) => {
+    rows.forEach((item, itemIndex) => {
+      if (!item) {
+        indexes.push({posX: rowIndex, posY: itemIndex});
+      }
+    });
+  });
+
+  return indexes;
 }
 
 export function addSquare() {
   return (dispatch, getState) => {
     const boardMap = getBoardMap(getState());
-    const { rows, columns } = getBoardDimensions(getState());
+    const newBoardMap = cloneBoardMap(boardMap);
+    const doubleSquareProb = getDoubleSquareProb(getState());
     const gameMode = getGameMode(getState());
 
-    const newBoardMap = cloneBoardMap(boardMap);
-    const { posX, posY } = getRandomSquareCords(boardMap, rows - 1, columns - 1);
-
-    const doubleSquareProb = getDoubleSquareProb(getState());
-    const id = getRandomId();
+    const availableIndexes = getAvailableIndexes(boardMap);
+ 
+    const randomIndex = Math.floor(Math.random() * availableIndexes.length)
+    const { posX, posY } = availableIndexes[randomIndex];
 
     let squareValue;
     if (gameMode === 2) {
@@ -49,7 +50,7 @@ export function addSquare() {
     }
 
     const square = {
-      id,
+      id: getRandomId(),
       posX,
       posY,
       value: squareValue

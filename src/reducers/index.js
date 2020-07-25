@@ -5,6 +5,7 @@ import board from "./board";
 import squares from "./squares";
 import history from "./history";
 import round from "./round";
+import settings from "./settings";
 
 const reducers = {
   game,
@@ -12,6 +13,7 @@ const reducers = {
   squares,
   history,
   round,
+  settings,
 };
 
 export default combineReducers(reducers);

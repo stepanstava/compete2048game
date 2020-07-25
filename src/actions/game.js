@@ -169,26 +169,7 @@ export function updateGameMode(mode) {
   };
 }
 
-export function saveSettings(formData) {
-  return dispatch => {
 
-    const {rows, columns, goal, mode} = formData;
-
-    dispatch(updateBoardDimensions({ rows, columns}));
-    dispatch(updateGameGoal(goal));
-    dispatch(updateGameMode(mode));
-
-    // dispatch({
-    //   type: "CLOSE_SETTINGS",
-    // });
-
-    dispatch(closeSettings());
-
-    dispatch(gameInit(true));
-
-    //! close settings
-  };
-}
 
 
 
