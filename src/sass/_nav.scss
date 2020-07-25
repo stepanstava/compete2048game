@@ -30,12 +30,12 @@ nav {
       transition: background-color $transition-duration $transition-timing;
 
       &:hover {
-        background-color: lighten($square-2048, 5%);
+        background-color: lighten(#EF9549, 5%);
       }
 
       &.active {
         // background-color: $link-active-color;
-        background-color: $square-2048;
+        background-color :#EF9549;
       }
     }
   }
@@ -50,14 +50,14 @@ nav {
     height: 100px;
     font-weight: 700;
     font-size: 2.5rem;
-    background-color: $square-2048;
+    background-color: #EF9549;
     margin-right: 0.2rem;
   }
 
   .sq1 {
-    background-color: $square-16384;
+    background-color: #DC3272;
   }
   .sq2 {
-    background-color: $square-8192;
+    background-color: #E3394A;
   }
 }

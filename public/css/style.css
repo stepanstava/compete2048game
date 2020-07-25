@@ -23,7 +23,7 @@
 
 .btn.btn-primary {
   background-color: #86D5DD;
-  color: #000;
+  color: #42413F;
 }
 
 .btn.btn-primary:hover {
@@ -32,7 +32,7 @@
 
 .btn.btn-secondary {
   background-color: #88c8ac;
-  color: #000;
+  color: #42413F;
 }
 
 .btn.btn-secondary:hover {
@@ -589,48 +589,85 @@ nav .menu .item.active {
           align-items: center;
   font-weight: 700;
   font-size: 2.5rem;
-  background-color: #EAFFC5;
+  background-color: #EBFFBF;
   -webkit-animation: appear 0.15s ease-in-out;
           animation: appear 0.15s ease-in-out;
   -webkit-transition: top 0.1s ease-in-out, left 0.1s ease-in-out;
   transition: top 0.1s ease-in-out, left 0.1s ease-in-out;
   color: #42413F;
+  background-color: #000;
+  color: #fff;
 }
 
 .board .square.sq-2, .board .square.sq-1-1 {
-  background-color: #EAFFC5;
+  background-color: #EBFFBF;
+  color: #42413F;
+  color: #42413F;
 }
 
 .board .square.sq-4, .board .square.sq-1-2 {
-  background-color: #BAFFB5;
+  background-color: #A5FFB6;
+  color: #42413F;
 }
 
 .board .square.sq-8, .board .square.sq-1-3 {
-  background-color: #A6FFD2;
+  background-color: #8FFFFF;
+  color: #42413F;
 }
 
 .board .square.sq-16, .board .square.sq-1-4 {
-  background-color: #98FFFF;
+  background-color: #7CB9FF;
+  color: #fff;
 }
 
 .board .square.sq-32, .board .square.sq-1-5 {
-  background-color: #8BCFFF;
+  background-color: #9D6BFF;
+  color: #fff;
 }
 
 .board .square.sq-64, .board .square.sq-1-6 {
-  background-color: #7E85FF;
+  background-color: #FF5DFF;
+  color: #fff;
 }
 
 .board .square.sq-128, .board .square.sq-1-7 {
-  background-color: #edcf72;
+  background-color: #FB527E;
+  color: #fff;
 }
 
 .board .square.sq-256, .board .square.sq-1-8 {
-  background-color: #edcc61;
+  background-color: #EF9549;
+  color: #fff;
 }
 
-.board .square.sq-2048 {
-  background-color: #EF9549;
+.board .square.sq-512, .board .square.sq-1-9 {
+  background-color: #E7393A;
+  color: #fff;
+}
+
+.board .square.sq-1024, .board .square.sq-1-10 {
+  background-color: #C61FC6;
+  color: #fff;
+}
+
+.board .square.sq-2048, .board .square.sq-1-11 {
+  background-color: gold;
+  color: #fff;
+}
+
+.board .square.sq-4096, .board .square.sq-1-12 {
+  background-color: #03398C;
+  color: #fff;
+}
+
+.board .square.sq-8192, .board .square.sq-1-13 {
+  background-color: #170570;
+  color: #fff;
+}
+
+.board .square.sq-16384, .board .square.sq-1-14 {
+  background-color: #000;
+  color: #fff;
 }
 
 .board .square.merge {

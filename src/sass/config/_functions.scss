@@ -1,10 +1,10 @@
-
+@import "../config";
 
 
 
 @function set-text-color($color) {
   @if (lightness($color) > 60) {
-    @return $color-black;
+    @return $header-color;
   } @else {
     @return $color-white;
   }

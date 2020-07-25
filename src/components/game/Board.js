@@ -33,8 +33,7 @@ class Board extends Component {
 
 
   componentDidMount() {
-    // this.props.addSquare();
-    // this.props.addSquare();
+    document.body.addEventListener('keydown', (e) => this.handleKeyDown(e))
     this.props.gameInit();
   }
 
@@ -230,8 +229,6 @@ class Board extends Component {
     return (
       <div
         className="board"
-        onKeyDown={e => this.handleKeyDown(e)}
-        tabIndex="0"
         style={this.getBoardStyles()}
       >
         <div className="tile-container" style={this.getTilesStyle()}>{this.renderTiles()}</div>
