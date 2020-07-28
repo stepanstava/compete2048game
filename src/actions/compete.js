@@ -11,9 +11,16 @@ export function setCompeteMode(type) {
     //   type: "UPDATE_GOAL",
     //   goal,
     // });
-
+    //!block playing until countdown
+    //!ztmavit background
+    //!presunout winning screen to Game - index.html
 
     dispatch(toggleCompeteMode());
+
+    // play countdown
+    dispatch(playCountdown())
+
+    // start time
 
   };
 }
@@ -24,4 +31,26 @@ export function toggleCompeteMode() {
       type: "TOGGLE_COMPETE",
     });
   };
+}
+
+export function playCountdown() {
+  return async dispatch => {
+
+    dispatch({
+      type: "ADD_COUNTDOWN",
+    });
+
+    await waitForCountdownToFinish(dispatch);
+
+  };
+}
+
+function waitForCountdownToFinish(dispatch) {
+  return new Promise((resolve, reject) => {
+    setTimeout(function () {
+      dispatch({type: "REMOVE_COUNTDOWN"});
+      resolve();
+      //!better time tesne nez se objevi ready
+    }, 3500);
+  });
 }

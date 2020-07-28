@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import actions from "../actions";
 
 import Game from "./game";
+import Countdown from "./game/Countdown";
 
-import { isCompeteMode } from "../selectors";
+import { isCompeteMode, shouldPlayCountdown } from "../selectors";
 
 const COMPETE_VALUES = {
   time: {
@@ -56,9 +57,11 @@ class Compete extends Component {
   }
 
   renderGame() {
+    const {shouldPlayCountdown} = this.props;
     return (
       <div className="content-wrapper">
         <Game />
+        {shouldPlayCountdown ? <Countdown /> : null}
       </div>
     );
   }
@@ -74,6 +77,7 @@ class Compete extends Component {
 const mapStateToProps = state => {
   return {
     isCompeteMode: isCompeteMode(state),
+    shouldPlayCountdown: shouldPlayCountdown(state),
   };
 };
 

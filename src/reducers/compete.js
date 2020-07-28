@@ -4,6 +4,7 @@ const initialState = {
   isQuickestTime: false,
   timeGoal: null,
   scoreGoal: null,
+  shouldPlayCountdown: false,
 
 };
 
@@ -27,6 +28,18 @@ export default function (state = initialState, action) {
         isCompeteMode: !state.isCompeteMode,
       };
     }
+    case "ADD_COUNTDOWN": {
+      return {
+        ...state,
+        shouldPlayCountdown: true,
+      };
+    }
+    case "REMOVE_COUNTDOWN": {
+      return {
+        ...state,
+        shouldPlayCountdown: false,
+      };
+    }
 
 
 
@@ -38,6 +51,9 @@ export default function (state = initialState, action) {
 // -- Selectors
 export function isCompeteMode(state) {
   return state.compete.isCompeteMode;
+}
+export function shouldPlayCountdown(state) {
+  return state.compete.shouldPlayCountdown;
 }
 // export function getCompeteValues(state) {
 //   return state.compete.values;

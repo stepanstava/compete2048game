@@ -50,7 +50,7 @@ class Settings extends Component {
 
   render() {
     return (
-      <div className="settings-screen">
+      <div className="countdown-screen">
         <div className="close">
           <i className="fas fa-times" onClick={this.props.closeSettings}></i>
         </div>

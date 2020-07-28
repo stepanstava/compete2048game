@@ -136,7 +136,8 @@
   .square-container,
   .game-over-screen,
   .winning-screen,
-  .settings-screen {
+  .settings-screen,
+  .countdown-screen  {
     position: absolute;
     top: 0;
     left: 0;
@@ -247,4 +248,9 @@
       color: $color-black;
     }
   }
+}
+
+.countdown-screen {
+  background-color: red;
+
 }
