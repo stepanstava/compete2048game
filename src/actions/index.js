@@ -5,6 +5,7 @@ import * as boardMove from "./boardMove";
 import * as square from "./square";
 import * as history from "./history";
 import * as settings from "./settings";
+import * as compete from "./compete";
 
 export default {
   ...game,
@@ -14,4 +15,5 @@ export default {
   ...square,
   ...history,
   ...settings,
+  ...compete,
 };

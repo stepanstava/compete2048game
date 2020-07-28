@@ -5,8 +5,12 @@ import actions from "../../actions";
 
 import Score from "./Score";
 
-
-import { getUndoArr, getRedoArr, isSettingsOpen } from "../../selectors";
+import {
+  getUndoArr,
+  getRedoArr,
+  isSettingsOpen,
+  isCompeteMode,
+} from "../../selectors";
 
 class Toolbar extends Component {
   // constructor(props) {
@@ -15,10 +19,12 @@ class Toolbar extends Component {
   // }
 
   renderScore() {
+    const { isCompeteMode } = this.props;
+
     return (
       <div className="scores">
-        <Score isBestScore={false}/>
-        <Score isBestScore={true}/>
+        <Score isBestScore={false} />
+        {!isCompeteMode ? <Score isBestScore={true} /> : null}
 
         {/* <div className="score">
           <span className="title">Best</span>
@@ -43,6 +49,25 @@ class Toolbar extends Component {
     return className;
   }
 
+  renderHistoryOptions() {
+    return (
+      <div className="history">
+        <button
+          className={this.getHistoryButtonsClassName(true)}
+          onClick={() => this.handleHistoryButtonClick(true)}
+        >
+          <i className="fas fa-undo"></i>
+        </button>
+        <button
+          className={this.getHistoryButtonsClassName(false)}
+          onClick={() => this.handleHistoryButtonClick(false)}
+        >
+          <i className="fas fa-redo"></i>
+        </button>
+      </div>
+    );
+  }
+
   handleHistoryButtonClick(isUndo) {
     const { undoArr, redoArr } = this.props;
 
@@ -64,9 +89,23 @@ class Toolbar extends Component {
   // toggleSettings() {
 
   // }
+  renderSettingsOrTimer() {
+    const { isCompeteMode } = this.props;
+    if (isCompeteMode) {
+      return <div class="timer">01:05:23</div>;
+    } else {
+      return (
+        <i
+          className="fas fa-cog settings"
+          onClick={() => this.props.toggleSettings()}
+        ></i>
+      );
+    }
+  }
 
-  // TODO new game button nefunguje dobre
   render() {
+    const { isCompeteMode } = this.props;
+
     return (
       <div className="toolbar">
         <div className="row">
@@ -74,26 +113,12 @@ class Toolbar extends Component {
             New Game
           </button>
           {/* <div class="timer">01:05:23</div> */}
-          <i className="fas fa-cog settings" onClick={() => this.props.toggleSettings()}></i>
+          {this.renderSettingsOrTimer()}
         </div>
 
         <div className="row">
           {this.renderScore()}
-
-          <div className="history">
-            <button
-              className={this.getHistoryButtonsClassName(true)}
-              onClick={() => this.handleHistoryButtonClick(true)}
-            >
-              <i className="fas fa-undo"></i>
-            </button>
-            <button
-              className={this.getHistoryButtonsClassName(false)}
-              onClick={() => this.handleHistoryButtonClick(false)}
-            >
-              <i className="fas fa-redo"></i>
-            </button>
-          </div>
+          {!isCompeteMode ? this.renderHistoryOptions() : null}
         </div>
       </div>
     );
@@ -105,7 +130,7 @@ const mapStateToProps = state => {
   return {
     undoArr: getUndoArr(state),
     redoArr: getRedoArr(state),
-    
+    isCompeteMode: isCompeteMode(state),
   };
 };
 
