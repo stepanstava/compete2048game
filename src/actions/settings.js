@@ -1,6 +1,11 @@
 import { getSelectedOptions } from "../selectors";
 import { updateBoardDimensions } from "./board";
-import { updateGameGoal, updateGameMode, closeSettings, gameInit  } from "./game";
+import {
+  updateGameGoal,
+  updateGameMode,
+  closeSettings,
+  gameInit,
+} from "./game";
 
 export function saveSelectedOption(selectName, value) {
   return dispatch => {
@@ -22,5 +27,25 @@ export function saveSettings() {
     dispatch(closeSettings());
 
     dispatch(gameInit(true));
+  };
+}
+
+export function updateSettings(selectedOptions) {
+  return (dispatch, getState) => {
+    const { rows, columns } = selectedOptions;
+    const goal = selectedOptions.winningSquare;
+    const mode = selectedOptions.gameMode;
+
+    dispatch(updateBoardDimensions({ rows, columns }));
+    dispatch(updateGameGoal(goal));
+    dispatch(updateGameMode(mode));
+    
+    dispatch(loadSelectedOptions(selectedOptions));
+  };
+}
+
+export function loadSelectedOptions(selectedOptions) {
+  return (dispatch, getState) => {
+    dispatch({ type: "LOAD_SELECTED_OPTIONS", selectedOptions });
   };
 }

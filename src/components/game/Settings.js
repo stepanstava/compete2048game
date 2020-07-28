@@ -5,7 +5,6 @@ import actions from "../../actions";
 import {
   getFormData,
   getSelectedOptions,
-  getFormDataIcons,
 } from "../../selectors";
 
 class Settings extends Component {
@@ -18,10 +17,12 @@ class Settings extends Component {
     this.props.saveSelectedOption(selectName, value);
   }
 
-  renderSelectOptions(selectName) {
-    const { formData, formDataIcons, selectedOptions } = this.props;
+  
 
-    const options = formData[selectName].map((item, i) => {
+  renderSelectOptions(selectName) {
+    const { formData, selectedOptions } = this.props;
+
+    const options = formData.values[selectName].map((item, i) => {
       return (
         <option value={`${item}`} key={`${selectName}:${i}`}>
           {item}
@@ -32,8 +33,8 @@ class Settings extends Component {
     return (
       <div className="item">
         <div className="meta">
-          <i className={formDataIcons[selectName]}></i>
-          <label>{selectName[0].toUpperCase() + selectName.substr(1)}</label>
+          <i className={formData.icons[selectName]}></i>
+          <label>{formData.displayNames[selectName]}</label>
         </div>
         <div className="value">
           <select
@@ -77,7 +78,6 @@ class Settings extends Component {
 const mapStateToProps = state => {
   return {
     formData: getFormData(state),
-    formDataIcons: getFormDataIcons(state),
     selectedOptions: getSelectedOptions(state),
   };
 };

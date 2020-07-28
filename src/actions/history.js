@@ -11,16 +11,19 @@ import {
   getNextGameState,
   getBestScore,
   isKeepPlayingMode,
+  getSelectedOptions,
 } from "../selectors";
 
 import { updateSquares } from "./square";
 import { updateBoardMap } from "./board";
+import { updateSettings } from "./settings";
 import {
   updateGameScore,
   updateIsWinning,
   updateIsLosing,
   updateBestScore,
   loadKeepPlayingMode,
+  updateShouldBoardMove,
 } from "./game";
 import actions from ".";
 
@@ -29,6 +32,7 @@ export function undo() {
     const gameState = getPreviousGameState(getState());
 
     dispatch(updateGameState(gameState));
+    dispatch(updateShouldBoardMove(true));
 
     dispatch({ type: "UNDO" });
   };
@@ -39,6 +43,7 @@ export function redo() {
     const gameState = getNextGameState(getState());
 
     dispatch(updateGameState(gameState));
+    dispatch(updateShouldBoardMove(true));
 
     dispatch({ type: "REDO" });
   };
@@ -54,6 +59,7 @@ export function saveGameState() {
       isWinning: isWinningState(getState()),
       isLosing: isLosingState(getState()),
       keepPlayingMode: isKeepPlayingMode(getState()),
+      selectedOptions: getSelectedOptions(getState()),
     };
 
     dispatch({
@@ -76,8 +82,10 @@ export function updateGameState(gameState) {
       isWinning,
       isLosing,
       keepPlayingMode,
+      selectedOptions,
     } = gameState;
 
+    dispatch(updateSettings(selectedOptions));
     dispatch(updateSquares(squares));
     dispatch(updateBoardMap(boardMap));
     dispatch(updateGameScore(score));

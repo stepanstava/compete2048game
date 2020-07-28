@@ -175,7 +175,6 @@
 .form input:focus,
 .form textarea:focus,
 .form select:focus {
-  color: #000;
   border-color: #83b5d6;
 }
 
@@ -466,6 +465,16 @@ nav .menu .item.active {
 .toolbar .settings {
   font-size: 1.8rem;
   color: white;
+  -webkit-transition: color 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+}
+
+.toolbar .settings:hover {
+  color: #42413F;
+  -webkit-transform: rotateZ(-10deg);
+          transform: rotateZ(-10deg);
 }
 
 .toolbar .timer {

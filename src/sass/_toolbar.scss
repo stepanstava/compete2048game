@@ -13,6 +13,13 @@
   .settings {
     font-size: 1.8rem;
     color: white;
+
+    transition: color $transition-duration $transition-timing, transform $transition-duration $transition-timing;
+
+    &:hover {
+      color: $header-color;
+      transform: rotateZ(-10deg);
+    }
   }
 
   .timer {
