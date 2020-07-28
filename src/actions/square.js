@@ -44,7 +44,7 @@ export function addSquare() {
 
     let squareValue;
     if (gameMode === 2) {
-      squareValue = Math.random() > doubleSquareProb ? 2048 : 4;
+      squareValue = Math.random() > doubleSquareProb ? 2 : 4;
     } else {
       squareValue = Math.random() > doubleSquareProb ? 1 : 2;
     }

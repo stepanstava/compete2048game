@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar from "./layout/Navbar";
 
 import Compete from "./Compete";
-import Highscore from "./Highscore";
+import Leaderboard from "./Leaderboard";
 import Practise from "./Practise";
 
 import actions from "../actions";
@@ -24,7 +24,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Practise} />
             <Route exact path="/compete" component={Compete} />
-            <Route exact path="/highscore" component={Highscore} />
+            <Route exact path="/leaderboard" component={Leaderboard} />
           </Switch>
         </Fragment>
       </Router>

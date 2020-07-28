@@ -21,6 +21,8 @@
 @import "./nav";
 @import "./toolbar";
 @import "./board";
+@import "./compete";
+@import "./leaderboard";
 
 * {
   box-sizing: border-box;
@@ -40,6 +42,11 @@ button {
   font-weight: 700;
   font-size: 0.9rem;
   padding: 0.5rem 0.8rem;
+}
+
+h2 {
+  text-transform: uppercase;
+  font-size: 1rem;
 }
 
 .square {
@@ -68,16 +75,15 @@ button {
 .text {
   margin-top: 3rem;
   padding: 0 2rem;
-
 }
 
 .alert {
   background-color: $color-danger;
   opacity: 0.8;
-  border-radius:.3rem;
+  border-radius: 0.3rem;
   text-align: center;
   margin-top: 1rem;
-  padding: .4rem 0;
+  padding: 0.4rem 0;
 }
 
 @keyframes merge {
@@ -117,117 +123,6 @@ button {
     opacity: 0;
   }
 }
-
-// !
-h2 {
-  text-transform: uppercase;
-  font-size: 1rem;
-}
-.compete {
-  // overflow: hidden;
-  max-width: 600px;
-  // border: 1px solid #000;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  background-color: $content-color;
-  margin: 0 auto;
-  padding-top: 2rem;
-
-  .item {
-
-    margin-bottom: 2rem;
-
-    .title {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-    i {
-      // color: $header-color;
-      color: darken($header-color, 10%);
-      margin-right: 1rem;
-    }
-
-
-    .options {
-      padding: 0 1.5rem;
-      display: flex;
-      @include flex-between;
-
-      .option {
-        width: 150px;
-        height: 150px;
-        border: 1px solid $header-color;
-        border-radius: .4rem;
-        @include flex-center;
-        flex-direction: column;
-        font-size: 3rem;
-        color: $header-color;
-        transition: all $transition-duration $transition-timing;
-        cursor: pointer;
-
-        .desc {
-          font-size: 1rem;
-        }
-
-        &:hover {
-          color: $color-white;
-          border: 1px solid $color-white;
-          transform: scale(1.05);
-        }
-
-        &.opt1:hover {
-          background-color: gold;
-        }
-
-        &.opt2:hover {
-          background-color: #03398C;
-        }
-
-        &.opt3:hover {
-          background-color: #170570; 
-        }
-
-        &.opt4:hover {
-          background-color: #7CB9FF; 
-        }
-
-        &.opt5:hover {
-          background-color: #9D6BFF; 
-        }
-
-        &.opt6:hover {
-          background-color: #FF5DFF; 
-        }
-
-      }
-
-
-
-
-    }
-  }
-
-}
-
-// <div class="compete">
-//       <div class="item">
-//         <div class="title">
-//           <i class="fas fa-stopwatch"></i>Get selected square quickest
-//         </div>
-//         <div class="squares">
-//           <div className="square">2048</div>
-//           <div className="square">2048</div>
-//           <div className="square">2048</div>
-//         </div>
-
-//       </div>
-
-
-
-
-
 
 // Mobile
 @import "mobile";

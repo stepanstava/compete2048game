@@ -33,7 +33,7 @@ class Navbar extends Component {
               Compete
             </NavLink>
 
-            <NavLink to="/highscore" className="item" activeClassName="active">
+            <NavLink to="/leaderboard" className="item" activeClassName="active">
               Highscore
             </NavLink>
           </div>

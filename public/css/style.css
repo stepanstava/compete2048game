@@ -837,6 +837,196 @@ nav .menu .item.active {
   color: #000;
 }
 
+.compete {
+  max-width: 600px;
+  background-color: #717171;
+  margin: 0 auto;
+  padding-top: 3rem;
+}
+
+.compete .item {
+  margin-bottom: 2rem;
+}
+
+.compete .item .title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 1rem;
+}
+
+.compete .item i {
+  color: #282726;
+  margin-right: 1rem;
+}
+
+.compete .item .options {
+  padding: 0 1.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.compete .item .options .option {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #42413F;
+  border-radius: 0.4rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  font-size: 3rem;
+  color: #42413F;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.compete .item .options .option .desc {
+  font-size: 1rem;
+}
+
+.compete .item .options .option:hover {
+  color: #fff;
+  border: 1px solid #fff;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+.compete .item .options .option.opt1:hover {
+  background-color: gold;
+}
+
+.compete .item .options .option.opt2:hover {
+  background-color: #03398c;
+}
+
+.compete .item .options .option.opt3:hover {
+  background-color: #170570;
+}
+
+.compete .item .options .option.opt4:hover {
+  background-color: #7cb9ff;
+}
+
+.compete .item .options .option.opt5:hover {
+  background-color: #9d6bff;
+}
+
+.compete .item .options .option.opt6:hover {
+  background-color: #ff5dff;
+}
+
+.leaderboard {
+  max-width: 700px;
+  background-color: #717171;
+  margin: 0 auto;
+  padding-top: 3rem;
+}
+
+.leaderboard .leaderboard-nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #42413F;
+  padding: 0rem 0.5rem;
+  color: gray;
+  border-top-left-radius: .4rem;
+  border-top-right-radius: .4rem;
+}
+
+.leaderboard .leaderboard-nav .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.leaderboard .leaderboard-nav .item span {
+  padding: 0.5rem 0.3rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  -webkit-transition: color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
+}
+
+.leaderboard .leaderboard-nav .item span:hover {
+  color: #fff;
+}
+
+.leaderboard .leaderboard-nav .item .title {
+  text-transform: uppercase;
+  font-weight: 700;
+  color: white;
+  padding-left: 0;
+}
+
+.leaderboard .leaderboard-nav .item i {
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+  color: white;
+}
+
+.leaderboard .leaderboard-nav .item .selected {
+  background: #e3394ab4;
+  color: white;
+}
+
+.leaderboard .results .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0.3rem 8rem;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.leaderboard .results .item .meta .position {
+  margin-right: 2rem;
+}
+
+.leaderboard .results .item:nth-child(odd) {
+  background-color: #575757;
+}
+
+.leaderboard .results .item:last-child {
+  border-bottom-left-radius: .4rem;
+  border-bottom-right-radius: .4rem;
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -856,6 +1046,11 @@ button {
   font-weight: 700;
   font-size: 0.9rem;
   padding: 0.5rem 0.8rem;
+}
+
+h2 {
+  text-transform: uppercase;
+  font-size: 1rem;
 }
 
 .square {
@@ -902,10 +1097,10 @@ button {
 .alert {
   background-color: #dc3545;
   opacity: 0.8;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
   text-align: center;
   margin-top: 1rem;
-  padding: .4rem 0;
+  padding: 0.4rem 0;
 }
 
 @-webkit-keyframes merge {
@@ -984,111 +1179,6 @@ button {
     top: -4rem;
     opacity: 0;
   }
-}
-
-h2 {
-  text-transform: uppercase;
-  font-size: 1rem;
-}
-
-.compete {
-  max-width: 600px;
-  background-color: #717171;
-  margin: 0 auto;
-  padding-top: 2rem;
-}
-
-.compete .item {
-  margin-bottom: 2rem;
-}
-
-.compete .item .title {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  margin-bottom: 1rem;
-}
-
-.compete .item i {
-  color: #282726;
-  margin-right: 1rem;
-}
-
-.compete .item .options {
-  padding: 0 1.5rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.compete .item .options .option {
-  width: 150px;
-  height: 150px;
-  border: 1px solid #42413F;
-  border-radius: .4rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  font-size: 3rem;
-  color: #42413F;
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-}
-
-.compete .item .options .option .desc {
-  font-size: 1rem;
-}
-
-.compete .item .options .option:hover {
-  color: #fff;
-  border: 1px solid #fff;
-  -webkit-transform: scale(1.05);
-          transform: scale(1.05);
-}
-
-.compete .item .options .option.opt1:hover {
-  background-color: gold;
-}
-
-.compete .item .options .option.opt2:hover {
-  background-color: #03398C;
-}
-
-.compete .item .options .option.opt3:hover {
-  background-color: #170570;
-}
-
-.compete .item .options .option.opt4:hover {
-  background-color: #7CB9FF;
-}
-
-.compete .item .options .option.opt5:hover {
-  background-color: #9D6BFF;
-}
-
-.compete .item .options .option.opt6:hover {
-  background-color: #FF5DFF;
 }
 
 @media (max-width: 675px) {
