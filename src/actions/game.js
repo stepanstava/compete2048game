@@ -2,8 +2,9 @@ import { resetScore } from "./score";
 import { clearBoardMap, updateBoardDimensions } from "./board";
 import { addSquare, clearSquares } from "./square";
 import { saveInitialState, updateGameState, saveGameState } from "./history";
+import { stopTimer } from "./compete";
 
-import { isSettingsOpen } from "../selectors";
+import { isSettingsOpen,shouldRunTimer } from "../selectors";
 
 export function gameInit(isNewGame) {
   return (dispatch, getState) => {
@@ -71,11 +72,18 @@ export function clearScore() {
 }
 
 export function updateIsWinning(isWinning) {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({
       type: "UPDATE_IS_WINNING",
       isWinning,
     });
+
+    // Stops timer if is running
+    if(shouldRunTimer(getState())) {
+      dispatch(stopTimer());
+    }
+    
+
   };
 }
 export function updateIsLosing(isLosing) {

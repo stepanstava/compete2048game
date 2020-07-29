@@ -4,12 +4,14 @@ import { connect } from "react-redux";
 import actions from "../../actions";
 
 import Score from "./Score";
+import Timer from "./Timer";
 
 import {
   getUndoArr,
   getRedoArr,
   isSettingsOpen,
   isCompeteMode,
+  shouldRunTimer,
 } from "../../selectors";
 
 class Toolbar extends Component {
@@ -90,9 +92,9 @@ class Toolbar extends Component {
 
   // }
   renderSettingsOrTimer() {
-    const { isCompeteMode } = this.props;
+    const { isCompeteMode, shouldRunTimer } = this.props;
     if (isCompeteMode) {
-      return <div class="timer">01:05:23</div>;
+      return <Timer shouldRunTimer={shouldRunTimer}/>;
     } else {
       return (
         <i
@@ -131,6 +133,7 @@ const mapStateToProps = state => {
     undoArr: getUndoArr(state),
     redoArr: getRedoArr(state),
     isCompeteMode: isCompeteMode(state),
+    shouldRunTimer: shouldRunTimer(state),
   };
 };
 
