@@ -33,14 +33,13 @@ export function saveSettings() {
 export function updateSettings(selectedOptions) {
   return (dispatch, getState) => {
     const { rows, columns } = selectedOptions;
-    // const goal = selectedOptions.winningSquare;
-    const goal = 16;
+    const goal = selectedOptions.winningSquare;
     const mode = selectedOptions.gameMode;
 
     dispatch(updateBoardDimensions({ rows, columns }));
     dispatch(updateGameGoal(goal));
     dispatch(updateGameMode(mode));
-    
+
     dispatch(loadSelectedOptions(selectedOptions));
   };
 }
@@ -53,9 +52,7 @@ export function loadSelectedOptions(selectedOptions) {
 
 export function loadSettings() {
   return (dispatch, getState) => {
-
-    const settings = getSelectedOptions(getState())
+    const settings = getSelectedOptions(getState());
     dispatch(updateSettings(settings));
-
   };
 }

@@ -1,18 +1,16 @@
-import { gameInit, updateGameGoal, updateShouldBoardMove } from "./game";
+import {
+  gameInit,
+  updateGameGoal,
+  updateShouldBoardMove,
+  updateGameMode,
+} from "./game";
 import { updateBoardDimensions } from "./board";
 
 export function setCompeteMode(type, value) {
-  
   return (dispatch, getState) => {
-
-    // console.log("setCompeteMode -> type", type, value)
-
-    
-    // //!base on selected option
-    
     dispatch(toggleCompeteMode());
+    //!not working
     // dispatch(updateShouldBoardMove(false));
-
     if (type === "time") {
       dispatch(updateGameGoal(value));
     }
@@ -20,29 +18,13 @@ export function setCompeteMode(type, value) {
     if (type === "score") {
       const dimension = {
         rows: value,
-        columns: value
-      }
+        columns: value,
+      };
       dispatch(updateBoardDimensions(dimension));
     }
 
-    // dispatch(gameInit(true));
-    
-    // console.log('--------', getState().game.shouldBoardMove)
-
-    // dispatch({
-    //   type: "UPDATE_GOAL",
-    //   goal,
-    // });
-    
-    
-    //!presunout winning screen to Game - index.html
-
-    
-    
-    // play countdown
+    dispatch(updateGameMode(2));
     dispatch(playCountdown());
-
-    // start time
   };
 }
 
@@ -62,10 +44,8 @@ export function removeCompeteMode() {
   };
 }
 
-
 export function startTimer() {
   return dispatch => {
-    // console.log("aaaaaa")
     dispatch({
       type: "START_TIMER",
     });
@@ -74,7 +54,6 @@ export function startTimer() {
 
 export function stopTimer() {
   return dispatch => {
-    // console.log("aaaaaa")
     dispatch({
       type: "STOP_TIMER",
     });
@@ -83,19 +62,14 @@ export function stopTimer() {
 
 export function playCountdown() {
   return async dispatch => {
-    
-    console.log("false")
-
     dispatch({
       type: "ADD_COUNTDOWN",
     });
 
     await waitForCountdownToFinish(dispatch);
-    // dispatch(startTimer());
+
     dispatch(updateShouldBoardMove(true));
-    console.log("true")
     dispatch(startTimer());
-    
   };
 }
 
@@ -104,7 +78,6 @@ function waitForCountdownToFinish(dispatch) {
     setTimeout(function () {
       dispatch({ type: "REMOVE_COUNTDOWN" });
       resolve();
-      //!better time tesne nez se objevi ready
     }, 3600);
   });
 }

@@ -2,10 +2,28 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import actions from "../../actions";
-import {
-  getFormData,
-  getSelectedOptions,
-} from "../../selectors";
+import { getSelectedOptions } from "../../selectors";
+
+const FORM_DATA = {
+  values: {
+    rows: [3, 4, 5, 6],
+    columns: [3, 4, 5, 6],
+    winningSquare: [128, 256, 512, 1024, 2048, 4096, 8192, 16384],
+    gameMode: [1, 2],
+  },
+  icons: {
+    rows: "fas fa-grip-horizontal",
+    columns: "fas fa-grip-vertical",
+    winningSquare: "far fa-square",
+    gameMode: "fas fa-dice-two",
+  },
+  displayNames: {
+    rows: "Rows",
+    columns: "Columns",
+    winningSquare: "Winning Square",
+    gameMode: "Game Mode",
+  },
+};
 
 class Settings extends Component {
   constructor(props) {
@@ -17,12 +35,10 @@ class Settings extends Component {
     this.props.saveSelectedOption(selectName, value);
   }
 
-  
-
   renderSelectOptions(selectName) {
-    const { formData, selectedOptions } = this.props;
+    const { selectedOptions } = this.props;
 
-    const options = formData.values[selectName].map((item, i) => {
+    const options = FORM_DATA.values[selectName].map((item, i) => {
       return (
         <option value={`${item}`} key={`${selectName}:${i}`}>
           {item}
@@ -33,8 +49,8 @@ class Settings extends Component {
     return (
       <div className="item">
         <div className="meta">
-          <i className={formData.icons[selectName]}></i>
-          <label>{formData.displayNames[selectName]}</label>
+          <i className={FORM_DATA.icons[selectName]}></i>
+          <label>{FORM_DATA.displayNames[selectName]}</label>
         </div>
         <div className="value">
           <select
@@ -64,10 +80,7 @@ class Settings extends Component {
           </div>
           <div className="field">{this.renderSelectOptions("gameMode")}</div>
         </form>
-        <button
-          className="btn"
-          onClick={() => this.props.saveSettings()}
-        >
+        <button className="btn" onClick={() => this.props.saveSettings()}>
           Save
         </button>
       </div>
@@ -75,12 +88,9 @@ class Settings extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    formData: getFormData(state),
-    selectedOptions: getSelectedOptions(state),
-  };
-};
+const mapStateToProps = state => ({
+  selectedOptions: getSelectedOptions(state),
+});
 
 export default connect(mapStateToProps, {
   closeSettings: actions.closeSettings,

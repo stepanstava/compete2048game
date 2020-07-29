@@ -15,13 +15,9 @@ class Timer extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   this.timer = setInterval(() => this.addSecond(), 1000);
-  // }
   componentDidUpdate() {
     const { isTimerRunning } = this.props;
-    console.log("Timer -> componentWillUpdate -> isTimerRunning", isTimerRunning)
-    
+
     if (isTimerRunning && !this.timer) {
       this.startTimer();
     }
@@ -32,15 +28,11 @@ class Timer extends Component {
   }
 
   componentWillUnmount() {
-    this.stopTimer()
+    this.stopTimer();
   }
 
   startTimer() {
-    // console.log("here");
-    
     this.timer = setInterval(() => this.addSecond(), 1000);
-    
-    // this.setState({startTimer: true})
   }
 
   stopTimer() {
@@ -81,14 +73,6 @@ class Timer extends Component {
   }
 
   render() {
-    // console.log("rendered")
-
-    const { isTimerRunning } = this.props;
-    // const { startTimer } = this.state;
-    if(isTimerRunning && !this.timer) {
-      // this.startTimer();
-    }
-
     return <div className="timer">{this.buildTimer()}</div>;
   }
 }

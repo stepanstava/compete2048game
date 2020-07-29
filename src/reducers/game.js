@@ -6,8 +6,7 @@ const initialState = {
   isWinning: false,
   keepPlayingMode: false,
   isLosing: false,
-  //!
-  goal: 16,
+  goal: 2048,
   doubleSquareProb: 0.1,
   moveAnimationDelay: 300,
   isSettingsOpen: false,

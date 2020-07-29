@@ -1,24 +1,4 @@
 const initialState = {
-  formData: {
-    values: {
-      rows: [3, 4, 5, 6],
-      columns: [3, 4, 5, 6],
-      winningSquare: [128, 256, 512, 1024, 2048, 4096, 8192, 16384],
-      gameMode: [1, 2],
-    },
-    icons: {
-      rows: "fas fa-grip-horizontal",
-      columns: "fas fa-grip-vertical",
-      winningSquare: "far fa-square",
-      gameMode: "fas fa-dice-two",
-    },
-    displayNames: {
-      rows: "Rows",
-      columns: "Columns",
-      winningSquare: "Winning Square",
-      gameMode: "Game Mode",
-    },
-  },
   selectedOptions: {
     rows: 4,
     columns: 4,
@@ -55,7 +35,6 @@ export default function (state = initialState, action) {
         },
       };
     }
-    
 
     default:
       return state;
@@ -63,13 +42,6 @@ export default function (state = initialState, action) {
 }
 
 // -- Selectors
-export function getFormData(state) {
-  return state.settings.formData;
-}
-// export function getFormDataIcons(state) {
-//   return state.settings.formDataIcons;
-// }
-
 export function getSelectedOptions(state) {
   return state.settings.selectedOptions;
 }

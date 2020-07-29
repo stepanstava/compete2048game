@@ -14,22 +14,19 @@ class Square extends Component {
 
     const { merge, value } = this.props.square;
 
-    let className = 'square'
+    let className = "square";
 
     if (gameMode === 2) {
-      className += ` sq-${value}`
+      className += ` sq-${value}`;
     } else {
-      className += ` sq-1-${value}`
-    } 
+      className += ` sq-1-${value}`;
+    }
 
     if (merge) {
-      className += ' merge'
+      className += " merge";
     }
 
     return className;
-    // const valueClass = `sq-${value}`;
-
-    // return merge ? `square ${valueClass} merge` : `square ${valueClass}`;
   }
 
   render() {

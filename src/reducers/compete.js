@@ -10,18 +10,6 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    // case "SAVE_OPTION": {
-    //   const { selectName, value } = action;
-
-    //   return {
-    //     ...state,
-    //     selectedOptions: {
-    //       ...state.selectedOptions,
-    //       [selectName]: value,
-    //     },
-    //   };
-    // }
-
     case "TOGGLE_COMPETE": {
       return {
         ...state,
@@ -59,7 +47,6 @@ export default function (state = initialState, action) {
       };
     }
 
-
     default:
       return state;
   }
@@ -75,6 +62,3 @@ export function shouldPlayCountdown(state) {
 export function isTimerRunning(state) {
   return state.compete.isTimerRunning;
 }
-// export function getCompeteValues(state) {
-//   return state.compete.values;
-// }

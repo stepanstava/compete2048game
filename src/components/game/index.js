@@ -14,7 +14,7 @@ import {
   getBoardDimensions,
   isSettingsOpen,
   shouldBoardMove,
-  isCompeteMode
+  isCompeteMode,
 } from "../../selectors";
 
 const SQUARE_WIDTH = {
@@ -34,20 +34,18 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    document.body.addEventListener('keydown', this.handleKeyDown)
+    document.body.addEventListener("keydown", this.handleKeyDown);
     this.props.gameInit();
   }
 
   componentWillUnmount() {
-    document.body.removeEventListener('keydown', this.handleKeyDown)
+    document.body.removeEventListener("keydown", this.handleKeyDown);
   }
 
   handleKeyDown(e) {
     e.preventDefault();
-    // e.stopPropagation();
     const { moveBoard, shouldBoardMove } = this.props;
-    console.log("xxxxxxxxxxxxxx", shouldBoardMove)
-    
+
     if (shouldBoardMove) {
       switch (e.key.toUpperCase()) {
         // move right
@@ -121,25 +119,22 @@ class Game extends Component {
     const { isCompeteMode } = this.props;
 
     if (isCompeteMode) {
-      return (
-        <Result handleKeyDown={this.handleKeyDown}/>
-      )
+      return <Result handleKeyDown={this.handleKeyDown} />;
     } else {
       return (
         <div className="buttons">
-        <button
-          className="btn"
-          onClick={() => this.props.setKeepPlayingMode()}
-        >
-          Keep playing
-        </button>
-        <button className="btn" onClick={() => this.props.gameInit(true)}>
-          Try again
-        </button>
-      </div>
-      )
+          <button
+            className="btn"
+            onClick={() => this.props.setKeepPlayingMode()}
+          >
+            Keep playing
+          </button>
+          <button className="btn" onClick={() => this.props.gameInit(true)}>
+            Try again
+          </button>
+        </div>
+      );
     }
-
   }
 
   renderWinningScreen() {
@@ -153,7 +148,6 @@ class Game extends Component {
 
   render() {
     const { isWinning, isLosing, isSettingsOpen } = this.props;
-    console.log("Game -> render -> isWinning", isWinning);
     const squareSize = this.getSquareSize();
 
     return (
@@ -186,4 +180,3 @@ export default connect(mapStateToProps, {
   moveBoard: actions.moveBoard,
 })(Game);
 
-// export default Game;

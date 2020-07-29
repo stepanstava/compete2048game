@@ -1,10 +1,15 @@
 import { resetScore } from "./score";
 import { clearBoardMap, updateBoardDimensions, clearQueues } from "./board";
 import { addSquare, clearSquares } from "./square";
-import { saveInitialState, updateGameState, saveGameState, clearHistory } from "./history";
+import {
+  saveInitialState,
+  updateGameState,
+  saveGameState,
+  clearHistory,
+} from "./history";
 import { stopTimer } from "./compete";
 
-import { isSettingsOpen,isTimerRunning, isCompeteMode } from "../selectors";
+import { isSettingsOpen, isTimerRunning, isCompeteMode } from "../selectors";
 
 export function gameInit(isNewGame) {
   return (dispatch, getState) => {
@@ -12,11 +17,10 @@ export function gameInit(isNewGame) {
       const savedStateLocally = localStorage.getItem("compete2048game");
       if (savedStateLocally && !isCompeteMode(getState())) {
         const gameState = JSON.parse(savedStateLocally);
-        
+
         dispatch(updateGameState(gameState));
-        dispatch(saveInitialState(gameState));
+        // dispatch(saveInitialState(gameState));
         return;
-        // return dispatch(saveInitialState(gameState));
       }
     }
 
@@ -26,7 +30,6 @@ export function gameInit(isNewGame) {
     // clear board
     dispatch(clearBoardMap());
     dispatch(clearSquares());
-    //!mozna smazat
     dispatch(clearQueues());
 
     // clear game states
@@ -37,7 +40,7 @@ export function gameInit(isNewGame) {
     dispatch(addSquare());
 
     // save initial state
-    dispatch(clearHistory())
+    dispatch(clearHistory());
     // dispatch(saveInitialState());
   };
 }
@@ -82,11 +85,9 @@ export function updateIsWinning(isWinning) {
     });
 
     // Stops timer if is running
-    if(isTimerRunning(getState())) {
+    if (isTimerRunning(getState())) {
       dispatch(stopTimer());
     }
-    
-
   };
 }
 export function updateIsLosing(isLosing) {
@@ -142,7 +143,6 @@ export function loadKeepPlayingMode(keepPlayingMode) {
 
 export function toggleSettings() {
   return (dispatch, getState) => {
-
     dispatch(updateShouldBoardMove(isSettingsOpen(getState())));
 
     dispatch({
@@ -162,7 +162,6 @@ export function closeSettings() {
 }
 export function updateGameGoal(goal) {
   return dispatch => {
-  
     dispatch({
       type: "UPDATE_GOAL",
       goal,
@@ -172,63 +171,9 @@ export function updateGameGoal(goal) {
 
 export function updateGameMode(mode) {
   return dispatch => {
-  
     dispatch({
       type: "UPDATE_GAME_MODE",
       mode,
     });
-  };
-}
-
-
-
-
-
-// export function updateScore(roundScore) {
-//   return dispatch => {
-//     // update only if the score to add is greater than 0
-//     if (roundScore > 0) {
-//       dispatch({
-//         type: "UPDATE_SCORE",
-//         score: roundScore,
-//       });
-
-//       dispatch({
-//         type: "UPDATE_SCORE_ROUND",
-//         roundScore,
-//       });
-
-//       // TODO
-//       setTimeout(() => {
-//         dispatch({
-//           type: "CLEAR_SCORE_ROUND",
-//         });
-//       }, 500);
-//     }
-//   };
-// }
-
-export function addWinner() {
-  return (dispatch, getState) => {
-    dispatch({
-      type: "ADD_WINNER",
-    });
-  };
-}
-
-export function isLosing() {
-  return (dispatch, getState) => {
-    // TODO
-    // dispatch({
-    //   type: "ADD_WINNER",
-    // });
-  };
-}
-
-export function shouldLoose(squaresCount) {
-  return (dispatch, getState) => {
-    // TODO
-    if (squaresCount === 16) {
-    }
   };
 }

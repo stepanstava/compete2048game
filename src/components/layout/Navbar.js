@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-
 import actions from "../../actions";
 
 class Navbar extends Component {
@@ -11,12 +10,6 @@ class Navbar extends Component {
   //   super(props);
 
   // }
-
-  removeCompeteMode() {
-    // this.props.gameInit(true);
-    this.props.removeCompeteMode();
-  }
-
 
   renderLogo() {
     return (
@@ -39,11 +32,20 @@ class Navbar extends Component {
               Practise
             </NavLink>
 
-            <NavLink to="/compete" className="item" activeClassName="active" onClick={() => this.removeCompeteMode()}>
+            <NavLink
+              to="/compete"
+              className="item"
+              activeClassName="active"
+              onClick={() => this.props.removeCompeteMode()}
+            >
               Compete
             </NavLink>
 
-            <NavLink to="/leaderboard" className="item" activeClassName="active">
+            <NavLink
+              to="/leaderboard"
+              className="item"
+              activeClassName="active"
+            >
               Highscore
             </NavLink>
           </div>
@@ -53,16 +55,15 @@ class Navbar extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log("state", state)
-  return {
-    number: state.add.count,
-  }
-};
+// const mapStateToProps = state => {
+//   console.log("state", state);
+//   return {
+//     number: state.add.count,
+//   };
+// };
 
-export default connect(
-  null,
-  {  removeCompeteMode: actions.removeCompeteMode }
-)(Navbar)
+export default connect(null, { removeCompeteMode: actions.removeCompeteMode })(
+  Navbar
+);
 
 // export default Navbar;

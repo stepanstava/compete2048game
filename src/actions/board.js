@@ -8,7 +8,7 @@ import {
   getSquares,
   getBoardDimensions,
   getGameMode,
-  isCompeteMode
+  isCompeteMode,
 } from "../selectors";
 import { moveBoardHorizontally, moveBoardVertically } from "./boardMove";
 import {
@@ -20,9 +20,6 @@ import {
 } from "./game";
 import { addSquare } from "./square";
 import { saveGameState } from "./history";
-
-// TODO get from store
-
 
 export function clearBoardMap() {
   return dispatch => {
@@ -43,37 +40,19 @@ export function moveBoard(movement) {
   return async (dispatch, getState) => {
     const moveAnimationDelay = getmoveAnimationDelay(getState());
     const { rows, columns } = getBoardDimensions(getState());
-    // let borderIndex;
-    // let direction;
-
-    // if (["top", "left"].includes(movement)) {
-    //   borderIndex = 0;
-    //   direction = 1;
-    // } else {
-    //   borderIndex = SQUARES_ROW - 1;
-    //   direction = -1;
-    // }
 
     if (movement === "top") {
-      dispatch(moveBoardVertically(0, 1))
-    } else if ((movement === "bottom")) {
+      dispatch(moveBoardVertically(0, 1));
+    } else if (movement === "bottom") {
       dispatch(moveBoardVertically(rows - 1, -1));
     } else if (movement === "left") {
-      dispatch(moveBoardHorizontally(0, 1))
+      dispatch(moveBoardHorizontally(0, 1));
     } else {
-      dispatch(moveBoardHorizontally(columns - 1, -1))
+      dispatch(moveBoardHorizontally(columns - 1, -1));
     }
 
     // blocks pressing another direction when moving
     dispatch(updateShouldBoardMove(false));
-
-    // // move board to right or left
-    // if (["right", "left"].includes(movement)) {
-    //   dispatch(moveBoardHorizontally(borderIndex, direction));
-    // } else {
-    //   // move to top or bottom
-    //   dispatch(moveBoardVertically(borderIndex, direction));
-    // }
 
     // clears moving queue - moves squares on the board
     const { moveQue } = getBoardQueues(getState());
@@ -92,8 +71,6 @@ export function moveBoard(movement) {
     if (!isCompeteMode(getState())) {
       dispatch(saveGameState());
     }
-    
-
     // check for winning square
     dispatch(checkIsWinning());
 
@@ -208,7 +185,6 @@ export function handleUpdateQueue() {
       } else {
         square.value += 1;
       }
-      
 
       // If square is greater or equal to game goal show winning screen.
       if (!keepPlayingMode && square.value >= gameGoal) {
@@ -231,12 +207,11 @@ export function clearQueues() {
   };
 }
 
-
 export function updateBoardDimensions(boardDimensions) {
   return (dispatch, getState) => {
     dispatch({
       type: "UPDATE_BOARD_DIMENSIONS",
-      boardDimensions
+      boardDimensions,
     });
   };
 }

@@ -27,11 +27,6 @@ class Toolbar extends Component {
       <div className="scores">
         <Score isBestScore={false} />
         {!isCompeteMode ? <Score isBestScore={true} /> : null}
-
-        {/* <div className="score">
-          <span className="title">Best</span>
-          <span className="points">35880</span>
-        </div> */}
       </div>
     );
   }
@@ -88,13 +83,10 @@ class Toolbar extends Component {
     }
   }
 
-  // toggleSettings() {
-
-  // }
   renderSettingsOrTimer() {
     const { isCompeteMode, isTimerRunning } = this.props;
     if (isCompeteMode) {
-      return <Timer isTimerRunning={isTimerRunning}/>;
+      return <Timer isTimerRunning={isTimerRunning} />;
     } else {
       return (
         <i
@@ -113,9 +105,9 @@ class Toolbar extends Component {
 
     return (
       <button className="btn" onClick={() => this.props.gameInit(true)}>
-      New Game
+        New Game
       </button>
-    )
+    );
   }
 
   render() {
@@ -137,15 +129,12 @@ class Toolbar extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  // console.log("state", state)
-  return {
-    undoArr: getUndoArr(state),
-    redoArr: getRedoArr(state),
-    isCompeteMode: isCompeteMode(state),
-    isTimerRunning: isTimerRunning(state),
-  };
-};
+const mapStateToProps = state => ({
+  undoArr: getUndoArr(state),
+  redoArr: getRedoArr(state),
+  isCompeteMode: isCompeteMode(state),
+  isTimerRunning: isTimerRunning(state),
+});
 
 export default connect(mapStateToProps, {
   gameInit: actions.gameInit,

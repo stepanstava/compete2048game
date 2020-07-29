@@ -1,5 +1,3 @@
-// import {config} from "../config/keys"
-
 import {
   getSquares,
   getGameScore,
@@ -96,31 +94,31 @@ export function updateGameState(gameState) {
   };
 }
 
-export function saveInitialState(gameState) {
-  return (dispatch, getState) => {
-    const squares = getSquares(getState());
-    const boardMap = getBoardMap(getState());
+// export function saveInitialState(gameState) {
+//   return (dispatch, getState) => {
+//     const squares = getSquares(getState());
+//     const boardMap = getBoardMap(getState());
 
-    if (gameState) {
-      dispatch({
-        type: "SAVE_INITIAL_STATE",
-        gameState,
-      });
-    }
+//     if (gameState) {
+//       dispatch({
+//         type: "SAVE_INITIAL_STATE",
+//         gameState,
+//       });
+//     }
 
-    dispatch({
-      type: "SAVE_INITIAL_STATE",
-      gameState: {
-        squares,
-        boardMap,
-        score: 0,
-        isWinning: false,
-        isLosing: false,
-        keepPlayingMode: false,
-      },
-    });
-  };
-}
+//     dispatch({
+//       type: "SAVE_INITIAL_STATE",
+//       gameState: {
+//         squares,
+//         boardMap,
+//         score: 0,
+//         isWinning: false,
+//         isLosing: false,
+//         keepPlayingMode: false,
+//       },
+//     });
+//   };
+// }
 export function clearHistory() {
   return (dispatch, getState) => {
     dispatch({

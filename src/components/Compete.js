@@ -8,9 +8,6 @@ import Countdown from "./game/Countdown";
 
 import { isCompeteMode, shouldPlayCountdown } from "../selectors";
 
-
-
-
 const COMPETE_VALUES = {
   time: {
     title: [2048, 4096, 8192],
@@ -25,18 +22,6 @@ const COMPETE_VALUES = {
 };
 
 class Compete extends Component {
-
-  // componentDidMount() {
-  
-  //     console.log("cleeer Compete");
-      
-    
-  // }
-  componentWillUnmount() {
-    // console.log("running")
-    // this.props.gameInit(true);
-  }
-
   renderOptions(type) {
     return COMPETE_VALUES[type].title.map((item, i) => {
       const value = COMPETE_VALUES[type].value[i];
@@ -75,7 +60,7 @@ class Compete extends Component {
   }
 
   renderGame() {
-    const {shouldPlayCountdown} = this.props;
+    const { shouldPlayCountdown } = this.props;
     return (
       <div className="content-wrapper">
         <Game />
@@ -86,18 +71,14 @@ class Compete extends Component {
 
   render() {
     const { isCompeteMode } = this.props;
-    console.log("Compete -> render -> isCompeteMode", isCompeteMode);
-
     return isCompeteMode ? this.renderGame() : this.renderCompeteBoard();
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    isCompeteMode: isCompeteMode(state),
-    shouldPlayCountdown: shouldPlayCountdown(state),
-  };
-};
+const mapStateToProps = state => ({
+  isCompeteMode: isCompeteMode(state),
+  shouldPlayCountdown: shouldPlayCountdown(state),
+});
 
 export default connect(mapStateToProps, {
   setCompeteMode: actions.setCompeteMode,

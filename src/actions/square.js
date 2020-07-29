@@ -7,7 +7,7 @@ import {
   isLosing,
   getBoardDimensions,
   getDoubleSquareProb,
-  getGameMode
+  getGameMode,
 } from "../selectors";
 import { cloneBoardMap } from "../utils/board";
 
@@ -15,14 +15,13 @@ function getRandomId() {
   return crypto.randomBytes(8).toString("hex");
 }
 
-
 function getAvailableIndexes(boardMap) {
   const indexes = [];
 
   boardMap.forEach((rows, rowIndex) => {
     rows.forEach((item, itemIndex) => {
       if (!item) {
-        indexes.push({posX: rowIndex, posY: itemIndex});
+        indexes.push({ posX: rowIndex, posY: itemIndex });
       }
     });
   });
@@ -38,8 +37,8 @@ export function addSquare() {
     const gameMode = getGameMode(getState());
 
     const availableIndexes = getAvailableIndexes(boardMap);
- 
-    const randomIndex = Math.floor(Math.random() * availableIndexes.length)
+
+    const randomIndex = Math.floor(Math.random() * availableIndexes.length);
     const { posX, posY } = availableIndexes[randomIndex];
 
     let squareValue;
@@ -53,7 +52,7 @@ export function addSquare() {
       id: getRandomId(),
       posX,
       posY,
-      value: squareValue
+      value: squareValue,
     };
 
     dispatch({
