@@ -5,7 +5,7 @@ import { cloneDeep } from "lodash";
 const initialState = {
   historyLength: 5,
   undoArr: [],
-  current: {},
+  current: null,
   redoArr: [],
 };
 
@@ -34,21 +34,28 @@ export default function (state = initialState, action) {
       };
     }
 
-    case "SAVE_INITIAL_STATE": {
-      const { gameState } = action;
+    // case "SAVE_INITIAL_STATE": {
+    //   const { gameState } = action;
 
-      return {
-        ...state,
-        current: gameState,
-        undoArr: [],
-        redoArr: [],
-      };
-    }
+    //   return {
+    //     ...state,
+    //     current: gameState,
+    //     undoArr: [],
+    //     redoArr: [],
+    //   };
+    // }
 
     case "SAVE_STATE": {
       const { gameState } = action;
       const undoArr = state.undoArr;
       const lastState = state.current;
+
+      if (!lastState) {
+        return {
+          ...state,
+          current: gameState,
+        };        
+      }
 
       const undoArrUpdated = cloneDeep(undoArr);
       if (undoArrUpdated.length === state.historyLength) {
@@ -59,6 +66,15 @@ export default function (state = initialState, action) {
         ...state,
         undoArr: [...undoArrUpdated, lastState],
         current: gameState,
+        redoArr: [],
+      };
+    }
+
+    case "CLEAR_HISTORY": {
+      return {
+        ...state,
+        undoArr: [],
+        current: null,
         redoArr: [],
       };
     }

@@ -3,13 +3,15 @@ import { updateBoardDimensions } from "./board";
 
 export function setCompeteMode(type, value) {
   
-  return dispatch => {
+  return (dispatch, getState) => {
 
-    console.log("setCompeteMode -> type", type, value)
+    // console.log("setCompeteMode -> type", type, value)
 
-    dispatch(gameInit(true));
-    //!base on selected option
     
+    // //!base on selected option
+    
+    dispatch(toggleCompeteMode());
+    // dispatch(updateShouldBoardMove(false));
 
     if (type === "time") {
       dispatch(updateGameGoal(value));
@@ -23,6 +25,10 @@ export function setCompeteMode(type, value) {
       dispatch(updateBoardDimensions(dimension));
     }
 
+    // dispatch(gameInit(true));
+    
+    // console.log('--------', getState().game.shouldBoardMove)
+
     // dispatch({
     //   type: "UPDATE_GOAL",
     //   goal,
@@ -31,7 +37,7 @@ export function setCompeteMode(type, value) {
     
     //!presunout winning screen to Game - index.html
 
-    dispatch(toggleCompeteMode());
+    
     
     // play countdown
     dispatch(playCountdown());
@@ -77,7 +83,8 @@ export function stopTimer() {
 
 export function playCountdown() {
   return async dispatch => {
-    dispatch(updateShouldBoardMove(false));
+    
+    console.log("false")
 
     dispatch({
       type: "ADD_COUNTDOWN",
@@ -86,6 +93,7 @@ export function playCountdown() {
     await waitForCountdownToFinish(dispatch);
     // dispatch(startTimer());
     dispatch(updateShouldBoardMove(true));
+    console.log("true")
     dispatch(startTimer());
     
   };

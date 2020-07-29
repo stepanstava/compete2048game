@@ -9,9 +9,15 @@ import Game from "./game";
 
 class Practise extends Component {
   componentDidMount() {
-    console.log("cleeer");
-    this.props.gameInit(true);
+    // const grid = {
+    //   rows: 4,
+    //   columns: 4
+    // }
+    // this.props.updateBoardDimensions(grid);
+    this.props.gameInit();
     this.props.removeCompeteMode();
+    this.props.loadSettings();
+    
   }
 
   render() {
@@ -30,4 +36,6 @@ const mapStateToProps = state => {
 export default connect(null, {
   gameInit: actions.gameInit,
   removeCompeteMode: actions.removeCompeteMode,
+  updateBoardDimensions: actions.updateBoardDimensions,
+  loadSettings: actions.loadSettings,
 })(Practise);

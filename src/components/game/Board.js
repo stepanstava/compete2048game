@@ -34,6 +34,8 @@ class Board extends Component {
   }
 
 
+  
+
 
   renderSquares() {
     const { squares, gameMode, squareSize } = this.props;
@@ -146,10 +148,10 @@ class Board extends Component {
 
 const mapStateToProps = state => ({
   squares: getSquares(state),
-  shouldBoardMove: shouldBoardMove(state),
-  isWinning: isWinningState(state),
-  isLosing: isLosingState(state),
-  isSettingsOpen: isSettingsOpen(state),
+  // shouldBoardMove: shouldBoardMove(state),
+  // isWinning: isWinningState(state),
+  // isLosing: isLosingState(state),
+  // isSettingsOpen: isSettingsOpen(state),
   boardDimensions: getBoardDimensions(state),
   gameMode: getGameMode(state),
 });

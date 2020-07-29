@@ -105,16 +105,26 @@ class Toolbar extends Component {
     }
   }
 
+  renderNewGameButton() {
+    const { isCompeteMode } = this.props;
+    if (isCompeteMode) {
+      return <div></div>;
+    }
+
+    return (
+      <button className="btn" onClick={() => this.props.gameInit(true)}>
+      New Game
+      </button>
+    )
+  }
+
   render() {
     const { isCompeteMode } = this.props;
 
     return (
       <div className="toolbar">
         <div className="row">
-          <button className="btn" onClick={() => this.props.gameInit(true)}>
-            New Game
-          </button>
-          {/* <div class="timer">01:05:23</div> */}
+          {this.renderNewGameButton()}
           {this.renderSettingsOrTimer()}
         </div>
 

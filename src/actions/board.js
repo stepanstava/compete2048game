@@ -7,7 +7,8 @@ import {
   isWinningState,
   getSquares,
   getBoardDimensions,
-  getGameMode
+  getGameMode,
+  isCompeteMode
 } from "../selectors";
 import { moveBoardHorizontally, moveBoardVertically } from "./boardMove";
 import {
@@ -87,8 +88,11 @@ export function moveBoard(movement) {
 
     dispatch(handleUpdateQueue());
 
-    // saves current game state to history for undo and redo
-    dispatch(saveGameState());
+    // saves current game state to history for undo and redo and to local storage
+    if (!isCompeteMode(getState())) {
+      dispatch(saveGameState());
+    }
+    
 
     // check for winning square
     dispatch(checkIsWinning());

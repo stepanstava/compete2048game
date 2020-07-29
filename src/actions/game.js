@@ -1,16 +1,16 @@
 import { resetScore } from "./score";
-import { clearBoardMap, updateBoardDimensions } from "./board";
+import { clearBoardMap, updateBoardDimensions, clearQueues } from "./board";
 import { addSquare, clearSquares } from "./square";
-import { saveInitialState, updateGameState, saveGameState } from "./history";
+import { saveInitialState, updateGameState, saveGameState, clearHistory } from "./history";
 import { stopTimer } from "./compete";
 
-import { isSettingsOpen,isTimerRunning } from "../selectors";
+import { isSettingsOpen,isTimerRunning, isCompeteMode } from "../selectors";
 
 export function gameInit(isNewGame) {
   return (dispatch, getState) => {
     if (!isNewGame) {
       const savedStateLocally = localStorage.getItem("compete2048game");
-      if (savedStateLocally) {
+      if (savedStateLocally && !isCompeteMode(getState())) {
         const gameState = JSON.parse(savedStateLocally);
         
         dispatch(updateGameState(gameState));
@@ -26,6 +26,8 @@ export function gameInit(isNewGame) {
     // clear board
     dispatch(clearBoardMap());
     dispatch(clearSquares());
+    //!mozna smazat
+    dispatch(clearQueues());
 
     // clear game states
     dispatch(clearGameStates());
@@ -35,7 +37,8 @@ export function gameInit(isNewGame) {
     dispatch(addSquare());
 
     // save initial state
-    dispatch(saveInitialState());
+    dispatch(clearHistory())
+    // dispatch(saveInitialState());
   };
 }
 

@@ -32,10 +32,10 @@ class Compete extends Component {
       
     
   // }
-  // componentWillUnmount() {
-  //   console.log("running")
-  //   this.props.gameInit(true);
-  // }
+  componentWillUnmount() {
+    // console.log("running")
+    // this.props.gameInit(true);
+  }
 
   renderOptions(type) {
     return COMPETE_VALUES[type].title.map((item, i) => {

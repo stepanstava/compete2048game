@@ -38,12 +38,15 @@ class Game extends Component {
     this.props.gameInit();
   }
 
-
+  componentWillUnmount() {
+    document.body.removeEventListener('keydown', this.handleKeyDown)
+  }
 
   handleKeyDown(e) {
     e.preventDefault();
-    // e.stopPropagation()
+    // e.stopPropagation();
     const { moveBoard, shouldBoardMove } = this.props;
+    console.log("xxxxxxxxxxxxxx", shouldBoardMove)
     
     if (shouldBoardMove) {
       switch (e.key.toUpperCase()) {

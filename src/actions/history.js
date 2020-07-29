@@ -121,3 +121,10 @@ export function saveInitialState(gameState) {
     });
   };
 }
+export function clearHistory() {
+  return (dispatch, getState) => {
+    dispatch({
+      type: "CLEAR_HISTORY",
+    });
+  };
+}
