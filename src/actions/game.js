@@ -4,7 +4,7 @@ import { addSquare, clearSquares } from "./square";
 import { saveInitialState, updateGameState, saveGameState } from "./history";
 import { stopTimer } from "./compete";
 
-import { isSettingsOpen,shouldRunTimer } from "../selectors";
+import { isSettingsOpen,isTimerRunning } from "../selectors";
 
 export function gameInit(isNewGame) {
   return (dispatch, getState) => {
@@ -79,7 +79,7 @@ export function updateIsWinning(isWinning) {
     });
 
     // Stops timer if is running
-    if(shouldRunTimer(getState())) {
+    if(isTimerRunning(getState())) {
       dispatch(stopTimer());
     }
     

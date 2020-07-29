@@ -1,16 +1,34 @@
 import { gameInit, updateGameGoal, updateShouldBoardMove } from "./game";
+import { updateBoardDimensions } from "./board";
 
-export function setCompeteMode(type) {
+export function setCompeteMode(type, value) {
+  
   return dispatch => {
+
+    console.log("setCompeteMode -> type", type, value)
+
     dispatch(gameInit(true));
-    dispatch(updateGameGoal(16));
+    //!base on selected option
+    
+
+    if (type === "time") {
+      dispatch(updateGameGoal(value));
+    }
+
+    if (type === "score") {
+      const dimension = {
+        rows: value,
+        columns: value
+      }
+      dispatch(updateBoardDimensions(dimension));
+    }
 
     // dispatch({
     //   type: "UPDATE_GOAL",
     //   goal,
     // });
-    //!block playing until countdown
-    //!ztmavit background
+    
+    
     //!presunout winning screen to Game - index.html
 
     dispatch(toggleCompeteMode());
@@ -29,6 +47,15 @@ export function toggleCompeteMode() {
     });
   };
 }
+
+export function removeCompeteMode() {
+  return dispatch => {
+    dispatch({
+      type: "REMOVE_COMPETE",
+    });
+  };
+}
+
 
 export function startTimer() {
   return dispatch => {

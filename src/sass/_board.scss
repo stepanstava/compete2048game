@@ -60,7 +60,7 @@
     }
 
     &.sq-16,
-    &.sq-1-4  {
+    &.sq-1-4 {
       background-color: $square-16;
       color: $color-white;
     }
@@ -137,7 +137,7 @@
   .game-over-screen,
   .winning-screen,
   .settings-screen,
-  .countdown-screen  {
+  .countdown-screen {
     position: absolute;
     top: 0;
     left: 0;
@@ -160,7 +160,7 @@
 }
 
 .game-over-screen {
-  background-color:#42413f98;
+  background-color: #42413f98;
 
   @include flex-center;
   flex-direction: column;
@@ -186,6 +186,30 @@
   .buttons {
     @include flex-between;
     width: 60%;
+  }
+
+  .game-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+
+    span {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .label {
+      margin-bottom: 1rem;
+      label {
+        margin-right: 1rem;
+      }
+      input {
+        padding: 0.3rem 0.2rem;
+      }
+    }
   }
 }
 
@@ -248,9 +272,4 @@
       color: $color-black;
     }
   }
-}
-
-.countdown-screen {
-  background-color: red;
-
 }

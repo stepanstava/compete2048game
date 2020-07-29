@@ -5,7 +5,7 @@ const initialState = {
   timeGoal: null,
   scoreGoal: null,
   shouldPlayCountdown: false,
-  shouldRunTimer: false,
+  isTimerRunning: false,
 };
 
 export default function (state = initialState, action) {
@@ -28,6 +28,12 @@ export default function (state = initialState, action) {
         isCompeteMode: !state.isCompeteMode,
       };
     }
+    case "REMOVE_COMPETE": {
+      return {
+        ...state,
+        isCompeteMode: false,
+      };
+    }
     case "ADD_COUNTDOWN": {
       return {
         ...state,
@@ -43,13 +49,13 @@ export default function (state = initialState, action) {
     case "START_TIMER": {
       return {
         ...state,
-        shouldRunTimer: true,
+        isTimerRunning: true,
       };
     }
     case "STOP_TIMER": {
       return {
         ...state,
-        shouldRunTimer: false,
+        isTimerRunning: false,
       };
     }
 
@@ -66,8 +72,8 @@ export function isCompeteMode(state) {
 export function shouldPlayCountdown(state) {
   return state.compete.shouldPlayCountdown;
 }
-export function shouldRunTimer(state) {
-  return state.compete.shouldRunTimer;
+export function isTimerRunning(state) {
+  return state.compete.isTimerRunning;
 }
 // export function getCompeteValues(state) {
 //   return state.compete.values;

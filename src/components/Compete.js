@@ -8,24 +8,42 @@ import Countdown from "./game/Countdown";
 
 import { isCompeteMode, shouldPlayCountdown } from "../selectors";
 
+
+
+
 const COMPETE_VALUES = {
   time: {
     title: [2048, 4096, 8192],
     difficulty: ["Easy", "Medium", "Hard"],
+    value: [2048, 4096, 8192],
   },
   score: {
     title: ["5x5", "4x4", "3x3"],
     difficulty: ["Easy Grid", "Normal Grid", "Hard Grid"],
+    value: [5, 4, 3],
   },
 };
 
 class Compete extends Component {
+
+  // componentDidMount() {
+  
+  //     console.log("cleeer Compete");
+      
+    
+  // }
+  // componentWillUnmount() {
+  //   console.log("running")
+  //   this.props.gameInit(true);
+  // }
+
   renderOptions(type) {
     return COMPETE_VALUES[type].title.map((item, i) => {
+      const value = COMPETE_VALUES[type].value[i];
       return (
         <div
           className={`option opt${type === "time" ? i + 1 : i + 4}`}
-          onClick={() => this.props.setCompeteMode(item)}
+          onClick={() => this.props.setCompeteMode(type, value)}
           key={`${type}:${item}`}
         >
           {item}
@@ -83,4 +101,6 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   setCompeteMode: actions.setCompeteMode,
+  gameInit: actions.gameInit,
+  removeCompeteMode: actions.removeCompeteMode,
 })(Compete);

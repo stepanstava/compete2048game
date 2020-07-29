@@ -19,14 +19,14 @@ class Timer extends Component {
   //   this.timer = setInterval(() => this.addSecond(), 1000);
   // }
   componentDidUpdate() {
-    const { shouldRunTimer } = this.props;
-    console.log("Timer -> componentWillUpdate -> shouldRunTimer", shouldRunTimer)
+    const { isTimerRunning } = this.props;
+    console.log("Timer -> componentWillUpdate -> isTimerRunning", isTimerRunning)
     
-    if (shouldRunTimer && !this.timer) {
+    if (isTimerRunning && !this.timer) {
       this.startTimer();
     }
 
-    if (!shouldRunTimer && this.timer) {
+    if (!isTimerRunning && this.timer) {
       this.stopTimer();
     }
   }
@@ -79,9 +79,9 @@ class Timer extends Component {
   render() {
     // console.log("rendered")
 
-    const { shouldRunTimer } = this.props;
+    const { isTimerRunning } = this.props;
     // const { startTimer } = this.state;
-    if(shouldRunTimer && !this.timer) {
+    if(isTimerRunning && !this.timer) {
       // this.startTimer();
     }
 

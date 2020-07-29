@@ -11,7 +11,7 @@ import {
   getRedoArr,
   isSettingsOpen,
   isCompeteMode,
-  shouldRunTimer,
+  isTimerRunning,
 } from "../../selectors";
 
 class Toolbar extends Component {
@@ -92,9 +92,9 @@ class Toolbar extends Component {
 
   // }
   renderSettingsOrTimer() {
-    const { isCompeteMode, shouldRunTimer } = this.props;
+    const { isCompeteMode, isTimerRunning } = this.props;
     if (isCompeteMode) {
-      return <Timer shouldRunTimer={shouldRunTimer}/>;
+      return <Timer isTimerRunning={isTimerRunning}/>;
     } else {
       return (
         <i
@@ -133,7 +133,7 @@ const mapStateToProps = state => {
     undoArr: getUndoArr(state),
     redoArr: getRedoArr(state),
     isCompeteMode: isCompeteMode(state),
-    shouldRunTimer: shouldRunTimer(state),
+    isTimerRunning: isTimerRunning(state),
   };
 };
 

@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
 import actions from "../../actions";
 
 import Square from "./Square";
-import Settings from "./Settings";
+
 
 import {
   getSquares,
@@ -17,54 +17,32 @@ import {
 } from "../../selectors";
 
 class Board extends Component {
-  constructor(props) {
-    super(props);
-
-    //! Add to store
-    this.squareWidth = {
-      3: 125,
-      4: 100,
-      5: 75,
-      6: 60
-    };
-    this.gapWidth = 10;
-    this.boardWidth = 450;
-  }
-
-
   componentDidMount() {
-    document.body.addEventListener('keydown', (e) => this.handleKeyDown(e))
+    // document.body.addEventListener('keydown', (e) => this.handleKeyDown(e))
     this.props.gameInit();
   }
 
-
   getSquareSize() {
-    const { rows, columns} = this.props.boardDimensions;
-    const larger = Math.max(rows, columns);
+    const { squareSize } = this.props;
+   
 
-    // const squareWidth = (this.boardWidth - (rows + 1) * this.gapWidth) / rows;
-    // console.log("Board -> getSquareSize -> squareWidth", squareWidth)
-    // const squareHeight = (this.boardWidth - (rows + 1) * this.gapWidth) / rows;
-
-
-    const styles = {
-      "width": this.squareWidth[larger] + 'px',
-      "height": this.squareWidth[larger] + 'px',
+    return {
+      "width": squareSize + 'px',
+      "height": squareSize + 'px',
     }
 
-    return styles;
   }
 
 
 
   renderSquares() {
-    const { squares, gameMode } = this.props;
+    const { squares, gameMode, squareSize } = this.props;
     const { rows, columns} = this.props.boardDimensions;
     const larger = Math.max(rows, columns);
-
+    //!same as nahore
     const styles = {
-      "width": this.squareWidth[larger] + 'px',
-      "height": this.squareWidth[larger] + 'px',
+      "width": squareSize + 'px',
+      "height": squareSize + 'px',
     }
 
 
@@ -77,8 +55,7 @@ class Board extends Component {
           <Square
             key={square.id}
             square={square}
-            squareSize={this.squareWidth[larger]}
-            gapWidth={this.gapWidth}
+            squareSize={squareSize}
             style={styles}
             gameMode={gameMode}
           />
@@ -87,45 +64,7 @@ class Board extends Component {
     });
   }
 
-  handleKeyDown(e) {
-    e.preventDefault();
-    const { moveBoard, shouldBoardMove } = this.props;
 
-    if (shouldBoardMove) {
-      switch (e.key.toUpperCase()) {
-        // move right
-        case "ARROWRIGHT":
-          moveBoard("right");
-          break;
-        case "D":
-          moveBoard("right");
-          break;
-        // move left
-        case "ARROWLEFT":
-          moveBoard("left");
-          break;
-        case "A":
-          moveBoard("left");
-          break;
-        // move top
-        case "ARROWUP":
-          moveBoard("top");
-          break;
-        case "W":
-          moveBoard("top");
-          break;
-        // move down
-        case "ARROWDOWN":
-          moveBoard("bottom");
-          break;
-        case "S":
-          moveBoard("bottom");
-          break;
-        default:
-          return;
-      }
-    }
-  }
 
   //!style mozna neni potreba
   renderTile(row, column) {
@@ -153,25 +92,7 @@ class Board extends Component {
   }
 
 
-  getBoardStyles() {
-    const {rows, columns} = this.props.boardDimensions;
-    // const { rows, columns} = this.props.boardDimensions;
-    const larger = Math.max(rows, columns);
-    const squareWidth = this.squareWidth[larger];
-    const gapWidth = this.gapWidth;
 
-    const boardWidth = rows * squareWidth + 2 * gapWidth + ((rows - 1) * gapWidth)
-    const boardHeight = columns * squareWidth + 2 * gapWidth + ((columns - 1) * gapWidth)
-
-    const styles = {
-      // "width": boardWidth < boardHeight ? boardWidth + 'px' : boardHeight + 'px',
-      // "height": boardWidth < boardHeight ? boardWidth + 'px' : boardHeight + 'px',
-      "width": boardHeight + 'px',
-      "height": boardWidth + 'px',
-    }
-
-    return styles;
-  }
 
   renderTiles() {
     const {rows, columns} = this.props.boardDimensions;
@@ -185,58 +106,40 @@ class Board extends Component {
     return tiles;
   }
 
-  renderWinningScreen() {
-    const { handleNewGameButton } = this.props;
+  // renderWinningScreen() {
+  //   const { handleNewGameButton } = this.props;
 
-    return (
-      <div className="winning-screen">
-        <h2>You win!</h2>
-        <div className="buttons">
-          <button
-            className="btn"
-            onClick={() => this.props.setKeepPlayingMode()}
-          >
-            Keep playing
-          </button>
-          <button className="btn" onClick={() => this.props.gameInit(true)}>
-            Try again
-          </button>
-        </div>
-      </div>
-    );
-  }
+  //   return (
+  //     <div className="winning-screen">
+  //       <h2>You win!</h2>
+  //       <div className="buttons">
+  //         <button
+  //           className="btn"
+  //           onClick={() => this.props.setKeepPlayingMode()}
+  //         >
+  //           Keep playing
+  //         </button>
+  //         <button className="btn" onClick={() => this.props.gameInit(true)}>
+  //           Try again
+  //         </button>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   // TODO add losing screen
-  renderLosingScreen() {
-    return (
-      <div className="game-over-screen">
-        <h2>Game over!</h2>
-        <button className="btn" onClick={() => this.props.gameInit(true)}>
-          Try again
-        </button>
-      </div>
-    );
-  }
-  renderSettingsScreen() {
-    return (
-      <Settings />
-    );
-  }
+
 
   render() {
     const { squares, isWinning, isLosing, isSettingsOpen } = this.props;
 
     return (
-      <div
-        className="board"
-        style={this.getBoardStyles()}
-      >
+      <Fragment>
         <div className="tile-container" style={this.getTilesStyle()}>{this.renderTiles()}</div>
         <div className="square-container">{this.renderSquares()}</div>
-        {isWinning ? this.renderWinningScreen() : null}
-        {isLosing ? this.renderLosingScreen() : null}
-        {isSettingsOpen ? this.renderSettingsScreen() : null}
-      </div>
+        {/* {isWinning ? this.renderWinningScreen() : null} */}
+       
+      </Fragment>
     );
   }
 }
@@ -255,5 +158,5 @@ export default connect(mapStateToProps, {
   moveBoard: actions.moveBoard,
   addSquare: actions.addSquare,
   gameInit: actions.gameInit,
-  setKeepPlayingMode: actions.setKeepPlayingMode,
+ 
 })(Board);

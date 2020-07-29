@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import { connect } from 'react-redux'
 
-
+const GAP_WIDTH = 10;
 
 class Square extends Component {
   // constructor(props) {
@@ -33,12 +33,12 @@ class Square extends Component {
   }
 
   render() {
-    const { square, squareSize, style, gapWidth } = this.props;
+    const { square, squareSize, style } = this.props;
     const { value, posX, posY, merge } = square;
 
     const styles = {
-      top: `${posX * (squareSize + gapWidth)}px`,
-      left: `${posY * (squareSize + gapWidth)}px`,
+      top: `${posX * (squareSize + GAP_WIDTH)}px`,
+      left: `${posY * (squareSize + GAP_WIDTH)}px`,
       ...style,
     };
 

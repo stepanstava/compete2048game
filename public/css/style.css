@@ -759,6 +759,41 @@ nav .menu .item.active {
   width: 60%;
 }
 
+.winning-screen .game-result {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 60%;
+}
+
+.winning-screen .game-result span {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.winning-screen .game-result .label {
+  margin-bottom: 1rem;
+}
+
+.winning-screen .game-result .label label {
+  margin-right: 1rem;
+}
+
+.winning-screen .game-result .label input {
+  padding: 0.3rem 0.2rem;
+}
+
 .settings-screen {
   background-color: rgba(73, 73, 73, 0.95);
   display: -webkit-box;
@@ -836,10 +871,6 @@ nav .menu .item.active {
 .settings-screen form i {
   margin-right: 1rem;
   color: #000;
-}
-
-.countdown-screen {
-  background-color: red;
 }
 
 .compete {
