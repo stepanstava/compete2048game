@@ -1,10 +1,7 @@
-import { resetScore } from "./score";
-import { clearBoardMap, updateBoardDimensions, clearQueues } from "./board";
+import { clearBoardMap, clearQueues } from "./board";
 import { addSquare, clearSquares } from "./square";
 import {
-  saveInitialState,
   updateGameState,
-  saveGameState,
   clearHistory,
 } from "./history";
 import { stopTimer } from "./compete";

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getGameScore, getGameRoundScore, getBestScore } from "../../selectors";
-
 class Result extends Component {
   constructor(props) {
     super(props);

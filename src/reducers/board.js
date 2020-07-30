@@ -1,4 +1,3 @@
-import { cloneDeep } from "lodash";
 const initialState = {
   boardMap: [],
   boardDimensions: {

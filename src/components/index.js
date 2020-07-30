@@ -1,5 +1,4 @@
-import React, { Fragment, Component } from "react";
-import { connect } from "react-redux";
+import React, { Fragment } from "react";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -9,31 +8,18 @@ import Compete from "./Compete";
 import Leaderboard from "./Leaderboard";
 import Practice from "./Practice";
 
-import actions from "../actions";
-
-class App extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-
-  render() {
-    return (
-      <Router>
-        <Fragment>
-          <Navbar />
-          <Switch>
-            <Route exact path="/" component={Practice} />
-            <Route exact path="/compete" component={Compete} />
-            <Route exact path="/leaderboard" component={Leaderboard} />
-          </Switch>
-        </Fragment>
-      </Router>
-    );
-  }
-}
-
-const mapStateToProps = state => {
-  return {};
+export default () => {
+  return (
+    <Router>
+      <Fragment>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={Practice} />
+          <Route exact path="/compete" component={Compete} />
+          <Route exact path="/leaderboard" component={Leaderboard} />
+        </Switch>
+      </Fragment>
+    </Router>
+  );
 };
 
-export default connect(null)(App);

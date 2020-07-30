@@ -1,5 +1,4 @@
 import {
-  gameInit,
   updateGameGoal,
   updateShouldBoardMove,
   updateGameMode,

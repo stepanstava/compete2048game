@@ -9,7 +9,6 @@ import Timer from "./Timer";
 import {
   getUndoArr,
   getRedoArr,
-  isSettingsOpen,
   isCompeteMode,
   isTimerRunning,
 } from "../../selectors";

@@ -50,6 +50,7 @@ class Navbar extends Component {
           to={`/${link === "practice" ? "" : link}`}
           className={this.getClassName(link)}
           onClick={() => this.handleLinkClick(link)}
+          key={`${link}`}
         >
           {link}
         </Link>

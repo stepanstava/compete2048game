@@ -23,13 +23,9 @@ class Board extends Component {
 
   renderSquares() {
     const { squares, gameMode, squareSize } = this.props;
-    const { rows, columns } = this.props.boardDimensions;
-    const larger = Math.max(rows, columns);
 
     return squares.map(square => {
       if (square) {
-        const { value, id, posX, posY, merge } = square;
-
         return (
           <Square
             key={square.id}
@@ -40,6 +36,7 @@ class Board extends Component {
           />
         );
       }
+      return null;
     });
   }
 
@@ -48,10 +45,6 @@ class Board extends Component {
     return <div className="tile" key={`${row}:${column}`}></div>;
   }
 
-  // TODO move to componentDidMount ?
-
-  // grid-template-columns: repeat(4, 1fr);
-  // grid-template-rows: repeat(4, 1fr);
 
   getTilesStyle() {
     const { rows, columns } = this.props.boardDimensions;
@@ -77,8 +70,6 @@ class Board extends Component {
   }
 
   render() {
-    const { squares, isWinning, isLosing, isSettingsOpen } = this.props;
-
     return (
       <Fragment>
         <div className="tile-container" style={this.getTilesStyle()}>

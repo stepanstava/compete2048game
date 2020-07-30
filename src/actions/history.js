@@ -3,7 +3,6 @@ import {
   getGameScore,
   isWinningState,
   isLosingState,
-  getCurrentState,
   getPreviousGameState,
   getBoardMap,
   getNextGameState,
@@ -23,7 +22,6 @@ import {
   loadKeepPlayingMode,
   updateShouldBoardMove,
 } from "./game";
-import actions from ".";
 
 export function undo() {
   return (dispatch, getState) => {

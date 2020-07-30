@@ -1,5 +1,3 @@
-import { isWinning } from "./game";
-
 import { cloneDeep } from "lodash";
 
 const initialState = {

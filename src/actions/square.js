@@ -1,11 +1,9 @@
 import crypto from "crypto";
 
 import { updateBoardMap } from "./board";
-import { shouldLoose } from "./game";
+
 import {
   getBoardMap,
-  isLosing,
-  getBoardDimensions,
   getDoubleSquareProb,
   getGameMode,
 } from "../selectors";

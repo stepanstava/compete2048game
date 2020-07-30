@@ -26,10 +26,6 @@ const FORM_DATA = {
 };
 
 class Settings extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   handleSelectChange(e, selectName) {
     const value = parseInt(e.target.value);
     this.props.saveSelectedOption(selectName, value);

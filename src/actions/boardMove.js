@@ -1,5 +1,4 @@
 import {
-  getBoard,
   getBoardMap,
   getEmptyBoardMap,
   getBoardDimensions,

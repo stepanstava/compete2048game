@@ -5,10 +5,6 @@ import actions from "../actions";
 
 import { getLeaderboardResults } from "../selectors";
 
-const MOCK_DATA = [
-  { name: "stepan", result: "0:15:35" },
-  { name: "john", result: "0:18:38" },
-];
 const RESULTS_COUNT = 10;
 const LEADERBOARDS = {
   time: [2048, 4096, 8192],
@@ -51,19 +47,27 @@ class Leaderboard extends Component {
           <span
             className="selected"
             onClick={() => this.handleLinkClick(value)}
+            key={`${linkValue}:${value}`}
           >
             {value}
           </span>
         );
       }
 
-      return <span onClick={() => this.handleLinkClick(value)}>{value}</span>;
+      return (
+        <span
+          key={`${linkValue}:${value}`}
+          onClick={() => this.handleLinkClick(value)}
+        >
+          {value}
+        </span>
+      );
     });
   }
 
   renderResult(pos, name, result) {
     return (
-      <div className="item">
+      <div className="item" key={`${pos}:${name}`}>
         <div className="meta">
           <span className="position">{`${pos}.`}</span>
           <span className="name">{name}</span>
@@ -73,14 +77,16 @@ class Leaderboard extends Component {
     );
   }
 
-  renderEmptyResult() {
-    return <div className="item"></div>;
+  renderEmptyResult(i) {
+    return <div className="item" key={`empty:${i}`}></div>;
   }
 
   renderNoResultMessage() {
     return (
-      <div className="item">
-        <span className="no-results">{"No results yet. Be the first one!"}</span>
+      <div className="item" key={"no-results"}>
+        <span className="no-results">
+          {"No results yet. Be the first one!"}
+        </span>
       </div>
     );
   }
@@ -102,7 +108,7 @@ class Leaderboard extends Component {
     const emptyResults = RESULTS_COUNT - results.length;
 
     for (let i = 0; i < emptyResults; i++) {
-      results.push(this.renderEmptyResult());
+      results.push(this.renderEmptyResult(i));
     }
 
     return results;

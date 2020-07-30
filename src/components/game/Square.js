@@ -31,7 +31,7 @@ class Square extends Component {
 
   render() {
     const { square, squareSize, style } = this.props;
-    const { value, posX, posY, merge } = square;
+    const { value, posX, posY } = square;
 
     const styles = {
       top: `${posX * (squareSize + GAP_WIDTH)}px`,

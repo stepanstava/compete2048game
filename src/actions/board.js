@@ -1,5 +1,4 @@
 import {
-  getBoard,
   getBoardQueues,
   getmoveAnimationDelay,
   getGameGoal,
@@ -12,7 +11,6 @@ import {
 } from "../selectors";
 import { moveBoardHorizontally, moveBoardVertically } from "./boardMove";
 import {
-  updateScore,
   updateShouldBoardMove,
   clearRoundScore,
   updateIsWinning,
