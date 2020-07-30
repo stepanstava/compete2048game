@@ -7,7 +7,7 @@ import actions from "../actions";
 
 import Game from "./game";
 
-class Practise extends Component {
+class Practice extends Component {
   componentDidMount() {
     this.props.gameInit();
     this.props.removeCompeteMode();
@@ -31,4 +31,4 @@ export default connect(null, {
   gameInit: actions.gameInit,
   removeCompeteMode: actions.removeCompeteMode,
   loadSettings: actions.loadSettings,
-})(Practise);
+})(Practice);

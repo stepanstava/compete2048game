@@ -7,7 +7,7 @@ import Navbar from "./layout/Navbar";
 
 import Compete from "./Compete";
 import Leaderboard from "./Leaderboard";
-import Practise from "./Practise";
+import Practice from "./Practice";
 
 import actions from "../actions";
 
@@ -22,7 +22,7 @@ class App extends Component {
         <Fragment>
           <Navbar />
           <Switch>
-            <Route exact path="/" component={Practise} />
+            <Route exact path="/" component={Practice} />
             <Route exact path="/compete" component={Compete} />
             <Route exact path="/leaderboard" component={Leaderboard} />
           </Switch>

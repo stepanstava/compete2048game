@@ -8,7 +8,7 @@ const initialState = {
   isLosing: false,
   goal: 2048,
   doubleSquareProb: 0.1,
-  moveAnimationDelay: 300,
+  moveAnimationDelay: 250,
   isSettingsOpen: false,
   gameMode: 2,
 };

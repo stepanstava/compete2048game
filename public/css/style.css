@@ -596,10 +596,10 @@ nav .menu .item.active {
   font-weight: 700;
   font-size: 2.5rem;
   background-color: #EBFFBF;
-  -webkit-animation: appear 0.15s ease-in-out;
-          animation: appear 0.15s ease-in-out;
-  -webkit-transition: top 0.1s ease-in-out, left 0.1s ease-in-out;
-  transition: top 0.1s ease-in-out, left 0.1s ease-in-out;
+  -webkit-animation: appear 0.1s ease-out;
+          animation: appear 0.1s ease-out;
+  -webkit-transition: top 0.1s ease-out, left 0.1s ease-out;
+  transition: top 0.1s ease-out, left 0.1s ease-out;
   color: #42413F;
   background-color: #000;
   color: #fff;
@@ -677,8 +677,8 @@ nav .menu .item.active {
 }
 
 .board .square.merge {
-  -webkit-animation: merge 0.2s 0.1s ease-in-out;
-          animation: merge 0.2s 0.1s ease-in-out;
+  -webkit-animation: merge 0.15s 0.1s ease-out;
+          animation: merge 0.15s 0.1s ease-out;
 }
 
 .board .tile-container,
@@ -993,8 +993,8 @@ nav .menu .item.active {
   background-color: #42413F;
   padding: 0rem 0.5rem;
   color: gray;
-  border-top-left-radius: .4rem;
-  border-top-right-radius: .4rem;
+  border-top-left-radius: 0.4rem;
+  border-top-right-radius: 0.4rem;
 }
 
 .leaderboard .leaderboard-nav .item {
@@ -1048,10 +1048,15 @@ nav .menu .item.active {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  height: 2rem;
 }
 
 .leaderboard .results .item .meta .position {
   margin-right: 2rem;
+}
+
+.leaderboard .results .item .no-results {
+  color: #ababab;
 }
 
 .leaderboard .results .item:nth-child(odd) {
@@ -1059,8 +1064,8 @@ nav .menu .item.active {
 }
 
 .leaderboard .results .item:last-child {
-  border-bottom-left-radius: .4rem;
-  border-bottom-right-radius: .4rem;
+  border-bottom-left-radius: 0.4rem;
+  border-bottom-right-radius: 0.4rem;
 }
 
 .countdown {

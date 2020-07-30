@@ -31,10 +31,10 @@
     font-weight: 700;
     font-size: 2.5rem;
     background-color: $square-2;
-    animation: appear 0.15s ease-in-out;
+    animation: appear 0.1s ease-out;
     //square move animation
-    // transition: top $square-speed ease-in-out, left $square-speed ease-in-out;
-    transition: top $square-speed ease-in-out, left $square-speed ease-in-out;
+    // transition: top $square-speed ease-out, left $square-speed ease-out;
+    transition: top $square-speed ease-out, left $square-speed ease-out;
     color: $header-color;
 
     background-color: $color-black;
@@ -127,7 +127,7 @@
 
     //!zrychlit
     &.merge {
-      animation: merge 0.2s $square-speed ease-in-out;
+      animation: merge 0.15s $square-speed ease-out;
       // transform: scale(1);
     }
   }

@@ -1,24 +1,60 @@
 import React, { Component } from "react";
-// import { connect } from 'react-redux'
-import { NavLink, Link } from "react-router-dom";
 import { connect } from "react-redux";
+
+import { Link } from "react-router-dom";
 
 import actions from "../../actions";
 
-class Navbar extends Component {
-  // constructor(props) {
-  //   super(props);
+const LINKS = ["practice", "compete", "leaderboard"];
 
-  // }
+class Navbar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { selectedLink: "practice" };
+  }
+
+  handleLinkClick(link) {
+    this.setState({ selectedLink: link });
+
+    if (link === "compete") {
+      this.props.removeCompeteMode();
+    }
+  }
 
   renderLogo() {
     return (
-      <div className="logo">
-        <div className="square sq1">Com</div>
-        <div className="square sq2">pete</div>
-        <div className="square">2048</div>
-      </div>
+      <Link to="/" onClick={() => this.handleLinkClick('practice')}>
+        <div className="logo">
+          <div className="square sq1">Com</div>
+          <div className="square sq2">pete</div>
+          <div className="square">2048</div>
+        </div>
+      </Link>
     );
+  }
+
+  getClassName(link) {
+    const { selectedLink } = this.state;
+    let className = "item";
+    if (selectedLink === link) {
+      className += " active";
+    }
+
+    return className;
+  }
+
+  renderLinks() {
+    return LINKS.map(link => {
+      return (
+        <Link
+          to={`/${link === "practice" ? "" : link}`}
+          className={this.getClassName(link)}
+          onClick={() => this.handleLinkClick(link)}
+        >
+          {link}
+        </Link>
+      );
+    });
   }
 
   render() {
@@ -28,8 +64,9 @@ class Navbar extends Component {
           {this.renderLogo()}
 
           <div className="menu">
-            <NavLink to="/" className="item">
-              Practise
+            {this.renderLinks()}
+            {/* <NavLink to="/" className="item">
+              practice
             </NavLink>
 
             <NavLink
@@ -47,7 +84,7 @@ class Navbar extends Component {
               activeClassName="active"
             >
               Highscore
-            </NavLink>
+            </NavLink> */}
           </div>
         </nav>
       </div>

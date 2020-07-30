@@ -6,6 +6,7 @@ import squares from "./squares";
 import history from "./history";
 import settings from "./settings";
 import compete from "./compete";
+import leaderboard from "./leaderboard";
 
 const reducers = {
   game,
@@ -14,6 +15,7 @@ const reducers = {
   history,
   settings,
   compete,
+  leaderboard,
 };
 
 export default combineReducers(reducers);

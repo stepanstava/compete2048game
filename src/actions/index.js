@@ -6,6 +6,7 @@ import * as square from "./square";
 import * as history from "./history";
 import * as settings from "./settings";
 import * as compete from "./compete";
+import * as leaderboard from "./leaderboard";
 
 export default {
   ...game,
@@ -16,4 +17,5 @@ export default {
   ...history,
   ...settings,
   ...compete,
+  ...leaderboard,
 };
