@@ -53,6 +53,7 @@ export function loadSelectedOptions(selectedOptions) {
 export function loadSettings() {
   return (dispatch, getState) => {
     const settings = getSelectedOptions(getState());
+    console.log("loadSettings -> settings", settings)
     dispatch(updateSettings(settings));
   };
 }

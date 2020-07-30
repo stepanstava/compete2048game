@@ -22,6 +22,8 @@ export function setCompeteMode(type, value) {
       };
       dispatch(updateBoardDimensions(dimension));
     }
+    // Sets timer to default in case of the ready animation was canceled before finishing.
+    dispatch(stopTimer());
 
     dispatch(updateGameMode(2));
     dispatch(playCountdown());

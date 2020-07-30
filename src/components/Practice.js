@@ -9,9 +9,9 @@ import Game from "./game";
 
 class Practice extends Component {
   componentDidMount() {
+    this.props.loadSettings();
     this.props.gameInit();
     this.props.removeCompeteMode();
-    this.props.loadSettings();
   }
 
   render() {

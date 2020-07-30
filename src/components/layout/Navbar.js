@@ -23,7 +23,7 @@ class Navbar extends Component {
 
   renderLogo() {
     return (
-      <Link to="/" onClick={() => this.handleLinkClick('practice')}>
+      <Link to="/" onClick={() => this.handleLinkClick("practice")}>
         <div className="logo">
           <div className="square sq1">Com</div>
           <div className="square sq2">pete</div>
