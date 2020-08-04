@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+//! change
 const db =
   process.env.NODE_ENV === "production"
     ? process.env.DATABASE_URL
@@ -9,8 +10,6 @@ const connectDB = async () => {
   try {
     await mongoose.connect(db, {
       useNewUrlParser: true,
-      // useCreateIndex: true,
-      // useFindAndModify: false,
       useUnifiedTopology: true,
     });
 

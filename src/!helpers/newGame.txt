@@ -1,2 +1,0 @@
-ok 1. set score to 0
-2. draw first square
