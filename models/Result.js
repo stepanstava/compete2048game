@@ -9,6 +9,10 @@ const ResultSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  competition: {
+    type: String,
+    required: true,
+  }
 });
 
 module.exports = mongoose.model('result', ResultSchema);

@@ -11,25 +11,45 @@ const initialState = {
     "4x4": [],
     "5x5": [],
   },
+  isLoading: false,
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    // case "ADD_SQUARE": {
-    //   const { square } = action;
-    //   const updatedSquares = [...state.squares, square];
-    //   const squaresCount = state.squaresCount;
+    case "ADD_RESULTS": {
+      const { results, competition } = action;
 
-    //   return {
-    //     ...state,
-    //     squares: updatedSquares,
-    //     squaresCount: squaresCount + 1,
-    //   };
-    // }
+      return {
+        ...state,
+        results: {
+          ...state.results,
+          [competition]: getTopTenResults(results),
+        },
+      };
+    }
+
+    case "SET_LOADING": {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+
+    case "REMOVE_LOADING": {
+      return {
+        ...state,
+        isLoading: false,
+      };
+    }
 
     default:
       return state;
   }
+}
+
+function getTopTenResults(results) {
+  const sorted = results.sort();
+  return sorted.slice(0, 10);
 }
 
 // -- Selectors
@@ -39,4 +59,7 @@ export function getLeaderboardResults(state) {
 
 export function getSelectedLeaderboardBoard(state) {
   return state.leaderboard.selectedBoard;
+}
+export function isLeaderboardLoading(state) {
+  return state.leaderboard.isLoading;
 }

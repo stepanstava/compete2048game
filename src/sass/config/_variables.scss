@@ -35,10 +35,10 @@ $transition-duration: .2s;
 $transition-timing: ease-in-out;
 
 // Loader
-$loader-size: 20px;
-$loader-border-size: 3px;
-$loader-color-base: rgba(209, 209, 209, 0.15);
-$loader-color-spin: #fff;
+$loader-size: 50px;
+$loader-border-size: 5px;
+$loader-color-base: #42413F;
+$loader-color-spin: rgb(128, 128, 128);
 $loader-speed: 1s;
 
 // Testing class

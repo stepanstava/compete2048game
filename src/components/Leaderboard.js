@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import actions from "../actions";
 
-import { getLeaderboardResults } from "../selectors";
+import { getLeaderboardResults, isLeaderboardLoading } from "../selectors";
 
 const RESULTS_COUNT = 10;
 const LEADERBOARDS = {
@@ -15,6 +15,11 @@ class Leaderboard extends Component {
   constructor(props) {
     super(props);
     this.state = { selectedBoard: 2048 };
+  }
+
+  componentDidMount() {
+    const {selectedBoard} = this.state;
+    this.props.fetchResults(selectedBoard);;
   }
 
   handleLinkClick(value) {
@@ -69,7 +74,7 @@ class Leaderboard extends Component {
     return (
       <div className="item" key={`${pos}:${name}`}>
         <div className="meta">
-          <span className="position">{`${pos}.`}</span>
+          <span className="position">{`${pos + 1}.`}</span>
           <span className="name">{name}</span>
         </div>
         <span className="result">{result}</span>
@@ -91,10 +96,23 @@ class Leaderboard extends Component {
     );
   }
 
+  renderEmptyResults(count) {
+    const results = new Array(count).fill(null);
+    return results.map((item, i) => {
+      return (
+        <div className="item" key={`empty:${i}`}></div>
+      )
+    })
+  }
+
   renderResults() {
-    const { selectedBoard } = this.state;
+    const { selectedBoard, isLoading } = this.state;
     const resultsSelectedBoard = this.props.resultsData[selectedBoard];
     const results = [];
+
+    if (isLoading) {
+      return this.renderEmptyResults(RESULTS_COUNT);
+    }
 
     if (resultsSelectedBoard.length === 0) {
       results.push(this.renderNoResultMessage());
@@ -105,18 +123,19 @@ class Leaderboard extends Component {
       results.push(this.renderResult(i, name, result));
     });
 
-    const emptyResults = RESULTS_COUNT - results.length;
+    const emptyResultsCount = RESULTS_COUNT - results.length;
 
-    for (let i = 0; i < emptyResults; i++) {
-      results.push(this.renderEmptyResult(i));
-    }
+    results.push(...this.renderEmptyResults(emptyResultsCount));
 
     return results;
   }
 
   render() {
+
+    const {isLoading} = this.props;
+
     return (
-      <div className="leaderboard">
+      <div className={isLoading ? "leaderboard loading" : "leaderboard"}>
         {this.renderLeaderboardNav()}
 
         <div className="results">{this.renderResults()}</div>
@@ -127,10 +146,9 @@ class Leaderboard extends Component {
 
 const mapStateToProps = state => ({
   resultsData: getLeaderboardResults(state),
+  isLoading: isLeaderboardLoading(state),
 });
 
 export default connect(mapStateToProps, {
-  // gameInit: actions.gameInit,
-  // removeCompeteMode: actions.removeCompeteMode,
   fetchResults: actions.fetchResults,
 })(Leaderboard);
